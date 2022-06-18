@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'Bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
+    <link href="{% static 'Bootstrap/css/style.css' %}" rel="stylesheet">
+    {% block css %}
+    {% endblock %}
+
+</head>
+<body>
+
+{% block content %}
+
+{% endblock %}
+</body>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="{% static 'Bootstrap/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
+<script src="{% static 'Bootstrap/jquery/jquery-3.6.0.js' %}"></script>
+{% block js %}
+{% endblock %}
+
+</html>
