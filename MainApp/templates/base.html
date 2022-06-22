@@ -1,27 +1,323 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <!--load static files-->
     {% load static %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <meta name="Keywords"
+          content="HTML, Python, CSS, SQL, JavaScript, How to, PHP, Java, C, C++, C#, jQuery, Bootstrap, Colors, XML, MySQL, Icons, NodeJS, React, Graphics, Angular, R, AI, Git, Data Science, Code Game, Tutorials, Programming, Web Development, Training, Learning, Quiz, Exercises, Courses, Lessons, References, Examples, Learn to code, Source code, Demos, Tips, Website">
+    <meta name="Description"
+          content="Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more.">
+    <meta property="og:image" content="https://www.w3schools.com/images/w3schools_logo_436_2.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="50">
+    <meta property="og:image:height" content="50">
+    <meta property="og:description"
+          content="W3Code offers free online tutorials, references and exercises in all the major languages of the web. Covering popular subjects like HTML, CSS, JavaScript, Python, SQL, Java, and many, many more.">
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:type" content="article"/>
+    <meta name="theme-color" content="#4CAF50"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="twitter:description" property="og:description"
+          content="python example - A simple and easy to learn tutorial on various python topics such as loops, strings, lists, dictionary, tuples, date, time, files, functions, modules, methods and exceptions."/>
+    <meta name="twitter:title" property="og:title" content="Python Example - javatpoint"/>
+    <meta property="og:url" content="https://www.javatpoint.com/python-example"/>
+    <meta property="og:site_name" content="w3code.tech"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@pagew3code"/>
+    <meta name="twitter:domain" content="w3code.tech"/>
+    <meta name="twitter:creator" content="@pagew3code"/>
+    <title>{% block title %}Welcome to w3code{% endblock %}</title>
+    <!--Code Highlight-->
+    <link rel="stylesheet" type="text/css" href="{% static 'codehighlight/prism.css' %}">
+    <script src="{% static 'codehighlight/prism.js' %}"></script>
     <!-- Bootstrap CSS -->
     <link href="{% static 'Bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
     <link href="{% static 'Bootstrap/css/style.css' %}" rel="stylesheet">
+    <!--Icon for the title bar-->
+    <link rel="icon" href="{% static 'logo.ico' %}" type="image/x-icon">
+    <!--Font awesome kit cdn-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--Css Stypelsheet-->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!--CSS BLock-->
     {% block css %}
     {% endblock %}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
+        .navbar {
+            background-color: #e3d4d4;
+        }
+
+        .nav-item a {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .tut-body {
+            color: #cbcb33;
+            font-weight: bold;
+        }
+
+        .tut-body ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .tut-body ul li {
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        .tut-body ul li:hover a {
+            color: black;
+            background-color: #b29999;
+        }
+
+        .tut-body ul li:hover {
+            color: black;
+            background-color: #b29999;
+            width: 100%;
+        }
+
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
+<!--Navabar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'w3c:index' %}">
+            <img src="{% static 'logo.png' %}" alt="logo not load">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2   mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active " aria-current="page" href="{% url 'w3c:index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" id="nav-tut" aria-current="page" data-bs-toggle="collapse"
+                       href="#tutorial" role="button" aria-expanded="false" aria-controls="tutorial">Tutorial <i
+                            class="fa fa-caret-down"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Exercise</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Programs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Online IDE</a>
+                </li>
 
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="collapse container-fluid bg-dark tut-body p-3" id="tutorial">
+    <div class="container-lg row m-auto">
+        <h3 class="fw-bold">Tutorial</h3>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Programming Language</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Programming-Language' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Preparation</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Preparation' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Theory Tutorial</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Theory-Tutorial' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Python</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Python' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Java Technology</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Java' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>JavaScript Tutorial</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Javascript' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Database Tutorial</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Database-Tutorial' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Web Technology</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Web-Technology' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Microsoft Office</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Microsoft-Office' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Versioning Control</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list %}
+                    {% if d.type == 'Versioning-Control' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--Body content Block-->
 {% block content %}
-
 {% endblock %}
+<!-- Back to top button -->
+<button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!--Footer-->
+<div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-2 col-sm-1 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <img src="{% static 'logo.png' %}" alt="image not load">
+            </a>
+        </div>
+        <span class="mb-3 mb-md-0 text-muted text-center">© 2022 W3code, Inc</span>
+        <span class="mb-3 mb-md-0 text-muted text-center">This Website is Developed by Sakib Malik</span>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-muted" href="#">
+                <i class="fa-brands fa-instagram"></i>
+            </a></li>
+            <li class="ms-3"><a class="text-muted" href="#">
+                <i class="fa-brands fa-twitter"></i>
+            </a></li>
+            <li class="ms-3"><a class="text-muted" href="#">
+                <i class="fa-brands fa-facebook"></i>
+            </a></li>
+        </ul>
+    </footer>
+</div>
 </body>
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="{% static 'Bootstrap/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
 <script src="{% static 'Bootstrap/jquery/jquery-3.6.0.js' %}"></script>
 {% block js %}
 {% endblock %}
+<script>
+    $('#nav-tut').click(function () {
+        if ($('.collapsed').text() == '') {
+            $('.fa-caret-down').addClass('fa-caret-up');
+            $('.fa-caret-up').removeClass('fa-caret-down');
+        } else {
+            $('.fa-caret-up').addClass('fa-caret-down');
+            $('.fa-caret-down').removeClass('fa-caret-up');
+        }
+    })
+    //Get the button
+    let mybutton = document.getElementById("btn-back-to-top");
 
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+        scrollFunction();
+        scrollFun();
+    };
+
+    function scrollFunction() {
+        if (
+            document.body.scrollTop > 100 ||
+            document.documentElement.scrollTop > 100
+        ) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    mybutton.addEventListener("click", backToTop);
+
+    function backToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
 </html>
+

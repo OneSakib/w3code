@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% load  static %}
+{% block css %}
+    <style>
+        .tut-card {
+            text-align: center;
+        }
+
+        .tut-card img {
+            width: 50px !important;
+            height: 50px !important;
+            object-fit: cover;
+        }
+
+        @media (max-width: 500px) {
+            .tut-card img {
+                width: 30px !important;
+                height: 30px !important;
+                object-fit: cover;
+            }
+
+            .tut-card {
+                font-size: 10px;
+            }
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row" id="language">
+            <div class="col-12 bg-dark p-3 text-white">
+                <div class="row">
+                    <div class="col-md-3 col-lg-3"></div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  mt-5">
+                        <h2 class="text-center text-white">Learn</h2>
+                        <h2 class="text-center text-white">Technology</h2>
+                        <form action="" method="get" class="mt-5 d-flex mb-5">
+                            <input list="lang-list" name="lang" id="lang" class="form-control p-3 ">
+                            <datalist id="lang-list">
+                                <option value="Java">
+                                <option value="C++">
+                                <option value="Python">
+                                <option value="DSA">
+                                <option value="ML and AI">
+                            </datalist>
+                            <input type="submit" class="btn btn-success" value="Search">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Programming Language <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Programming-Language' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Preparation <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Preparation' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Theory Tutorial <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Theory-Tutorial' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Python <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Python' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Java <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Java' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">JavaScript <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Javascript' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Database Tutorial <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Database-Tutorial' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Web Technology <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Web-Technology' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Microsoft Office <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Microsoft-Office' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Versioning Control <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
+                        {% for d in object_list %}
+                            {% if d.type == 'Versioning-Control' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

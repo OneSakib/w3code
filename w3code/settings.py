@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,7 +36,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MainApp'
+    'MainApp',
+    'tinymce',
+    'ProgrammingApp',
+    'PreparationApp',
+    'TheoryApp',
+    'PythonApp',
+    'JavaApp',
+    'JavaScriptApp',
+    'DatabaseApp',
+    'WebApp',
+    'MsApp',
+    'VCApp'
+
 ]
 
 MIDDLEWARE = [
@@ -63,13 +74,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'MainApp.context_preprocessor_tut.tut_list'
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'w3code.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -80,7 +91,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -100,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -112,13 +121,48 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
 
+# Media url
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# TinyMCE online Editor
+TINYMCE_DEFAULT_CONFIG = {
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'silver',
+    'plugins': 'codesample'
+               '''
+                   textcolor save link image media preview codesample contextmenu
+                   table code lists fullscreen  insertdatetime  nonbreaking
+                   contextmenu directionality searchreplace wordcount visualblocks
+                   visualchars code fullscreen autolink lists  charmap print  hr
+                   anchor pagebreak
+                   ''',
+    'toolbar1': 'codesample'
+                '''
+                    fullscreen preview bold italic underline | fontselect,
+                    fontsizeselect  | forecolor backcolor | alignleft alignright |
+                    aligncenter alignjustify | indent outdent | bullist numlist table |
+                    | link image media | codesample |
+                    ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'codesample_global_prismjs': True,
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+
+}
