@@ -15,7 +15,7 @@ class HtmlView(View):
 
 
 class HTMLDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = HTMLsCommentsForm
     model = HTMLs
 
@@ -24,6 +24,11 @@ class HTMLDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = HTMLsComments.objects.filter(post=self.object)
+        context['title'] = 'HTML'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -50,7 +55,7 @@ class CSSView(View):
 
 
 class CSSDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = CSSsCommentsForm
     model = CSSs
 
@@ -59,6 +64,11 @@ class CSSDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = CSSsComments.objects.filter(post=self.object)
+        context['title'] = 'CSS'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -85,15 +95,20 @@ class LaravelView(View):
 
 
 class LaravelDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = LaravelsCommentsForm
     model = Laravels
 
     def get_context_data(self, **kwargs):
-        context = super(LaravelsCommentsForm, self).get_context_data(**kwargs)
+        context = super(LaravelDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = LaravelsComments.objects.filter(post=self.object)
+        context['title'] = 'Laravel'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -120,7 +135,7 @@ class WordpressView(View):
 
 
 class WordpressDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = WordpressCommentsForm
     model = Wordpress
 
@@ -129,6 +144,11 @@ class WordpressDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = WordpressComments.objects.filter(post=self.object)
+        context['title'] = 'Wordpress'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -155,7 +175,7 @@ class JSONView(View):
 
 
 class JSONDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JSONsCommentsForm
     model = JSONs
 
@@ -164,6 +184,11 @@ class JSONDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = JSONsComments.objects.filter(post=self.object)
+        context['title'] = 'JSON'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -190,7 +215,7 @@ class AJAXView(View):
 
 
 class AJAXDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = AjaxsCommentsForm
     model = Ajaxs
 
@@ -199,6 +224,11 @@ class AJAXDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = AjaxsComments.objects.filter(post=self.object)
+        context['title'] = 'AJAX'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -225,7 +255,7 @@ class BootstrapView(View):
 
 
 class BootstrapDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = BootstrapsCommentsForm
     model = Bootstraps
 
@@ -234,6 +264,11 @@ class BootstrapDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = BootstrapsComments.objects.filter(post=self.object)
+        context['title'] = 'Bootstrap'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

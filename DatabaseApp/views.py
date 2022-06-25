@@ -13,7 +13,7 @@ class MYSqlView(View):
 
 
 class MySqlDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = MysqlDBCommentsForm
     model = MysqlDB
 
@@ -22,6 +22,11 @@ class MySqlDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = MysqlDBComments.objects.filter(post=self.object)
+        context['title'] = 'MySQL'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -48,7 +53,7 @@ class MongoDBView(View):
 
 
 class MongoDBDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = MongoDBCommentsForm
     model = MongoDB
 
@@ -57,6 +62,11 @@ class MongoDBDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = MongoDBComments.objects.filter(post=self.object)
+        context['title'] = 'MongoDB'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -83,7 +93,7 @@ class PostgreSqlView(View):
 
 
 class PostgreSQLDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = PostgreSQLDBCommentsForm
     model = PostgreSQLDB
 
@@ -92,6 +102,11 @@ class PostgreSQLDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = PostgreSQLDBComments.objects.filter(post=self.object)
+        context['title'] = 'PostgreSQL'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -118,7 +133,7 @@ class OracleView(View):
 
 
 class OracleDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = OracleDBCommentssForm
     model = OracleDB
 
@@ -127,6 +142,11 @@ class OracleDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = OracleDBComments.objects.filter(post=self.object)
+        context['title'] = 'Oracle'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -153,7 +173,7 @@ class SqliteView(View):
 
 
 class SqliteDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = SqliteDBCommentsForm
     model = SqliteDB
 
@@ -162,6 +182,11 @@ class SqliteDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = SqliteDBComments.objects.filter(post=self.object)
+        context['title'] = 'SQLite'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -188,7 +213,7 @@ class MariaDBView(View):
 
 
 class MariaDBDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = MariaDBCommentsForm
     model = MariaDB
 
@@ -197,6 +222,11 @@ class MariaDBDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = MariaDBComments.objects.filter(post=self.object)
+        context['title'] = 'MariaDB'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

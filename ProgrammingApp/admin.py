@@ -58,8 +58,20 @@ class SwiftLanguageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
 
 
+@admin.register(JavaScriptLanguage)
+class JavaScriptAdmin(admin.ModelAdmin):
+    list_display = ['title', 'slug']
+    prepopulated_fields = {'slug': ['title']}
+
+
 @admin.register(PHPLanguage)
 class PHPLanguageAdmin(admin.ModelAdmin):
+    list_display = ['title', 'slug']
+    prepopulated_fields = {'slug': ['title']}
+
+
+@admin.register(DotNetLanguage)
+class DotNetLanguageAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug']
     prepopulated_fields = {'slug': ['title']}
 

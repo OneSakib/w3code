@@ -24,6 +24,53 @@
             }
         }
 
+        #listofsearchresults {
+            display: none;
+            position: absolute;
+            background-color: #282A35;
+            color: #000;
+            width: 42%;
+            top: 338px;
+            text-align: left;
+            opacity: 1 !important;
+        }
+
+        #listofsearchresults a {
+            background-color: #fff;
+            float: none;
+            color: #777;
+            text-decoration: none;
+            display: none;
+            padding: 10px 30px;
+            width: 100%;
+            opacity: 0.95;
+        }
+
+        #listofsearchresults a:hover {
+            color: #000;
+            opacity: 1;
+        }
+
+        @media screen and (max-device-width: 500px) {
+            #listofsearchresults {
+                top: 320px;
+                width: 75%;
+            }
+        }
+
+        @media screen and (max-device-width: 770px) and (min-device-width: 501px ) {
+            #listofsearchresults {
+                top: 326px;
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-device-width: 900px) and (min-device-width: 770px ) {
+            #listofsearchresults {
+                top: 328px;
+                width: 38%;
+            }
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -35,25 +82,27 @@
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6  mt-5">
                         <h2 class="text-center text-white">Learn</h2>
                         <h2 class="text-center text-white">Technology</h2>
-                        <form action="" method="get" class="mt-5 d-flex mb-5">
-                            <input list="lang-list" name="lang" id="lang" class="form-control p-3 ">
-                            <datalist id="lang-list">
-                                <option value="Java">
-                                <option value="C++">
-                                <option value="Python">
-                                <option value="DSA">
-                                <option value="ML and AI">
-                            </datalist>
-                            <input type="submit" class="btn btn-success" value="Search">
-                        </form>
+                        <div class="mt-5 d-flex mb-5">
+                            <input name="search" id="search" class="form-control p-3 "
+                                   placeholder="search our tutorials eg. Python" autocomplete="off">
+                            <button type="button" class="btn btn-success" value="Search" id="searchbutton"
+                                    style="border-bottom-left-radius: 0">Search
+                            </button>
+                            <div id="listofsearchresults">
+                                {% for o in object_list_tut %}
+                                    <a href="{{ o.link }}" id="list-{{ forloop.counter }}" style="cursor:pointer;"><span
+                                    >{{ o.name }}</span></a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Programming Language <i class="fa fa-arrow-right"></i></h4>
-                <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                <div class="container container-tut">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Programming-Language' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -73,8 +122,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Preparation <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Preparation' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -94,8 +143,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Theory Tutorial <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Theory-Tutorial' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -115,8 +164,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Python <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Python' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -136,8 +185,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Java <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Java' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -157,8 +206,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">JavaScript <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Javascript' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -178,8 +227,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Database Tutorial <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Database-Tutorial' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -199,8 +248,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Web Technology <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Web-Technology' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -220,8 +269,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Microsoft Office <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Microsoft-Office' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -241,8 +290,8 @@
             <div class="col-12 p-3 ">
                 <h4 class="fw-bold">Versioning Control <i class="fa fa-arrow-right"></i></h4>
                 <div class="container">
-                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-6">
-                        {% for d in object_list %}
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
                             {% if d.type == 'Versioning-Control' %}
                                 <div class="col tut-card">
                                     <div class="card shadow-sm">
@@ -261,4 +310,62 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).on('click', function (e) {
+            if (e.target.id != 'search') {
+                $('.container-tut').css('opacity', '1');
+                $('#listofsearchresults').css('display', "none")
+            } else {
+                $('.container-tut').css('opacity', '0.1');
+                $('#listofsearchresults').css('display', "block")
+            }
+        })
+
+        $('#search').on('keyup', function (e) {
+            search_value = $(this).val().toLowerCase();
+            let repeat = 0;
+            for (item of $('#listofsearchresults a')) {
+                $('#' + $(item)[0].id).each(function () {
+                    var tag_value = $(this).text().toLowerCase()
+                    if (tag_value.search(search_value) > -1) {
+                        $(this).css('display', 'block')
+                        repeat += 1
+                    } else {
+                        $(this).css('display', 'none')
+                        repeat -= 1
+                    }
+                })
+                if (repeat > 10) {
+                    break;
+                }
+            }
+            var no_of_search = 0;
+            for (item of $('#listofsearchresults a')) {
+                if (item.style.display === 'block') {
+                    no_of_search += 1
+                }
+            }
+            if (no_of_search === 0) {
+                document.getElementById('search').style.border = '2px solid red';
+            } else if (no_of_search !== 0) {
+                $('#search').css('border', '1px solid blue');
+            }
+        })
+        $('#searchbutton').on('click', function () {
+            var flag = false
+            for (item of $('#listofsearchresults a')) {
+                if (flag) {
+                    break;
+                } else if (item.style.display === 'block') {
+                    window.open(item.href, '_self');
+                    flag = true
+                }
+            }
+            if (flag == false) {
+                alert("search word is not match please try again ")
+            }
+        })
+    </script>
 {% endblock %}

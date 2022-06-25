@@ -13,7 +13,7 @@ class AptitudeView(View):
 
 
 class AptitudeDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = AptitudeCommentsForm
     model = Aptitude
 
@@ -22,6 +22,11 @@ class AptitudeDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = AptitudeComments.objects.filter(post=self.object)
+        context['title'] = 'Aptitude'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -48,7 +53,7 @@ class ReasoningView(View):
 
 
 class ReasoningDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ReasoningCommentsForm
     model = Reasoning
 
@@ -57,6 +62,11 @@ class ReasoningDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = ReasoningComments.objects.filter(post=self.object)
+        context['title'] = 'Reasoning'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -83,7 +93,7 @@ class VerbalAbilityView(View):
 
 
 class VerbalAbilityDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = VerbalAbilityCommentsForm
     model = VerbalAbility
 
@@ -92,6 +102,11 @@ class VerbalAbilityDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = VerbalAbilityComments.objects.filter(post=self.object)
+        context['title'] = 'Verbal Ability'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -119,7 +134,7 @@ class InterViewQuestionView(View):
 
 
 class InterviewQuestionDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = InterviewQuestionCommentsForm
     model = InterviewQuestion
 
@@ -128,6 +143,11 @@ class InterviewQuestionDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = InterviewQuestionComments.objects.filter(post=self.object)
+        context['title'] = 'Interview Question'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -155,7 +175,7 @@ class CompanyQuestionView(View):
 
 
 class CompanyQuestionDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = CompanyQuestionCommentsForm
     model = CompanyQuestion
 
@@ -164,6 +184,11 @@ class CompanyQuestionDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = CompanyQuestionComments.objects.filter(post=self.object)
+        context['title'] = 'Company Question'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

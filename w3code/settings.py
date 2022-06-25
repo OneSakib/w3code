@@ -19,13 +19,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+HOST_NAME = 'http://127.0.0.1:8000'
+DOMAIN_NAME = '127.0.0.1'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$h8&!iox$hjs*eeo2^9gt@k!1r#4@qey-&ormv_91$lb13@-41'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [DOMAIN_NAME]
 
 # Application definition
 
@@ -36,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'MainApp',
     'tinymce',
     'ProgrammingApp',
@@ -47,7 +51,10 @@ INSTALLED_APPS = [
     'DatabaseApp',
     'WebApp',
     'MsApp',
-    'VCApp'
+    'VCApp',
+    'Exercise',
+    'Programmes',
+    'Projects'
 
 ]
 

@@ -9,7 +9,7 @@
           content="HTML, Python, CSS, SQL, JavaScript, How to, PHP, Java, C, C++, C#, jQuery, Bootstrap, Colors, XML, MySQL, Icons, NodeJS, React, Graphics, Angular, R, AI, Git, Data Science, Code Game, Tutorials, Programming, Web Development, Training, Learning, Quiz, Exercises, Courses, Lessons, References, Examples, Learn to code, Source code, Demos, Tips, Website">
     <meta name="Description"
           content="Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more.">
-    <meta property="og:image" content="https://www.w3schools.com/images/w3schools_logo_436_2.png">
+    <meta property="og:image" content="{{ host_name }}/static/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="50">
     <meta property="og:image:height" content="50">
@@ -21,9 +21,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="twitter:description" property="og:description"
-          content="python example - A simple and easy to learn tutorial on various python topics such as loops, strings, lists, dictionary, tuples, date, time, files, functions, modules, methods and exceptions."/>
-    <meta name="twitter:title" property="og:title" content="Python Example - javatpoint"/>
-    <meta property="og:url" content="https://www.javatpoint.com/python-example"/>
+          content="Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more."/>
+    <meta name="twitter:title" property="og:title"
+          content="{% if object.title %} {{ object.title }} {% else %}Welcome to w3code{% endif %}"/>
+    <meta property="og:url" content="{{ host_name }}"/>
     <meta property="og:site_name" content="w3code.tech"/>
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="@pagew3code"/>
@@ -35,22 +36,19 @@
     <script src="{% static 'codehighlight/prism.js' %}"></script>
     <!-- Bootstrap CSS -->
     <link href="{% static 'Bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
-    <link href="{% static 'Bootstrap/css/style.css' %}" rel="stylesheet">
     <!--Icon for the title bar-->
     <link rel="icon" href="{% static 'logo.ico' %}" type="image/x-icon">
     <!--Font awesome kit cdn-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <!--Css Stypelsheet-->
-    <link rel="stylesheet" href="{% static 'style.css' %}">
     <!--CSS BLock-->
     {% block css %}
     {% endblock %}
     <style>
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: sans-serif, Arial, Helvetica;
         }
 
         .navbar {
@@ -70,11 +68,13 @@
         .tut-body ul li a {
             text-decoration: none;
             color: white;
+            width: 100%;
         }
 
         .tut-body ul li {
             padding: 3px;
             cursor: pointer;
+            width: 100%;
         }
 
         .tut-body ul li:hover a {
@@ -94,6 +94,10 @@
             right: 20px;
             display: none;
         }
+        footer a  img{
+            height: 50px;
+            width: 50px;
+        }
     </style>
 </head>
 <body>
@@ -108,7 +112,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2   mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2  mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active " aria-current="page" href="{% url 'w3c:index' %}">Home</a>
                 </li>
@@ -118,22 +122,92 @@
                             class="fa fa-caret-down"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Blog</a>
+                    <a class="nav-link active" href="{% url 'w3c:blog' %}">Blog</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Exercise</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Exercise
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'Exercise:cexercise' %}">C</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:cplusexcise' %}">C++</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:pythonexercise' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:javaexercise' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:kotlinexercise' %}">Kotlin</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:rexercise' %}">R</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:csharpexercise' %}">C#</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:swiftexercise' %}">Swift</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:javascriptexercise' %}">JavaScript</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:phpexercise' %}">PHP</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:dotnetexercise' %}">.NET</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Programs</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Programmes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'Programme:cprogramme' %}">C</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:cplusprogramme' %}">C++</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:pythonprogramme' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:javaprogramme' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:kotlinprogramme' %}">Kotlin</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:rprogramme' %}">R</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:csharpprogramme' %}">C#</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:swiftprogramme' %}">Swift</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:javascriptprogramme' %}">JavaScript</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:phpprogramme' %}">PHP</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:dotnetprogramme' %}">.NET</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Projects</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'Projects:cprojects' %}">C</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:cplusprojects' %}">C++</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:pythonprojects' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:javaprojects' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:kotlinprojects' %}">Kotlin</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:rprojects' %}">R</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:csharpprojects' %}">C#</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:swiftprojects' %}">Swift</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:javascriptprojects' %}">JavaScript</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:phpprojects' %}">PHP</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:dotnetprojects' %}">.NET</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:androidprojects' %}">Android</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Online IDE</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Online IDE
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'python' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'java' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'html' %}">HTML</a></li>
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'r' %}">R</a></li>
+                    </ul>
                 </li>
-
             </ul>
+            {% if request.user.is_superuser %}
+                <div class="collapse d-flex">
+                    <ul class="navbar-nav me-auto mb-2  mb-lg-0">
+                        <li class="nav-item "><a href="/admin/" class="text-decoration-none text-success">Admin
+                            Login</a></li>
+                        <li class="nav-item ms-2"><a href="{% url 'w3c:comments' %}"
+                                                     class="text-decoration-none">Comments</a></li>
+                    </ul>
+                </div>
+            {% endif %}
         </div>
     </div>
 </nav>
@@ -143,7 +217,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Programming Language</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Programming-Language' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -154,7 +228,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Preparation</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Preparation' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -164,7 +238,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Theory Tutorial</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Theory-Tutorial' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -174,7 +248,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Python</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Python' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -184,7 +258,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Java Technology</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Java' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -194,7 +268,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>JavaScript Tutorial</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Javascript' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -204,7 +278,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Database Tutorial</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Database-Tutorial' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -214,7 +288,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Web Technology</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Web-Technology' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -224,7 +298,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Microsoft Office</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Microsoft-Office' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -234,7 +308,7 @@
         <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <h5>Versioning Control</h5>
             <ul class="list-unstyled">
-                {% for d in object_list %}
+                {% for d in object_list_tut %}
                     {% if d.type == 'Versioning-Control' %}
                         <li><a href="{{ d.link }}">{{ d.name }} </a></li>
                     {% endif %}
@@ -243,7 +317,6 @@
         </div>
     </div>
 </div>
-
 <!--Body content Block-->
 {% block content %}
 {% endblock %}
@@ -256,7 +329,7 @@
 <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-2 col-sm-1 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <a href="{% url 'w3c:index' %}" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                 <img src="{% static 'logo.png' %}" alt="image not load">
             </a>
         </div>
@@ -297,7 +370,6 @@
     // When the user scrolls down 20px from the top of the document, show the button
     window.onscroll = function () {
         scrollFunction();
-        scrollFun();
     };
 
     function scrollFunction() {

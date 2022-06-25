@@ -13,15 +13,20 @@ class MSExcelView(View):
 
 
 class MSExcelDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = MSExcelCommentsForm
     model = MSExcel
 
     def get_context_data(self, **kwargs):
-        context = super(MSOneNoteDetailView, self).get_context_data(**kwargs)
+        context = super(MSExcelDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = MSExcelComments.objects.filter(post=self.object)
+        context['title'] = 'MS Excel'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -48,7 +53,7 @@ class MSWordView(View):
 
 
 class MSWordDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = MSWordCommentsForm
     model = MSWord
 
@@ -57,6 +62,11 @@ class MSWordDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = MSWordComments.objects.filter(post=self.object)
+        context['title'] = 'MS Word'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -83,7 +93,7 @@ class MSPowerpointView(View):
 
 
 class MSPowerpointDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = MSPowerpointCommentsForm
     model = MSPowerpoint
 
@@ -92,6 +102,11 @@ class MSPowerpointDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = MSPowerpointComments.objects.filter(post=self.object)
+        context['title'] = 'MS Powerpoint'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -118,7 +133,7 @@ class MSOneNoteView(View):
 
 
 class MSOneNoteDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = MSOneNoteCommentsForm
     model = MSOneNote
 
@@ -127,6 +142,11 @@ class MSOneNoteDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = MSOneNoteComments.objects.filter(post=self.object)
+        context['title'] = 'MS One Note'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

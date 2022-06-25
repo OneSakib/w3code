@@ -29,10 +29,7 @@
         display: none;
     }
 
-    @media screen and (max-width: 700px) {
-        .topnavbar a {
-            display: none;
-        }
+    @media screen and (max-width: 900px) {
 
         .topnavbar .home {
             display: block;
@@ -62,6 +59,66 @@
         }
     }
 
+    @media (max-width: 945px) {
+        .topnavbar a:nth-of-type(12) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .topnavbar a:nth-of-type(11) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .topnavbar a:nth-of-type(10) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 820px) {
+        .topnavbar a:nth-of-type(9) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 780px) {
+        .topnavbar a:nth-of-type(8) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 730px) {
+        .topnavbar a:nth-of-type(7) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .topnavbar a:nth-of-type(6) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 630px) {
+        .topnavbar a:nth-of-type(5) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 580px) {
+        .topnavbar a:nth-of-type(4) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 530px) {
+        .topnavbar a:nth-of-type(3) {
+            display: none;
+        }
+    }
+
 </style>
 <!--Extra Navbar-->
 <div class="topnavbar" id="mytopnavbar">
@@ -70,15 +127,15 @@
         <i class="fa fa-bars"></i>
     </a>
     <a href="{% url 'w3c:index' %}" class="home"><i class="fa fa-home"></i></a>
-    <a href="#">PYTHON</a>
-    <a href="#">JAVA</a>
-    <a href="#">C</a>
-    <a href="#">HTML</a>
-    <a href="#">CSS</a>
-    <a href="#">JAVASCRIPT</a>
-    <a href="#">JQUERY</a>
-    <a href="#">SQL</a>
-    <a href="#">PHP</a>
-    <a href="#">BOOTSTRAP</a>
+    <a href="{% url 'Programming:python' %}" class="{% if title == 'Python Language' %}active{% endif %}">PYTHON</a>
+    <a href="{% url 'Programming:java' %}" class="{% if title == 'Java Language' %}active{% endif %}">JAVA</a>
+    <a href="{% url 'Programming:c' %}" class=" {% if title == 'C Language' %}active{% endif %}">C</a>
+    <a href="{% url 'Web:html' %}" class="{% if title == 'HTML' %}active{% endif %}">HTML</a>
+    <a href="{% url 'Web:css' %}" class="{% if title == 'CSS' %}active{% endif %}">CSS</a>
+    <a href="{% url 'Programming:javascript' %}" class="{% if title == 'JavaScript' %}active{% endif %}">JAVASCRIPT</a>
+    <a href="{% url 'Javascript:jquery' %}" class="{% if title == 'JQuery' %}active{% endif %}">JQUERY</a>
+    <a href="{% url 'Database:mysql' %}" class="{% if title == 'MySQL' %}active{% endif %}">MYSQL</a>
+    <a href="{% url 'Programming:php' %}" class="{% if title == 'PHP Language' %}active{% endif %}">PHP</a>
+    <a href="{% url 'Web:bootstrap' %}" class="{% if title == 'Bootstrap' %}active{% endif %}">BOOTSTRAP</a>
 
 </div>

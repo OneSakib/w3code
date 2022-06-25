@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}{{ object.title }} {% endblock %}
 {% block css %}
     <style>
         .con-list {
@@ -12,11 +13,12 @@
 
         .con-body {
             width: 75%;
+            margin: auto;
         }
 
         .con-list a {
             text-decoration: none;
-            margin-left: 15px;
+            margin-left: 10px;
             color: black;
         }
 
@@ -62,30 +64,49 @@
     {% include 'navbar.html' %}
     <div class="row" id="row">
         <div class="con-list" id="con-list">
-            <h4 class="ms-3">Python Tutorial</h4>
+            <h4 class="ms-3">{{ title }}</h4>
             <ul class="list-unstyled">
                 {% for l in obj_list %}
-                    <li class="{% if l.slug == object.slug %}active{% endif %}"><a
+                    <li class="text-center  {% if l.slug == object.slug %}active{% endif %}"><a
                             href="{{ l.get_absolute_url }}">{{ l.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% if object.programmes %}
+                <h4 class="text-center">{{ title }} Programmes</h4>
+                <ul class="list-unstyled">
+                    {% for o in object.programmes %}
+                        <li><a
+                                href="{{ o.get_absolute_url }}">{{ o.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <h4 class="text-center">{{ title }} Projects</h4>
+            <ul class="list-unstyled">
+                {% for o in object.projects %}
+                    <li><a
+                            href="{{ o.get_absolute_url }}">{{ o.title }}</a></li>
                 {% endfor %}
             </ul>
         </div>
         <div class="con-body mt-2">
-            <h3 class="text-success">Python Tutorial</h3>
             {{ object.content|safe }}
             <!--Next and Previous button -->
             <div>
                 {% if prev != None %}
-                    <a class="btn btn-success" href="{{ prev.get_absolute_url }}">Previous</a>
+                    <a class="btn btn-success" href="{{ prev.get_absolute_url }}"><i class="fa fa-less-than"></i> &nbsp;
+                        Previous</a>
                 {% else %}
-                    <a class="btn btn-success disabled" href="#">Previous</a>
+                    <a class="btn btn-success disabled" href="#"><i class="fa fa-less-than"></i> &nbsp; Previous</a>
                 {% endif %}
                 {% if next != None %}
                     <a class="btn btn-success float-end"
-                       href="{{ next.get_absolute_url }}">Next</a>
+                       href="{{ next.get_absolute_url }}">Next &nbsp; <i class="fa fa-greater-than"></i></a>
                 {% else %}
-                    <a class="btn btn-success float-end disabled" href="#">Next</a>
+                    <a class="btn btn-success float-end disabled" href="#">Next &nbsp; <i
+                            class="fa fa-greater-than"></i></a>
                 {% endif %}
+                <!--View Counter-->
+                <h6 class="mt-2">Views: <b>{{ object.viewcounter }}</b></h6>
             </div>
             <!--Comment Section !-->
             <section style="background-color: #eee;">

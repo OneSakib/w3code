@@ -15,9 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from DatabaseApp.sitemaps import D_sitemap
+from Exercise.sitemaps import E_sitemap
+from JavaApp.sitemaps import J_sitemap
+
+sitemaps = dict()
+sitemaps.update(D_sitemap)
+sitemaps.update(E_sitemap)
+sitemaps.update(J_sitemap)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include('MainApp.urls', namespace='w3c')),
     path('programming/', include('ProgrammingApp.urls', namespace='Programming')),
     path('preparation/', include('PreparationApp.urls', namespace='Preparation')),
@@ -29,4 +38,8 @@ urlpatterns = [
     path('web/', include('WebApp.urls', namespace='Web')),
     path('ms/', include('MsApp.urls', namespace='MS')),
     path('vc/', include('VCApp.urls', namespace='VC')),
+    path('exercise/', include('Exercise.urls', namespace='Exercise')),
+    path('programme/', include('Programmes.urls', namespace='Programme')),
+    path('projects/', include('Projects.urls', namespace='Projects')),
+    path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ]

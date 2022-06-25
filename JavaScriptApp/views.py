@@ -14,7 +14,7 @@ class JqueryView(View):
 
 
 class JqueryDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JqueryCommentsForm
     model = Jquery
 
@@ -23,6 +23,11 @@ class JqueryDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = JqueryComments.objects.filter(post=self.object)
+        context['title'] = 'JQuery'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -49,7 +54,7 @@ class AngularView(View):
 
 
 class AngularDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = AngularjsCommentsForm
     model = Angularjs
 
@@ -58,6 +63,11 @@ class AngularDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = AngularjsComments.objects.filter(post=self.object)
+        context['title'] = 'AngularJs'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -84,7 +94,7 @@ class NodejsView(View):
 
 
 class NodejsDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = NodejsCommentsForm
     model = Nodejs
 
@@ -93,6 +103,11 @@ class NodejsDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = NodejsComments.objects.filter(post=self.object)
+        context['title'] = 'NodeJs'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -119,7 +134,7 @@ class ExpressjsView(View):
 
 
 class ExpressjsDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ExpressjsCommentsForm
     model = Expressjs
 
@@ -128,6 +143,11 @@ class ExpressjsDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = ExpressjsComments.objects.filter(post=self.object)
+        context['title'] = 'ExpressJs'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -154,7 +174,7 @@ class ReactjsView(View):
 
 
 class ReactjsDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ReactjsCommentsForm
     model = Reactjs
 
@@ -163,6 +183,11 @@ class ReactjsDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = ReactjsComments.objects.filter(post=self.object)
+        context['title'] = 'ReactJS'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -189,7 +214,7 @@ class TypescriptView(View):
 
 
 class TypescriptDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = TypeScriptsCommentsForm
     model = TypeScripts
 
@@ -198,6 +223,11 @@ class TypescriptDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = TypeScriptsComments.objects.filter(post=self.object)
+        context['title'] = 'TypeScript'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -224,7 +254,7 @@ class VuejsView(View):
 
 
 class VuejsDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = VUEjsCommentsForm
     model = VUEjs
 
@@ -233,6 +263,11 @@ class VuejsDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = VUEjsComments.objects.filter(post=self.object)
+        context['title'] = 'VUEJS'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

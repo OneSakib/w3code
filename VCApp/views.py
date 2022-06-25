@@ -15,7 +15,7 @@ class DockerView(View):
 
 
 class DockerDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = DockerCommentsForm
     model = Docker
 
@@ -24,6 +24,11 @@ class DockerDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = DockerComments.objects.filter(post=self.object)
+        context['title'] = 'Docker'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -50,7 +55,7 @@ class GitView(View):
 
 
 class GitDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = GitsCommentsForm
     model = Gits
 
@@ -59,6 +64,11 @@ class GitDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = GitsComments.objects.filter(post=self.object)
+        context['title'] = 'GIT'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -85,7 +95,7 @@ class GithubView(View):
 
 
 class GitHubDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = GithubsCommentsForm
     model = Githubs
 
@@ -94,6 +104,11 @@ class GitHubDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = GithubsComments.objects.filter(post=self.object)
+        context['title'] = 'GitHub'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

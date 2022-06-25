@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.title }}{% endblock %}
+{% block css %}
+    <style>
+        .con-list {
+            position: sticky;
+            top: 0;
+            height: 600px;
+            overflow: auto;
+            background-color: #dedcdc;
+            width: 18%;
+        }
+
+        .con-body {
+            width: 75%;
+        }
+
+        .con-list a {
+            text-decoration: none;
+            margin-left: 15px;
+            color: black;
+        }
+
+        .con-list li:hover {
+            background-color: #bdbbbb;
+        }
+
+        ul li.active {
+            background-color: RGB(4, 170, 109);
+        }
+
+        ul li.active a {
+            color: white;
+        }
+
+        @media (max-width: 700px) {
+            .con-list {
+                display: none;
+                width: 50%;
+                z-index: 100;
+                position: absolute;
+                top: 125px;
+            }
+
+            .con-body {
+                width: 95%;
+                margin: auto;
+            }
+        }
+
+        @media (min-width: 989px) {
+            .con-title {
+                display: none;
+            }
+
+            .con-list ul li a {
+                font-size: 17px;
+            }
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="row" id="row">
+        <div class="con-list" id="con-list">
+            <h4 class="ms-3">{{ title }}</h4>
+            <ul class="list-unstyled">
+                {% for l in obj_list %}
+                    <li class="{% if l.slug == object.slug %}active{% endif %}"><a
+                            href="{{ l.get_absolute_url }}">{{ l.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="con-body mt-2">
+            <h3 class="text-success">{{ object.title }}</h3>
+            {{ object.content|safe }}
+            <!--Next and Previous button -->
+            <div>
+                {% if prev != None %}
+                    <a class="btn btn-success" href="{{ prev.get_absolute_url }}">Previous</a>
+                {% else %}
+                    <a class="btn btn-success disabled" href="#">Previous</a>
+                {% endif %}
+                {% if next != None %}
+                    <a class="btn btn-success float-end"
+                       href="{{ next.get_absolute_url }}">Next</a>
+                {% else %}
+                    <a class="btn btn-success float-end disabled" href="#">Next</a>
+                {% endif %}
+                <!--View Counter-->
+                <h6 class="mt-2">Views: <b>{{ object.viewcounter }}</b></h6>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+        document.getElementById('row').onscroll = function () {
+            scrollFun()
+        }
+
+        function myFunction() {
+            $('.con-list').toggle(500)
+        }
+
+        conlist = document.getElementById('con-list');
+
+        function scrollFun() {
+            let swidth = window.screen.width;
+            if (swidth <= 700) {
+                conlist.style.display = "none";
+            }
+        }
+    </script>
+{% endblock %}

@@ -14,7 +14,7 @@ class DBMSView(View):
 
 
 class DBMSDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = DBMSCommentsForm
     model = DBMS
 
@@ -23,6 +23,11 @@ class DBMSDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = DBMSComments.objects.filter(post=self.object)
+        context['title'] = 'DBMS'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -49,7 +54,7 @@ class DataStructureView(View):
 
 
 class DataStructureDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = DataStructureCommentsForm
     model = DataStructure
 
@@ -58,6 +63,11 @@ class DataStructureDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = DataStructureComments.objects.filter(post=self.object)
+        context['title'] = 'Data Structure'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -84,7 +94,7 @@ class DAAView(View):
 
 
 class DAADetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = DAACommentsForm
     model = DAA
 
@@ -93,6 +103,11 @@ class DAADetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = DAAComments.objects.filter(post=self.object)
+        context['title'] = 'DAA'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -119,7 +134,7 @@ class OperatingSystemView(View):
 
 
 class OperatingSystemDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = OperatingSystemCommentsForm
     model = OperatingSystem
 
@@ -128,6 +143,11 @@ class OperatingSystemDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = OperatingSystemComments.objects.filter(post=self.object)
+        context['title'] = 'Operating System'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -154,7 +174,7 @@ class ComputeNetworkView(View):
 
 
 class ComputerNetworkDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ComputerNetworkCommentsForm
     model = ComputerNetwork
 
@@ -163,6 +183,11 @@ class ComputerNetworkDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = ComputerNetworkComments.objects.filter(post=self.object)
+        context['title'] = 'Computer Network'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -189,7 +214,7 @@ class CompilerDesignView(View):
 
 
 class CompilerDesignDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = CompilerDesignCommentsForm
     model = CompilerDesign
 
@@ -198,6 +223,11 @@ class CompilerDesignDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = CompilerDesignComments.objects.filter(post=self.object)
+        context['title'] = 'Compiler Design'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -224,15 +254,20 @@ class ComputerOrganizationView(View):
 
 
 class ComputerOrganizationDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ComputerOrganizationCommentsForm
     model = ComputerOrganization
 
     def get_context_data(self, **kwargs):
-        context = super(ComputerNetworkDetailView, self).get_context_data(**kwargs)
+        context = super(ComputerOrganizationDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = ComputerOrganizationDetailView.objects.filter(post=self.object)
+        context['comments'] = ComputerOrganizationComments.objects.filter(post=self.object)
+        context['title'] = 'Computer Organization'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -260,7 +295,7 @@ class DiscreteMathematicsView(View):
 
 
 class DiscreteMathematicsDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = DiscreteMathematicsCommentsForm
     model = DiscreteMathematics
 
@@ -269,6 +304,11 @@ class DiscreteMathematicsDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = DiscreteMathematicsComments.objects.filter(post=self.object)
+        context['title'] = 'Discrete Mathematics'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -296,7 +336,7 @@ class SoftwareEngineeringView(View):
 
 
 class SoftwareEngineeringDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = SoftwareEngineeringCommentsForm
     model = SoftwareEngineering
 
@@ -305,6 +345,11 @@ class SoftwareEngineeringDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = SoftwareEngineeringComments.objects.filter(post=self.object)
+        context['title'] = 'Software Engineering'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -332,7 +377,7 @@ class CyberSecurityView(View):
 
 
 class CyberSecurityDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = CyberSecurityCommentsForm
     model = CyberSecurity
 
@@ -341,6 +386,11 @@ class CyberSecurityDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = CyberSecurityComments.objects.filter(post=self.object)
+        context['title'] = 'Cyber Security'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -367,7 +417,7 @@ class DataMiningView(View):
 
 
 class DataMiningDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = DataMiningCommentsForm
     model = DataMining
 
@@ -376,6 +426,11 @@ class DataMiningDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = DataMiningComments.objects.filter(post=self.object)
+        context['title'] = 'Data Mining & Data Warehouse'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -403,7 +458,7 @@ class ArtificialIntelligenceView(View):
 
 
 class ArtificialIntelligenceDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ArtificialIntelligenceCommentsForm
     model = ArtificialIntelligence
 
@@ -412,6 +467,11 @@ class ArtificialIntelligenceDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = ArtificialIntelligenceComments.objects.filter(post=self.object)
+        context['title'] = 'Artificial Intelligence'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -439,7 +499,7 @@ class AutomataView(View):
 
 
 class AutomataDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = AutomataCommentsForm
     model = Automata
 
@@ -448,6 +508,11 @@ class AutomataDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = AutomataComments.objects.filter(post=self.object)
+        context['title'] = 'Automata'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -474,7 +539,7 @@ class ComputerGraphicsView(View):
 
 
 class ComputerGraphicsDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ComputerGraphicsCommentsForm
     model = ComputerGraphics
 
@@ -483,6 +548,11 @@ class ComputerGraphicsDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = ComputerGraphicsComments.objects.filter(post=self.object)
+        context['title'] = 'Computer Graphics'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -509,7 +579,7 @@ class WebApiView(View):
 
 
 class WebAPIDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = WebApiCommentsForm
     model = WebApi
 
@@ -518,6 +588,11 @@ class WebAPIDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = WebApiComments.objects.filter(post=self.object)
+        context['title'] = 'Web API'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

@@ -14,7 +14,7 @@ class ServletView(View):
 
 
 class ServletDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = ServletsCommentsForm
     model = Servlets
 
@@ -23,6 +23,11 @@ class ServletDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = ServletsComments.objects.filter(post=self.object)
+        context['title'] = 'Servlet'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -49,7 +54,7 @@ class JspView(View):
 
 
 class JSPDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JSPsCommentsForm
     model = JSPs
 
@@ -58,6 +63,11 @@ class JSPDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = JSPsComments.objects.filter(post=self.object)
+        context['title'] = 'JSP'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -84,7 +94,7 @@ class SpringBootView(View):
 
 
 class SpringBootDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = SpringBootCommentsForm
     model = SpringBoot
 
@@ -93,6 +103,11 @@ class SpringBootDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = SpringBootComments.objects.filter(post=self.object)
+        context['title'] = 'SpringBoot'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -119,7 +134,7 @@ class SpringFrameworkView(View):
 
 
 class SpringFrameworkDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = SpringBootCommentsForm
     model = SpringFramework
 
@@ -128,6 +143,11 @@ class SpringFrameworkDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = SpringFrameworkComments.objects.filter(post=self.object)
+        context['title'] = 'Spring Framework'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -154,7 +174,7 @@ class HibernateView(View):
 
 
 class HibernateDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = HibernatesCommentsForm
     model = Hibernates
 
@@ -163,6 +183,11 @@ class HibernateDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = HibernatesComments.objects.filter(post=self.object)
+        context['title'] = 'Java Hibernate'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -189,7 +214,7 @@ class JavaSwingView(View):
 
 
 class JavaSwingDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JavaSwingsCommentsForm
     model = JavaSwings
 
@@ -198,6 +223,11 @@ class JavaSwingDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = JavaSwingsComments.objects.filter(post=self.object)
+        context['title'] = 'Java Swing'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -224,7 +254,7 @@ class JavaFXView(View):
 
 
 class JavaFxDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JavaFXsCommentsForm
     model = JavaFXs
 
@@ -233,6 +263,11 @@ class JavaFxDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = JavaFXsComments.objects.filter(post=self.object)
+        context['title'] = 'JavaFX'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -259,7 +294,7 @@ class JavaAWTView(View):
 
 
 class JavaAWTDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JavaAWTCommentsForm
     model = JavaAWT
 
@@ -267,7 +302,12 @@ class JavaAWTDetailView(DetailView, FormView):
         context = super(JavaAWTDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = JavaAWT.objects.filter(post=self.object)
+        context['comments'] = JavaAWTComments.objects.filter(post=self.object)
+        context['title'] = 'Java AWT'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -294,7 +334,7 @@ class JavaCollectionsView(View):
 
 
 class JavaCollectionsDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = CollectionsCommentsForm
     model = Collections
 
@@ -303,6 +343,11 @@ class JavaCollectionsDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = CollectionsComments.objects.filter(post=self.object)
+        context['title'] = 'Java Collections'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -329,7 +374,7 @@ class JavaDateView(View):
 
 
 class JavaDateDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JavaDateCommentsForm
     model = JavaDate
 
@@ -338,6 +383,11 @@ class JavaDateDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = JavaDateComments.objects.filter(post=self.object)
+        context['title'] = 'Java Date'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -364,7 +414,7 @@ class JavaIOView(View):
 
 
 class JavaIODetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'w3c/detail.html'
     form_class = JavaIOCommentsForm
     model = JavaIO
 
@@ -372,7 +422,12 @@ class JavaIODetailView(DetailView, FormView):
         context = super(JavaIODetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = JavaIOCommentsForm.objects.filter(post=self.object)
+        context['comments'] = JavaIOComments.objects.filter(post=self.object)
+        context['title'] = 'Java I/O'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)

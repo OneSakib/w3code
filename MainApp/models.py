@@ -1,9 +1,10 @@
 from django.db import models
 from tinymce.models import HTMLField
+from django.urls import reverse_lazy
+from django.conf import settings
 
 # Create your models here.
-
-HOST_NAME = 'http://127.0.0.1:8000'
+HOST_NAME = settings.HOST_NAME
 TUT_TYPES = (
     ('Programming-Language', 'Programming-Language'),
     ('Preparation', 'Preparation'),
@@ -22,7 +23,7 @@ class TutList(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100, choices=TUT_TYPES, default='Python')
     image = models.ImageField(upload_to='tut-icon/')
-    link = models.URLField()
+    link = models.URLField(default=HOST_NAME + "/")
 
     def __str__(self):
         return self.name
@@ -57,3 +58,21 @@ class Comments(models.Model):
 
     def __str__(self):
         return f'Commented by {self.name}'
+
+
+class Blogs(TutCommon):
+    image = models.ImageField(upload_to='blogs/', default='')
+
+    class Meta:
+        verbose_name_plural = 'Blogs'
+        ordering = ['-timestamp']
+
+    def get_absolute_url(self):
+        return f'{HOST_NAME}{reverse_lazy("w3c:blogdetail", kwargs={"slug": self.slug})}'
+
+
+class BlogComments(Comments):
+    post = models.ForeignKey(Blogs, on_delete=models.CASCADE, related_name='BlogComments')
+
+    class Meta:
+        verbose_name_plural = 'BlogComments'

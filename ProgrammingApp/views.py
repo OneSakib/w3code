@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, render
 from django.views.generic import View, FormView, DetailView
 from .models import *
 from .forms import *
@@ -14,7 +14,7 @@ class CView(View):
 
 
 class CLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = CLanguageCommentsForm
     model = CLanguage
 
@@ -23,6 +23,11 @@ class CLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = CLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'C Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -49,7 +54,7 @@ class CPlusView(View):
 
 
 class CPlusLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = CplusLanguageCommentsForm
     model = CplusLanguage
 
@@ -57,7 +62,12 @@ class CPlusLanguageDetailView(DetailView, FormView):
         context = super(CPlusLanguageDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = CplusLanguageCommentsForm.objects.filter(post=self.object)
+        context['comments'] = CplusLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'C++ Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -84,7 +94,7 @@ class PythonView(View):
 
 
 class PythonLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = PythonLanguageCommentsForm
     model = PythonLanguage
 
@@ -92,7 +102,12 @@ class PythonLanguageDetailView(DetailView, FormView):
         context = super(PythonLanguageDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = PythonLanguageCommentsForm.objects.filter(post=self.object)
+        context['comments'] = PythonLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'Python Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -119,7 +134,7 @@ class JavaView(View):
 
 
 class JavaLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = JavaLanguageCommentsForm
     model = JavaLanguage
 
@@ -128,6 +143,11 @@ class JavaLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = JavaLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'Java Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -154,15 +174,20 @@ class AndroidView(View):
 
 
 class AndroidLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = AndroidLanguageCommentsForm
-    model = AndroidView
+    model = AndroidLanguage
 
     def get_context_data(self, **kwargs):
         context = super(AndroidLanguageDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = AndroidLanguage.objects.filter(post=self.object)
+        context['comments'] = AndroidLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'Android'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -189,7 +214,7 @@ class KotlinView(View):
 
 
 class KotlinLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = KotlinLanguageCommentsForm
     model = KotlinLanguage
 
@@ -198,6 +223,11 @@ class KotlinLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = KotlinLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'Kotlin'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -224,7 +254,7 @@ class RView(View):
 
 
 class RLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = RLanguageCommentsForm
     model = RLanguage
 
@@ -233,6 +263,11 @@ class RLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = RLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'R Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -259,7 +294,7 @@ class CSharpView(View):
 
 
 class CSharpLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = CsharpLanguageCommentsForm
     model = CsharpLanguage
 
@@ -268,6 +303,11 @@ class CSharpLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = CsharpLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'C# Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -294,7 +334,7 @@ class SwiftView(View):
 
 
 class SwiftLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = SwiftLanguageCommentsForm
     model = SwiftLanguage
 
@@ -303,6 +343,11 @@ class SwiftLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = SwiftLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'Swift Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -329,15 +374,21 @@ class JavaScriptView(View):
 
 
 class JavaScriptLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = JavaScriptLanguageCommentsForm
     model = JavaScriptLanguage
 
     def get_context_data(self, **kwargs):
-        context = super(JavaLanguageDetailView, self).get_context_data(**kwargs)
+        context = super(JavaScriptLanguageDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
+        print(obj_list)
         context['comments'] = JavaScriptLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'JavaScript'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -364,7 +415,7 @@ class PHPView(View):
 
 
 class PHPLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = PHPLanguageCommentsForm
     model = PHPLanguage
 
@@ -373,6 +424,11 @@ class PHPLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = PHPLanguageComments.objects.filter(post=self.object)
+        context['title'] = 'PHP Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
@@ -399,7 +455,7 @@ class DotNetView(View):
 
 
 class DotNetLanguageDetailView(DetailView, FormView):
-    template_name = 'db/detail.html'
+    template_name = 'programming/detail.html'
     form_class = DotNetLanguageCommentsForm
     model = DotNetLanguage
 
@@ -408,6 +464,11 @@ class DotNetLanguageDetailView(DetailView, FormView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['comments'] = DotNetLanguageComments.objects.filter(post=self.object)
+        context['title'] = '.NET Language'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
         # Pagination
         currentpost = self.object
         prev = prev_in_order(currentpost)
