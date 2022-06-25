@@ -1,50 +1,49 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class Jquery_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return Jquery.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class Angularjs_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return Angularjs.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class Nodejs_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return Nodejs.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class Expressjs_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return Expressjs.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class Reactjs_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return Reactjs.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
+class TypeScripts_Sitemap(CommonSitemap):
     def items(self):
-        return MariaDB.objects.all()
+        return TypeScripts.objects.all()
 
 
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+class VUEjs_Sitemap(CommonSitemap):
+    def items(self):
+        return VUEjs.objects.all()
+
+
+JS_sitemap = {
+    'Jquery_Sitemap': Jquery_Sitemap,
+    'Angularjs_Sitemap': Angularjs_Sitemap,
+    'Nodejs_Sitemap': Nodejs_Sitemap,
+    'Expressjs_Sitemap': Expressjs_Sitemap,
+    'Reactjs_Sitemap': Reactjs_Sitemap,
+    'TypeScripts_Sitemap': TypeScripts_Sitemap,
+    'VUEjs_Sitemap': VUEjs_Sitemap
 }

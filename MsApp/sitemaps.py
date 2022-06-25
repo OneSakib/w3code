@@ -1,50 +1,31 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class MSExcel_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return MSExcel.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class MSWord_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return MSWord.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class MSPowerpoint_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return MSPowerpoint.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class MSOneNote_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return MSOneNote.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
-    def items(self):
-        return SqliteDB.objects.all()
-
-
-class MariaDB_Sitemap(CommonSitemap):
-    def items(self):
-        return MariaDB.objects.all()
-
-
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+MS_sitemap = {
+    'MSExcel_Sitemap': MSExcel_Sitemap,
+    'MSWord_Sitemap': MSWord_Sitemap,
+    'MSPowerpoint_Sitemap': MSPowerpoint_Sitemap,
+    'MSOneNote_Sitemap': MSOneNote_Sitemap
 }

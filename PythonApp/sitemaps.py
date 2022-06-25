@@ -1,50 +1,115 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class Django_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return Django.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class Flask_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return Flask.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class MachineLearning_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return MachineLearning.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class Numpys_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return Numpys.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class Tkinters_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return Tkinters.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
+class Pytorchs_Sitemap(CommonSitemap):
     def items(self):
-        return MariaDB.objects.all()
+        return Pytorchs.objects.all()
 
 
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+class Pygames_Sitemap(CommonSitemap):
+    def items(self):
+        return Pygames.objects.all()
+
+
+class Scipys_Sitemap(CommonSitemap):
+    def items(self):
+        return Scipys.objects.all()
+
+
+class Pandass_Sitemap(CommonSitemap):
+    def items(self):
+        return Pandass.objects.all()
+
+
+class OpenCVs_Sitemap(CommonSitemap):
+    def items(self):
+        return OpenCVs.objects.all()
+
+
+class Matplotlibs_Sitemap(CommonSitemap):
+    def items(self):
+        return Matplotlibs.objects.all()
+
+
+class Seleniums_Sitemap(CommonSitemap):
+    def items(self):
+        return Seleniums.objects.all()
+
+
+class Kivys_Sitemap(CommonSitemap):
+    def items(self):
+        return Kivys.objects.all()
+
+
+class Jupyters_Sitemap(CommonSitemap):
+    def items(self):
+        return Jupyters.objects.all()
+
+
+class DataScience_Sitemap(CommonSitemap):
+    def items(self):
+        return DataScience.objects.all()
+
+
+class DeepLearning_Sitemap(CommonSitemap):
+    def items(self):
+        return DeepLearning.objects.all()
+
+
+class Pillows_Sitemap(CommonSitemap):
+    def items(self):
+        return Pillows.objects.all()
+
+
+class Tensorflows_Sitemap(CommonSitemap):
+    def items(self):
+        return Tensorflows.objects.all()
+
+
+PY_sitemap = {
+    'Django_Sitemap': Django_Sitemap,
+    'Flask_Sitemap': Flask_Sitemap,
+    'MachineLearning_Sitemap': MachineLearning_Sitemap,
+    'Numpys_Sitemap': Numpys_Sitemap,
+    'Tkinters_Sitemap': Tkinters_Sitemap,
+    'Pytorchs_Sitemap': Pytorchs_Sitemap,
+    'Pygames_Sitemap ': Pygames_Sitemap,
+    'Scipys_Sitemap ': Scipys_Sitemap,
+    'Pandass_Sitemap ': Pandass_Sitemap,
+    ' OpenCVs_Sitemap': OpenCVs_Sitemap,
+    'Matplotlibs_Sitemap ': Matplotlibs_Sitemap,
+    ' Seleniums_Sitemap': Seleniums_Sitemap,
+    'Kivys_Sitemap ': Kivys_Sitemap,
+    ' Jupyters_Sitemap': Jupyters_Sitemap,
+    'DataScience_Sitemap ': DataScience_Sitemap,
+    'DeepLearning_Sitemap ': DeepLearning_Sitemap,
+    'Pillows_Sitemap ': Pillows_Sitemap,
+    ' Tensorflows_Sitemap': Tensorflows_Sitemap,
 }

@@ -1,50 +1,85 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class DBMS_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return DBMS.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class DAA_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return DAA.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class OperatingSystem_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return OperatingSystem.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class ComputerNetwork_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return ComputerNetwork.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class CompilerDesign_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return CompilerDesign.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
+class DiscreteMathematics_Sitemap(CommonSitemap):
     def items(self):
-        return MariaDB.objects.all()
+        return DiscreteMathematics.objects.all()
 
 
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+class SoftwareEngineering_Sitemap(CommonSitemap):
+    def items(self):
+        return SoftwareEngineering.objects.all()
+
+
+class CyberSecurity_Sitemap(CommonSitemap):
+    def items(self):
+        return CyberSecurity.objects.all()
+
+
+class DataMining_Sitemap(CommonSitemap):
+    def items(self):
+        return DataMining.objects.all()
+
+
+class ArtificialIntelligence_Sitemap(CommonSitemap):
+    def items(self):
+        return ArtificialIntelligence.objects.all()
+
+
+class Automata_Sitemap(CommonSitemap):
+    def items(self):
+        return Automata.objects.all()
+
+
+class ComputerGraphics_Sitemap(CommonSitemap):
+    def items(self):
+        return ComputerGraphics.objects.all()
+
+
+class WebApi_Sitemap(CommonSitemap):
+    def items(self):
+        return WebApi.objects.all()
+
+
+TH_sitemap = {
+    'DBMS_Sitemap': DBMS_Sitemap,
+    'DAA_Sitemap': DAA_Sitemap,
+    'OperatingSystem_Sitemap': OperatingSystem_Sitemap,
+    'ComputerNetwork_Sitemap': ComputerNetwork_Sitemap,
+    'CompilerDesign_Sitemap': CompilerDesign_Sitemap,
+    'DiscreteMathematics_Sitemap': DiscreteMathematics_Sitemap,
+    'SoftwareEngineering_Sitemap ': SoftwareEngineering_Sitemap,
+    'CyberSecurity_Sitemap ': CyberSecurity_Sitemap,
+    'DataMining_Sitemap ': DataMining_Sitemap,
+    ' ArtificialIntelligence_Sitemap': ArtificialIntelligence_Sitemap,
+    'Automata_Sitemap ': Automata_Sitemap,
+    'ComputerGraphics_Sitemap ': ComputerGraphics_Sitemap,
+    ' WebApi_Sitemap': WebApi_Sitemap
 }

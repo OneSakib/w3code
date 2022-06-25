@@ -19,11 +19,33 @@ from django.contrib.sitemaps.views import sitemap
 from DatabaseApp.sitemaps import D_sitemap
 from Exercise.sitemaps import E_sitemap
 from JavaApp.sitemaps import J_sitemap
+from JavaScriptApp.sitemaps import JS_sitemap
+from MainApp.sitemaps import M_sitemap
+from MsApp.sitemaps import MS_sitemap
+from PreparationApp.sitemaps import Pre_sitemap
+from ProgrammingApp.sitemaps import Prog_sitemap
+from Programmes.sitemaps import Pro_sitemap
+from Projects.sitemaps import Proj_sitemap
+from PythonApp.sitemaps import PY_sitemap
+from TheoryApp.sitemaps import TH_sitemap
+from VCApp.sitemaps import VC_sitemap
+from WebApp.sitemaps import W_sitemap
 
 sitemaps = dict()
 sitemaps.update(D_sitemap)
 sitemaps.update(E_sitemap)
 sitemaps.update(J_sitemap)
+sitemaps.update(JS_sitemap)
+sitemaps.update(M_sitemap)
+sitemaps.update(MS_sitemap)
+sitemaps.update(Pre_sitemap)
+sitemaps.update(Pro_sitemap)
+sitemaps.update(Prog_sitemap)
+sitemaps.update(Proj_sitemap)
+sitemaps.update(PY_sitemap)
+sitemaps.update(TH_sitemap)
+sitemaps.update(VC_sitemap)
+sitemaps.update(W_sitemap)
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),

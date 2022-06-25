@@ -1,50 +1,73 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class CProgramme_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return CProgramme.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class CPlusProgramme_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return CPlusProgramme.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class PythonProgramme_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return PythonProgramme.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class JavaProgramme_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return JavaProgramme.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class KotlinProgramme_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return KotlinProgramme.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
+class RProgramme_Sitemap(CommonSitemap):
     def items(self):
-        return MariaDB.objects.all()
+        return RProgramme.objects.all()
 
 
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+class CSharpProgramme_Sitemap(CommonSitemap):
+    def items(self):
+        return CSharpProgramme.objects.all()
+
+
+class SwiftProgramme_Sitemap(CommonSitemap):
+    def items(self):
+        return SwiftProgramme.objects.all()
+
+
+class JavaScriptProgramme_Sitemap(CommonSitemap):
+    def items(self):
+        return JavaScriptProgramme.objects.all()
+
+
+class PHPProgramme_Sitemap(CommonSitemap):
+    def items(self):
+        return PHPProgramme.objects.all()
+
+
+class DotNetProgramme_Sitemap(CommonSitemap):
+    def items(self):
+        return DotNetProgramme.objects.all()
+
+
+Pro_sitemap = {
+    'CProgramme_Sitemap': CProgramme_Sitemap,
+    'CPlusProgramme_Sitemap': CPlusProgramme_Sitemap,
+    'PythonProgramme_Sitemap': PythonProgramme_Sitemap,
+    'JavaProgramme_Sitemap': JavaProgramme_Sitemap,
+    'KotlinProgramme_Sitemap': KotlinProgramme_Sitemap,
+    'RProgramme_Sitemap': RProgramme_Sitemap,
+    'CSharpProgramme_Sitemap': CSharpProgramme_Sitemap,
+    'SwiftProgramme_Sitemap': SwiftProgramme_Sitemap,
+    'JavaScriptProgramme_Sitemap': JavaScriptProgramme_Sitemap,
+    'PHPProgramme_Sitemap': PHPProgramme_Sitemap,
+    'DotNetProgramme_Sitemap': DotNetProgramme_Sitemap
 }

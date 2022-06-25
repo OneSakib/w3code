@@ -1,50 +1,79 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class CProjects_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return CProjects.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class CPlusProjects_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return CPlusProjects.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class PythonProjects_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return PythonProjects.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class JavaProjects_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return JavaProjects.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class KotlinProjects_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return KotlinProjects.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
+class RProjects_Sitemap(CommonSitemap):
     def items(self):
-        return MariaDB.objects.all()
+        return RProjects.objects.all()
 
 
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+class CSharpProjects_Sitemap(CommonSitemap):
+    def items(self):
+        return CSharpProjects.objects.all()
+
+
+class SwiftProjects_Sitemap(CommonSitemap):
+    def items(self):
+        return SwiftProjects.objects.all()
+
+
+class JavaScriptProjects_Sitemap(CommonSitemap):
+    def items(self):
+        return JavaScriptProjects.objects.all()
+
+
+class AndroidProjects_Sitemap(CommonSitemap):
+    def items(self):
+        return AndroidProjects.objects.all()
+
+
+class PHPProjects_Sitemap(CommonSitemap):
+    def items(self):
+        return PHPProjects.objects.all()
+
+
+class DotNetProjects_Sitemap(CommonSitemap):
+    def items(self):
+        return DotNetProjects.objects.all()
+
+
+Proj_sitemap = {
+    'CProjects_Sitemap': CProjects_Sitemap,
+    'CPlusProjects_Sitemap': CPlusProjects_Sitemap,
+    'PythonProjects_Sitemap': PythonProjects_Sitemap,
+    'JavaProjects_Sitemap': JavaProjects_Sitemap,
+    'KotlinProjects_Sitemap': KotlinProjects_Sitemap,
+    'RProjects_Sitemap': RProjects_Sitemap,
+    ' CSharpProjects_Sitemap': CSharpProjects_Sitemap,
+    'SwiftProjects_Sitemap ': SwiftProjects_Sitemap,
+    'JavaScriptProjects_Sitemap ': JavaScriptProjects_Sitemap,
+    ' AndroidProjects_Sitemap': AndroidProjects_Sitemap,
+    'PHPProjects_Sitemap ': PHPProjects_Sitemap,
+    'DotNetProjects_Sitemap ': DotNetProjects_Sitemap,
 }

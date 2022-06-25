@@ -1,50 +1,79 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class CLanguage_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return CLanguage.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class CplusLanguage_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return CplusLanguage.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class PythonLanguage_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return PythonLanguage.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class JavaLanguage_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return JavaLanguage.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class AndroidLanguage_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return AndroidLanguage.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
+class KotlinLanguage_Sitemap(CommonSitemap):
     def items(self):
-        return MariaDB.objects.all()
+        return KotlinLanguage.objects.all()
 
 
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+class RLanguage_Sitemap(CommonSitemap):
+    def items(self):
+        return RLanguage.objects.all()
+
+
+class CsharpLanguage_Sitemap(CommonSitemap):
+    def items(self):
+        return CsharpLanguage.objects.all()
+
+
+class SwiftLanguage_Sitemap(CommonSitemap):
+    def items(self):
+        return SwiftLanguage.objects.all()
+
+
+class JavaScriptLanguage_Sitemap(CommonSitemap):
+    def items(self):
+        return JavaScriptLanguage.objects.all()
+
+
+class PHPLanguage_Sitemap(CommonSitemap):
+    def items(self):
+        return PHPLanguage.objects.all()
+
+
+class DotNetLanguage_Sitemap(CommonSitemap):
+    def items(self):
+        return DotNetLanguage.objects.all()
+
+
+Prog_sitemap = {
+    'CLanguage_Sitemap': CLanguage_Sitemap,
+    'CplusLanguage_Sitemap': CplusLanguage_Sitemap,
+    'PythonLanguage_Sitemap': PythonLanguage_Sitemap,
+    'JavaLanguage_Sitemap': JavaLanguage_Sitemap,
+    'AndroidLanguage_Sitemap': AndroidLanguage_Sitemap,
+    'KotlinLanguage_Sitemap': KotlinLanguage_Sitemap,
+    ' RLanguage_Sitemap': RLanguage_Sitemap,
+    'CsharpLanguage_Sitemap ': CsharpLanguage_Sitemap,
+    'SwiftLanguage_Sitemap ': SwiftLanguage_Sitemap,
+    'JavaScriptLanguage_Sitemap ': JavaScriptLanguage_Sitemap,
+    ' PHPLanguage_Sitemap': PHPLanguage_Sitemap,
+    ' DotNetLanguage_Sitemap': DotNetLanguage_Sitemap,
 }

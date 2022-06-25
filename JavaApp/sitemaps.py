@@ -1,13 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
-
-
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
+from MainApp.sitemaps import CommonSitemap
 
 
 class Servlets_Sitemap(CommonSitemap):

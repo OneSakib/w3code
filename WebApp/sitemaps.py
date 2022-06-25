@@ -1,50 +1,49 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class HTMLs_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return HTMLs.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class CSSs_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return CSSs.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class Laravels_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return Laravels.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class Wordpress_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return Wordpress.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class JSONs_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return JSONs.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
+class Ajaxs_Sitemap(CommonSitemap):
     def items(self):
-        return MariaDB.objects.all()
+        return Ajaxs.objects.all()
 
 
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+class Bootstraps_Sitemap(CommonSitemap):
+    def items(self):
+        return Bootstraps.objects.all()
+
+
+W_sitemap = {
+    'HTMLs_Sitemap': HTMLs_Sitemap,
+    'CSSs_Sitemap': CSSs_Sitemap,
+    'Laravels_Sitemap': Laravels_Sitemap,
+    'Wordpress_Sitemap': Wordpress_Sitemap,
+    'JSONs_Sitemap': JSONs_Sitemap,
+    'Ajaxs_Sitemap': Ajaxs_Sitemap,
+    'Bootstraps_Sitemap': Bootstraps_Sitemap,
 }

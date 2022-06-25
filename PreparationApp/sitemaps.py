@@ -1,50 +1,37 @@
 from django.contrib.sitemaps import Sitemap
 from .models import *
+from MainApp.sitemaps import CommonSitemap
 
 
-class CommonSitemap(Sitemap):
-    change_freq = "weekly"
-    priority = 0.7
-
-    def lastmod(self, obj):
-        return obj.timestamp
-
-
-class MysqlDB_Sitemap(CommonSitemap):
+class Aptitude_Sitemap(CommonSitemap):
     def items(self):
-        return MysqlDB.objects.all()
+        return Aptitude.objects.all()
 
 
-class MongoDB_Sitemap(CommonSitemap):
+class Reasoning_Sitemap(CommonSitemap):
     def items(self):
-        return MongoDB.objects.all()
+        return Reasoning.objects.all()
 
 
-class PostgreSQLDB_Sitemap(CommonSitemap):
+class VerbalAbility_Sitemap(CommonSitemap):
     def items(self):
-        return PostgreSQLDB.objects.all()
+        return VerbalAbility.objects.all()
 
 
-class OracleDB_Sitemap(CommonSitemap):
+class InterviewQuestion_Sitemap(CommonSitemap):
     def items(self):
-        return OracleDB.objects.all()
+        return InterviewQuestion.objects.all()
 
 
-class SqliteDB_Sitemap(CommonSitemap):
+class CompanyQuestion_Sitemap(CommonSitemap):
     def items(self):
-        return SqliteDB.objects.all()
+        return CompanyQuestion.objects.all()
 
 
-class MariaDB_Sitemap(CommonSitemap):
-    def items(self):
-        return MariaDB.objects.all()
-
-
-D_sitemap = {
-    'MySqlDB_Sitemap': MysqlDB_Sitemap,
-    'MongoDB_Sitemap': MongoDB_Sitemap,
-    'PostgreSQLDB_Sitemap': PostgreSQLDB_Sitemap,
-    'OracleDB_Sitemap': OracleDB_Sitemap,
-    'SqliteDB_Sitemap': SqliteDB_Sitemap,
-    'MariaDB_Sitemap': MariaDB_Sitemap
+Pre_sitemap = {
+    'Aptitude_Sitemap': Aptitude_Sitemap,
+    'Reasoning_Sitemap': Reasoning_Sitemap,
+    'VerbalAbility_Sitemap': VerbalAbility_Sitemap,
+    'InterviewQuestion_Sitemap': InterviewQuestion_Sitemap,
+    'CompanyQuestion_Sitemap': CompanyQuestion_Sitemap
 }
