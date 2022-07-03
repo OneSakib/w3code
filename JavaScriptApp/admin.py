@@ -47,39 +47,3 @@ class VUEjsAdmin(admin.ModelAdmin):
      prepopulated_fields = {'slug': ['title']}
 
 
-# Comments
-@admin.register(JqueryComments)
-class JqueryCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(AngularjsComments)
-class AngularjsCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(NodejsComments)
-class NodejsCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(ExpressjsComments)
-class ExpressjsCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(ReactjsComments)
-class ReactjsCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(TypeScriptsComments)
-class TypeScriptsCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(VUEjsComments)
-class VUEjsCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-

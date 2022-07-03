@@ -308,6 +308,27 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 p-3 ">
+                <h4 class="fw-bold">Web Hosting <i class="fa fa-arrow-right"></i></h4>
+                <div class="container">
+                    <div class="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-1">
+                        {% for d in object_list_tut %}
+                            {% if d.type == 'Web-Hosting' %}
+                                <div class="col tut-card">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <a href="{{ d.link }}" class="text-decoration-none">
+                                                <img src="{{ d.image.url }}" alt="not load image" style="width: 100%;">
+                                                <p class="card-text text-center">{{ d.name }}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

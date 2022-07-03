@@ -4,10 +4,21 @@ from .models import *
 
 class CommonSitemap(Sitemap):
     change_freq = "weekly"
-    priority = 0.7
+    priority = 1
 
     def lastmod(self, obj):
         return obj.timestamp
+
+
+class Static_sitemap(Sitemap):
+    changefreq = 'yearly'
+    priority = 1
+
+    def items(self):
+        return ['w3c:index']
+
+    def location(self, item):
+        return reverse_lazy(item)
 
 
 class Blogs_Sitemap(CommonSitemap):
@@ -16,5 +27,6 @@ class Blogs_Sitemap(CommonSitemap):
 
 
 M_sitemap = {
-    'Blogs_Sitemap': Blogs_Sitemap
+    'Static_sitemap': Static_sitemap,
+    'Blogs_Sitemap': Blogs_Sitemap,
 }

@@ -22,10 +22,10 @@ class ExerciseCommon(models.Model):
 class CExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'CExercise'
-        ordering = ['-timestamp']
+     
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:cexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:cexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = CQuestionAnswer.objects.all()
@@ -35,10 +35,9 @@ class CExercise(ExerciseCommon):
 class CPlusExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'CPlusExercise'
-        ordering = ['-timestamp']
-
+       
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:cplusexcisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:cplusexcisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = CplusQuestionAnswer.objects.all()
@@ -48,10 +47,10 @@ class CPlusExercise(ExerciseCommon):
 class PythonExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'PythonExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:pythonexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:pythonexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = PythonQuestionAnswer.objects.all()
@@ -61,10 +60,10 @@ class PythonExercise(ExerciseCommon):
 class JavaExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'JavaExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:javaexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:javaexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = JavaQuestionAnswer.objects.all()
@@ -74,10 +73,10 @@ class JavaExercise(ExerciseCommon):
 class KotlinExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'KotlinExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:kotlinexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:kotlinexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = KotlinQuestionAnswer.objects.all()
@@ -87,10 +86,10 @@ class KotlinExercise(ExerciseCommon):
 class RExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'RExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:rexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:rexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = RQuestionAnswer.objects.all()
@@ -100,10 +99,10 @@ class RExercise(ExerciseCommon):
 class CSharpExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'CSharpExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:csharpexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:csharpexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = CSharpQuestionAnswer.objects.all()
@@ -113,10 +112,10 @@ class CSharpExercise(ExerciseCommon):
 class SwiftExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'SwiftExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:swiftexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:swiftexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = SwiftQuestionAnswer.objects.all()
@@ -126,10 +125,10 @@ class SwiftExercise(ExerciseCommon):
 class JavaScriptExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'JavaScriptExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:javascriptexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:javascriptexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = JavaScriptQuestionAnswer.objects.all()
@@ -139,10 +138,10 @@ class JavaScriptExercise(ExerciseCommon):
 class PHPExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'PHPExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:phpexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:phpexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = PHPQuestionAnswer.objects.all()
@@ -152,10 +151,10 @@ class PHPExercise(ExerciseCommon):
 class DotNetExercise(ExerciseCommon):
     class Meta:
         verbose_name_plural = 'DotNetExercise'
-        ordering = ['-timestamp']
+      
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("Exercise:dotnetexercisedetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("Exercise:dotnetexercisedetail", kwargs={"slug": self.slug})}'
 
     def questionlist(self):
         ls = DotNetQuestionAnswer.objects.all()

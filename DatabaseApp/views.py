@@ -1,6 +1,6 @@
 from django.shortcuts import HttpResponseRedirect
-from django.views.generic import TemplateView, DetailView, FormView, View
-from .forms import *
+from django.views.generic import TemplateView, DetailView, View
+from .models import *
 from django.urls import reverse_lazy
 from next_prev import next_in_order, prev_in_order
 
@@ -12,16 +12,14 @@ class MYSqlView(View):
         return HttpResponseRedirect(reverse_lazy('Database:mysqldetail', kwargs={'slug': slug}))
 
 
-class MySqlDetailView(DetailView, FormView):
+class MySqlDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = MysqlDBCommentsForm
     model = MysqlDB
 
     def get_context_data(self, **kwargs):
         context = super(MySqlDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = MysqlDBComments.objects.filter(post=self.object)
         context['title'] = 'MySQL'
         # View Counter
         s = self.object
@@ -39,12 +37,6 @@ class MySqlDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Database:mysqldetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class MongoDBView(View):
     def get(self, request):
@@ -52,16 +44,14 @@ class MongoDBView(View):
         return HttpResponseRedirect(reverse_lazy('Database:mongodbdetail', kwargs={'slug': slug}))
 
 
-class MongoDBDetailView(DetailView, FormView):
+class MongoDBDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = MongoDBCommentsForm
     model = MongoDB
 
     def get_context_data(self, **kwargs):
         context = super(MongoDBDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = MongoDBComments.objects.filter(post=self.object)
         context['title'] = 'MongoDB'
         # View Counter
         s = self.object
@@ -79,12 +69,6 @@ class MongoDBDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Database:mongodbdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class PostgreSqlView(View):
     def get(self, request):
@@ -92,16 +76,14 @@ class PostgreSqlView(View):
         return HttpResponseRedirect(reverse_lazy('Database:postgresqldetail', kwargs={'slug': slug}))
 
 
-class PostgreSQLDetailView(DetailView, FormView):
+class PostgreSQLDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = PostgreSQLDBCommentsForm
     model = PostgreSQLDB
 
     def get_context_data(self, **kwargs):
         context = super(PostgreSQLDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = PostgreSQLDBComments.objects.filter(post=self.object)
         context['title'] = 'PostgreSQL'
         # View Counter
         s = self.object
@@ -119,12 +101,6 @@ class PostgreSQLDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Database:postgresqldetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class OracleView(View):
     def get(self, request):
@@ -132,16 +108,14 @@ class OracleView(View):
         return HttpResponseRedirect(reverse_lazy('Database:oracledetail', kwargs={'slug': slug}))
 
 
-class OracleDetailView(DetailView, FormView):
+class OracleDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = OracleDBCommentssForm
     model = OracleDB
 
     def get_context_data(self, **kwargs):
         context = super(OracleDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = OracleDBComments.objects.filter(post=self.object)
         context['title'] = 'Oracle'
         # View Counter
         s = self.object
@@ -159,12 +133,6 @@ class OracleDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Database:oracledetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class SqliteView(View):
     def get(self, request):
@@ -172,16 +140,14 @@ class SqliteView(View):
         return HttpResponseRedirect(reverse_lazy('Database:sqlitedetail', kwargs={'slug': slug}))
 
 
-class SqliteDetailView(DetailView, FormView):
+class SqliteDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = SqliteDBCommentsForm
     model = SqliteDB
 
     def get_context_data(self, **kwargs):
         context = super(SqliteDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = SqliteDBComments.objects.filter(post=self.object)
         context['title'] = 'SQLite'
         # View Counter
         s = self.object
@@ -199,12 +165,6 @@ class SqliteDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Database:sqlitedetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class MariaDBView(View):
     def get(self, request):
@@ -212,16 +172,14 @@ class MariaDBView(View):
         return HttpResponseRedirect(reverse_lazy('Database:mariadbddetail', kwargs={'slug': slug}))
 
 
-class MariaDBDetailView(DetailView, FormView):
+class MariaDBDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = MariaDBCommentsForm
     model = MariaDB
 
     def get_context_data(self, **kwargs):
         context = super(MariaDBDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = MariaDBComments.objects.filter(post=self.object)
         context['title'] = 'MariaDB'
         # View Counter
         s = self.object
@@ -238,9 +196,3 @@ class MariaDBDetailView(DetailView, FormView):
         if next != None:
             context['next'] = next
         return context
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Database:mariadbddetail', kwargs={'slug': self.kwargs['slug']}))

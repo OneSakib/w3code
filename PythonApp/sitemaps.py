@@ -13,6 +13,11 @@ class Flask_Sitemap(CommonSitemap):
         return Flask.objects.all()
 
 
+class RestApi_Sitemap(CommonSitemap):
+    def items(self):
+        return RestApi.objects.all()
+
+
 class MachineLearning_Sitemap(CommonSitemap):
     def items(self):
         return MachineLearning.objects.all()
@@ -93,8 +98,14 @@ class Tensorflows_Sitemap(CommonSitemap):
         return Tensorflows.objects.all()
 
 
+class DSPython_Sitemap(CommonSitemap):
+    def items(self):
+        return DSPython.objects.all()
+
+
 PY_sitemap = {
     'Django_Sitemap': Django_Sitemap,
+    'RestApi_Sitemap': RestApi_Sitemap,
     'Flask_Sitemap': Flask_Sitemap,
     'MachineLearning_Sitemap': MachineLearning_Sitemap,
     'Numpys_Sitemap': Numpys_Sitemap,
@@ -103,13 +114,14 @@ PY_sitemap = {
     'Pygames_Sitemap ': Pygames_Sitemap,
     'Scipys_Sitemap ': Scipys_Sitemap,
     'Pandass_Sitemap ': Pandass_Sitemap,
-    ' OpenCVs_Sitemap': OpenCVs_Sitemap,
-    'Matplotlibs_Sitemap ': Matplotlibs_Sitemap,
-    ' Seleniums_Sitemap': Seleniums_Sitemap,
-    'Kivys_Sitemap ': Kivys_Sitemap,
-    ' Jupyters_Sitemap': Jupyters_Sitemap,
+    'OpenCVs_Sitemap': OpenCVs_Sitemap,
+    'Matplotlibs_Sitemap': Matplotlibs_Sitemap,
+    'Seleniums_Sitemap': Seleniums_Sitemap,
+    'Kivys_Sitemap': Kivys_Sitemap,
+    'Jupyters_Sitemap': Jupyters_Sitemap,
     'DataScience_Sitemap ': DataScience_Sitemap,
     'DeepLearning_Sitemap ': DeepLearning_Sitemap,
-    'Pillows_Sitemap ': Pillows_Sitemap,
-    ' Tensorflows_Sitemap': Tensorflows_Sitemap,
+    'Pillows_Sitemap': Pillows_Sitemap,
+    'Tensorflows_Sitemap': Tensorflows_Sitemap,
+    'DSPython_Sitemap': DSPython_Sitemap,
 }

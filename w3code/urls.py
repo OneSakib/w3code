@@ -30,13 +30,14 @@ from PythonApp.sitemaps import PY_sitemap
 from TheoryApp.sitemaps import TH_sitemap
 from VCApp.sitemaps import VC_sitemap
 from WebApp.sitemaps import W_sitemap
+from HostingApp.sitemaps import Host_sitemap
 
 sitemaps = dict()
+sitemaps.update(M_sitemap)
 sitemaps.update(D_sitemap)
 sitemaps.update(E_sitemap)
 sitemaps.update(J_sitemap)
 sitemaps.update(JS_sitemap)
-sitemaps.update(M_sitemap)
 sitemaps.update(MS_sitemap)
 sitemaps.update(Pre_sitemap)
 sitemaps.update(Pro_sitemap)
@@ -46,6 +47,7 @@ sitemaps.update(PY_sitemap)
 sitemaps.update(TH_sitemap)
 sitemaps.update(VC_sitemap)
 sitemaps.update(W_sitemap)
+sitemaps.update(Host_sitemap)
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -63,5 +65,6 @@ urlpatterns = [
     path('exercise/', include('Exercise.urls', namespace='Exercise')),
     path('programme/', include('Programmes.urls', namespace='Programme')),
     path('projects/', include('Projects.urls', namespace='Projects')),
-    path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
+    path('hosting/', include('HostingApp.urls', namespace='Hosting')),
+    path('w3/sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ]

@@ -40,32 +40,3 @@ class MariaDBAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
 
 
-# Comments
-@admin.register(MysqlDBComments)
-class MysqlDBCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(MongoDBComments)
-class MongoDBCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(PostgreSQLDBComments)
-class PostgreSQLDBCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(SqliteDBComments)
-class SqliteDBCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(OracleDBComments)
-class OracleDBCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
-
-
-@admin.register(MariaDBComments)
-class MariaDBCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']

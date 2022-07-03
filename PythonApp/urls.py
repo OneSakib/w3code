@@ -8,6 +8,8 @@ app_name = 'Python'
 urlpatterns = [
                   path('django/', views.DjangoView.as_view(), name='django'),
                   path('django/<slug>/', views.DjangoDetailView.as_view(), name='djangodetail'),
+                  path('restapi/', views.RestApiView.as_view(), name='restapi'),
+                  path('restapi/<slug>/', views.RestApiDetailView.as_view(), name='restapidetail'),
                   path('flask/', views.FlaskView.as_view(), name='flask'),
                   path('flask/<slug>/', views.FlaskDetailView.as_view(), name='flaskdetail'),
                   path('machinelearning/', views.MachineLearningView.as_view(), name='machinelearning'),
@@ -43,5 +45,7 @@ urlpatterns = [
                   path('pillow/<slug>/', views.PillowDetailView.as_view(), name='pillowdetail'),
                   path('tensorflow/', views.TensorflowView.as_view(), name='tensorflow'),
                   path('tensorflow/<slug>/', views.TensorFlowDetailView.as_view(), name='tensorflowdetail'),
+                  path('dspython/', views.DSPythonView.as_view(), name='dspython'),
+                  path('dspython/<slug>/', views.DSPythonDetailView.as_view(), name='dspythondetail'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

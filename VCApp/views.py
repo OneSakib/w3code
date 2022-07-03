@@ -1,7 +1,6 @@
 from django.shortcuts import HttpResponseRedirect
-from django.views.generic import View, FormView, DetailView
+from django.views.generic import View, DetailView
 from .models import *
-from .forms import *
 from next_prev import next_in_order, prev_in_order
 from django.urls import reverse_lazy
 
@@ -14,16 +13,14 @@ class DockerView(View):
         return HttpResponseRedirect(reverse_lazy('VC:dockerdetail', kwargs={'slug': slug}))
 
 
-class DockerDetailView(DetailView, FormView):
+class DockerDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = DockerCommentsForm
     model = Docker
 
     def get_context_data(self, **kwargs):
         context = super(DockerDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = DockerComments.objects.filter(post=self.object)
         context['title'] = 'Docker'
         # View Counter
         s = self.object
@@ -41,11 +38,6 @@ class DockerDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('VC:dockerdetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class GitView(View):
@@ -54,16 +46,14 @@ class GitView(View):
         return HttpResponseRedirect(reverse_lazy('VC:gitdetail', kwargs={'slug': slug}))
 
 
-class GitDetailView(DetailView, FormView):
+class GitDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = GitsCommentsForm
     model = Gits
 
     def get_context_data(self, **kwargs):
         context = super(GitDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = GitsComments.objects.filter(post=self.object)
         context['title'] = 'GIT'
         # View Counter
         s = self.object
@@ -81,11 +71,6 @@ class GitDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('VC:gitdetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class GithubView(View):
@@ -94,16 +79,14 @@ class GithubView(View):
         return HttpResponseRedirect(reverse_lazy('VC:githubdetail', kwargs={'slug': slug}))
 
 
-class GitHubDetailView(DetailView, FormView):
+class GitHubDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = GithubsCommentsForm
     model = Githubs
 
     def get_context_data(self, **kwargs):
         context = super(GitHubDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = GithubsComments.objects.filter(post=self.object)
         context['title'] = 'GitHub'
         # View Counter
         s = self.object
@@ -121,8 +104,3 @@ class GitHubDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('VC:githubdetail', kwargs={'slug': self.kwargs['slug']}))

@@ -15,7 +15,8 @@ TUT_TYPES = (
     ('Database-Tutorial', 'Database-Tutorial'),
     ('Web-Technology', 'Web-Technology'),
     ('Microsoft-Office', 'Microsoft-Office'),
-    ('Versioning-Control', 'Versioning-Control')
+    ('Versioning-Control', 'Versioning-Control'),
+    ('Web-Hosting', 'Web-Hosting'),
 )
 
 
@@ -65,14 +66,13 @@ class Blogs(TutCommon):
 
     class Meta:
         verbose_name_plural = 'Blogs'
-        ordering = ['-timestamp']
 
     def get_absolute_url(self):
-        return f'{HOST_NAME}{reverse_lazy("w3c:blogdetail", kwargs={"slug": self.slug})}'
+        return f'{reverse_lazy("w3c:blogdetail", kwargs={"slug": self.slug})}'
 
 
 class BlogComments(Comments):
+    ip_address = models.GenericIPAddressField(default="45.243.82.169")
     post = models.ForeignKey(Blogs, on_delete=models.CASCADE, related_name='BlogComments')
-
     class Meta:
         verbose_name_plural = 'BlogComments'

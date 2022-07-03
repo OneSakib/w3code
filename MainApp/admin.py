@@ -15,6 +15,6 @@ class BlogAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
 
 
-@admin.register(BlogComments)
-class BlogCommentsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'post']
+# @admin.register(BlogComments)
+# class BlogCommentsAdmin(admin.ModelAdmin):
+#     list_display = ['name', 'post']

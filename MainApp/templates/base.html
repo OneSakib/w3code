@@ -3,12 +3,25 @@
 <head>
     <!--load static files-->
     {% load static %}
+    <!--Google search console meta -->
+    <meta name="google-site-verification" content="O637b8VrKweSEsTgXfEogQQIqpF67zo6eWEC5MhFaA0"/>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="{% if object.title %} {{ object.title }} {% else %}Welcome to w3code{% endif %}">
     <meta name="Keywords"
           content="HTML, Python, CSS, SQL, JavaScript, How to, PHP, Java, C, C++, C#, jQuery, Bootstrap, Colors, XML, MySQL, Icons, NodeJS, React, Graphics, Angular, R, AI, Git, Data Science, Code Game, Tutorials, Programming, Web Development, Training, Learning, Quiz, Exercises, Courses, Lessons, References, Examples, Learn to code, Source code, Demos, Tips, Website">
     <meta name="Description"
           content="Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more.">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="days">
+    <meta name="author" content="Sakib Malik">
+    <!--Og properties-->
+
+    <meta property="og:title"
+          content="{% if object.title %} {{ object.title }} {% else %}Welcome to w3code{% endif %}"/>
     <meta property="og:image" content="{{ host_name }}/static/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="50">
@@ -16,10 +29,11 @@
     <meta property="og:description"
           content="W3Code offers free online tutorials, references and exercises in all the major languages of the web. Covering popular subjects like HTML, CSS, JavaScript, Python, SQL, Java, and many, many more.">
     <meta property="og:locale" content="en_US"/>
-    <meta property="og:type" content="article"/>
+    <meta property="og:type" content="website"/>
     <meta name="theme-color" content="#4CAF50"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--Twitter Meta -->
     <meta name="twitter:description" property="og:description"
           content="Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more."/>
     <meta name="twitter:title" property="og:title"
@@ -27,9 +41,9 @@
     <meta property="og:url" content="{{ host_name }}"/>
     <meta property="og:site_name" content="w3code.tech"/>
     <meta name="twitter:card" content="summary"/>
-    <meta name="twitter:site" content="@pagew3code"/>
+    <meta name="twitter:site" content="@pagew3code.tech"/>
     <meta name="twitter:domain" content="w3code.tech"/>
-    <meta name="twitter:creator" content="@pagew3code"/>
+    <meta name="twitter:creator" content="@pagew3code.tech"/>
     <title>{% block title %}Welcome to w3code{% endblock %}</title>
     <!--Code Highlight-->
     <link rel="stylesheet" type="text/css" href="{% static 'codehighlight/prism.css' %}">
@@ -38,6 +52,7 @@
     <link href="{% static 'Bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
     <!--Icon for the title bar-->
     <link rel="icon" href="{% static 'logo.ico' %}" type="image/x-icon">
+
     <!--Font awesome kit cdn-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -94,9 +109,26 @@
             right: 20px;
             display: none;
         }
-        footer a  img{
+
+        footer a img {
             height: 50px;
             width: 50px;
+        }
+
+        pre code {
+            padding: 20px !important;
+        }
+
+        .copy {
+            display: none;
+        }
+
+        pre:hover > .copy {
+            display: block;
+        }
+
+        .copy:hover {
+            background: green !important;
         }
     </style>
 </head>
@@ -315,6 +347,16 @@
                 {% endfor %}
             </ul>
         </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Web Hosting</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Web-Hosting' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
 <!--Body content Block-->
@@ -389,6 +431,33 @@
     function backToTop() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
+    }
+
+
+    // Copy to clipboard
+    const pretag = $('pre');
+    if (pretag.length > 0) {
+        for (var i = 0; i < pretag.length; i++) {
+            let spantag = document.createElement('span');
+            spantag.classList = 'badge text-white bg-primary fs-6 copy'
+            spantag.textContent = 'copy'
+            spantag.style.position = 'absolute'
+            spantag.style.top = '10px'
+            spantag.style.right = '10px'
+            spantag.style.zIndex = '1'
+            spantag.style.cursor = 'pointer'
+            spantag.id = 'span-' + i
+            pretag[i].appendChild(spantag)
+        }
+        $('.copy').on('click', function () {
+            let ele = $(this)
+            ele.text('copied');
+            let parentele = ele.parent()
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(parentele.text().replace('copied', ''))
+            console.log(parentele.text().replace('copied', ''))
+
+        })
     }
 </script>
 </html>

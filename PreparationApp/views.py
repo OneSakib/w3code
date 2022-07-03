@@ -1,7 +1,6 @@
 from django.shortcuts import HttpResponseRedirect
-from django.views.generic import View, FormView, DetailView
+from django.views.generic import View, DetailView
 from .models import *
-from .forms import *
 from next_prev import next_in_order, prev_in_order
 
 
@@ -12,16 +11,14 @@ class AptitudeView(View):
         return HttpResponseRedirect(reverse_lazy('Preparation:aptitudedetail', kwargs={'slug': slug}))
 
 
-class AptitudeDetailView(DetailView, FormView):
+class AptitudeDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = AptitudeCommentsForm
     model = Aptitude
 
     def get_context_data(self, **kwargs):
         context = super(AptitudeDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = AptitudeComments.objects.filter(post=self.object)
         context['title'] = 'Aptitude'
         # View Counter
         s = self.object
@@ -39,11 +36,6 @@ class AptitudeDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Preparation:aptitudedetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class ReasoningView(View):
@@ -52,16 +44,14 @@ class ReasoningView(View):
         return HttpResponseRedirect(reverse_lazy('Preparation:reasoningdetail', kwargs={'slug': slug}))
 
 
-class ReasoningDetailView(DetailView, FormView):
+class ReasoningDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = ReasoningCommentsForm
     model = Reasoning
 
     def get_context_data(self, **kwargs):
         context = super(ReasoningDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = ReasoningComments.objects.filter(post=self.object)
         context['title'] = 'Reasoning'
         # View Counter
         s = self.object
@@ -79,11 +69,6 @@ class ReasoningDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Preparation:reasoningdetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class VerbalAbilityView(View):
@@ -92,16 +77,14 @@ class VerbalAbilityView(View):
         return HttpResponseRedirect(reverse_lazy('Preparation:verbalabilitydetail', kwargs={'slug': slug}))
 
 
-class VerbalAbilityDetailView(DetailView, FormView):
+class VerbalAbilityDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = VerbalAbilityCommentsForm
     model = VerbalAbility
 
     def get_context_data(self, **kwargs):
         context = super(VerbalAbilityDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = VerbalAbilityComments.objects.filter(post=self.object)
         context['title'] = 'Verbal Ability'
         # View Counter
         s = self.object
@@ -119,12 +102,6 @@ class VerbalAbilityDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(
-            reverse_lazy('Preparation:verbalabilitydetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class InterViewQuestionView(View):
@@ -133,16 +110,14 @@ class InterViewQuestionView(View):
         return HttpResponseRedirect(reverse_lazy('Preparation:interviewquestiondetail', kwargs={'slug': slug}))
 
 
-class InterviewQuestionDetailView(DetailView, FormView):
+class InterviewQuestionDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = InterviewQuestionCommentsForm
     model = InterviewQuestion
 
     def get_context_data(self, **kwargs):
         context = super(InterviewQuestionDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = InterviewQuestionComments.objects.filter(post=self.object)
         context['title'] = 'Interview Question'
         # View Counter
         s = self.object
@@ -160,13 +135,6 @@ class InterviewQuestionDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(
-            reverse_lazy('Preparation:interviewquestiondetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class CompanyQuestionView(View):
     def get(self, request):
@@ -174,16 +142,14 @@ class CompanyQuestionView(View):
         return HttpResponseRedirect(reverse_lazy('Preparation:companyquestiondetail', kwargs={'slug': slug}))
 
 
-class CompanyQuestionDetailView(DetailView, FormView):
+class CompanyQuestionDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = CompanyQuestionCommentsForm
     model = CompanyQuestion
 
     def get_context_data(self, **kwargs):
         context = super(CompanyQuestionDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = CompanyQuestionComments.objects.filter(post=self.object)
         context['title'] = 'Company Question'
         # View Counter
         s = self.object
@@ -201,9 +167,3 @@ class CompanyQuestionDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(
-            reverse_lazy('Preparation:companyquestiondetail', kwargs={'slug': self.kwargs['slug']}))

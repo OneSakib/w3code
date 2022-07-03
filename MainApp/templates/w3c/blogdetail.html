@@ -1,7 +1,28 @@
 {% extends 'base.html' %}
 {% block title %}{{ object.title }}{% endblock %}
+{% block css %}
+    <style>
+        pre code {
+            padding: 20px !important;
+        }
+
+        .copy:hover {
+            background: white !important;
+            color: black !important;
+        }
+    </style>
+{% endblock %}
 {% block content %}
-    <div class="container-lg ">
+    <div class="container-lg mt-1">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    <strong>Message:</strong>{{ message }}
+                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
         <!--Body of Blog-->
         <h3 class="text-center text-white p-1 rounded-2 bg-secondary">{{ object.title }}</h3>
         <p>Views: <b>{{ object.viewcounter }}</b>&nbsp;<b>{{ object.timestamp }}</b></p>
@@ -99,5 +120,41 @@
             </div>
         </section>
     </div>
+{% endblock %}
+{% block js %}
+    <script>
+        // Copy to clipboard
+        const pretag = $('pre');
+        if (pretag.length > 0) {
+            let spantag = document.createElement('span');
+            spantag.classList = 'badge text-white bg-dark fs-6 copy'
+            spantag.textContent = 'copy'
+            spantag.style.position = 'absolute'
+            spantag.style.top = '10px'
+            spantag.style.right = '10px'
+            spantag.style.zIndex = '1'
+            spantag.style.cursor = 'pointer'
 
+            for (var i = 0; i < pretag.length; i++) {
+
+                let spantag = document.createElement('span');
+                spantag.classList = 'badge text-white bg-dark fs-6 copy'
+                spantag.textContent = 'copy'
+                spantag.style.position = 'absolute'
+                spantag.style.top = '10px'
+                spantag.style.right = '10px'
+                spantag.style.zIndex = '1'
+                spantag.style.cursor = 'pointer'
+                spantag.id = 'span-' + i
+                pretag[i].appendChild(spantag)
+            }
+            $('.copy').on('click', function () {
+                let ele = $(this)
+                ele.text('copied');
+                let parentele = ele.parent()
+                /* Copy the text inside the text field */
+                navigator.clipboard.writeText(parentele.text().replace('copied', ''))
+            })
+        }
+    </script>
 {% endblock %}

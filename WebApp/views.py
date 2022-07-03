@@ -1,6 +1,5 @@
 from django.shortcuts import HttpResponseRedirect
-from django.views.generic import View, FormView, DetailView
-from .forms import *
+from django.views.generic import View, DetailView
 from .models import *
 from django.urls import reverse_lazy
 from next_prev import next_in_order, prev_in_order
@@ -14,16 +13,14 @@ class HtmlView(View):
         return HttpResponseRedirect(reverse_lazy('Web:htmldetail', kwargs={'slug': slug}))
 
 
-class HTMLDetailView(DetailView, FormView):
+class HTMLDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = HTMLsCommentsForm
     model = HTMLs
 
     def get_context_data(self, **kwargs):
         context = super(HTMLDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = HTMLsComments.objects.filter(post=self.object)
         context['title'] = 'HTML'
         # View Counter
         s = self.object
@@ -41,12 +38,6 @@ class HTMLDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Web:htmldetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class CSSView(View):
     def get(self, request):
@@ -54,16 +45,14 @@ class CSSView(View):
         return HttpResponseRedirect(reverse_lazy('Web:cssdetail', kwargs={'slug': slug}))
 
 
-class CSSDetailView(DetailView, FormView):
+class CSSDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = CSSsCommentsForm
     model = CSSs
 
     def get_context_data(self, **kwargs):
         context = super(CSSDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = CSSsComments.objects.filter(post=self.object)
         context['title'] = 'CSS'
         # View Counter
         s = self.object
@@ -81,11 +70,6 @@ class CSSDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Web:cssdetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class LaravelView(View):
@@ -94,16 +78,14 @@ class LaravelView(View):
         return HttpResponseRedirect(reverse_lazy('Web:laraveldetail', kwargs={'slug': slug}))
 
 
-class LaravelDetailView(DetailView, FormView):
+class LaravelDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = LaravelsCommentsForm
     model = Laravels
 
     def get_context_data(self, **kwargs):
         context = super(LaravelDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = LaravelsComments.objects.filter(post=self.object)
         context['title'] = 'Laravel'
         # View Counter
         s = self.object
@@ -121,11 +103,6 @@ class LaravelDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Web:laraveldetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class WordpressView(View):
@@ -134,16 +111,14 @@ class WordpressView(View):
         return HttpResponseRedirect(reverse_lazy('Web:wordpressdetail', kwargs={'slug': slug}))
 
 
-class WordpressDetailView(DetailView, FormView):
+class WordpressDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = WordpressCommentsForm
     model = Wordpress
 
     def get_context_data(self, **kwargs):
         context = super(WordpressDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = WordpressComments.objects.filter(post=self.object)
         context['title'] = 'Wordpress'
         # View Counter
         s = self.object
@@ -161,11 +136,6 @@ class WordpressDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Web:wordpressdetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class JSONView(View):
@@ -174,16 +144,14 @@ class JSONView(View):
         return HttpResponseRedirect(reverse_lazy('Web:jsondetail', kwargs={'slug': slug}))
 
 
-class JSONDetailView(DetailView, FormView):
+class JSONDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = JSONsCommentsForm
     model = JSONs
 
     def get_context_data(self, **kwargs):
         context = super(JSONDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = JSONsComments.objects.filter(post=self.object)
         context['title'] = 'JSON'
         # View Counter
         s = self.object
@@ -201,11 +169,6 @@ class JSONDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Web:jsondetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class AJAXView(View):
@@ -214,16 +177,14 @@ class AJAXView(View):
         return HttpResponseRedirect(reverse_lazy('Web:ajaxdetail', kwargs={'slug': slug}))
 
 
-class AJAXDetailView(DetailView, FormView):
+class AJAXDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = AjaxsCommentsForm
     model = Ajaxs
 
     def get_context_data(self, **kwargs):
         context = super(AJAXDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = AjaxsComments.objects.filter(post=self.object)
         context['title'] = 'AJAX'
         # View Counter
         s = self.object
@@ -241,11 +202,6 @@ class AJAXDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Web:ajaxdetail', kwargs={'slug': self.kwargs['slug']}))
 
 
 class BootstrapView(View):
@@ -254,16 +210,14 @@ class BootstrapView(View):
         return HttpResponseRedirect(reverse_lazy('Web:bootstrapdetail', kwargs={'slug': slug}))
 
 
-class BootstrapDetailView(DetailView, FormView):
+class BootstrapDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = BootstrapsCommentsForm
     model = Bootstraps
 
     def get_context_data(self, **kwargs):
         context = super(BootstrapDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = BootstrapsComments.objects.filter(post=self.object)
         context['title'] = 'Bootstrap'
         # View Counter
         s = self.object
@@ -281,8 +235,3 @@ class BootstrapDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Web:bootstrapdetail', kwargs={'slug': self.kwargs['slug']}))

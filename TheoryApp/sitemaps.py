@@ -68,6 +68,11 @@ class WebApi_Sitemap(CommonSitemap):
         return WebApi.objects.all()
 
 
+class DDBMS_Sitemap(CommonSitemap):
+    def items(self):
+        return DDBMS.objects.all()
+
+
 TH_sitemap = {
     'DBMS_Sitemap': DBMS_Sitemap,
     'DAA_Sitemap': DAA_Sitemap,
@@ -75,11 +80,12 @@ TH_sitemap = {
     'ComputerNetwork_Sitemap': ComputerNetwork_Sitemap,
     'CompilerDesign_Sitemap': CompilerDesign_Sitemap,
     'DiscreteMathematics_Sitemap': DiscreteMathematics_Sitemap,
-    'SoftwareEngineering_Sitemap ': SoftwareEngineering_Sitemap,
-    'CyberSecurity_Sitemap ': CyberSecurity_Sitemap,
-    'DataMining_Sitemap ': DataMining_Sitemap,
-    ' ArtificialIntelligence_Sitemap': ArtificialIntelligence_Sitemap,
-    'Automata_Sitemap ': Automata_Sitemap,
-    'ComputerGraphics_Sitemap ': ComputerGraphics_Sitemap,
-    ' WebApi_Sitemap': WebApi_Sitemap
+    'SoftwareEngineering_Sitemap': SoftwareEngineering_Sitemap,
+    'CyberSecurity_Sitemap': CyberSecurity_Sitemap,
+    'DataMining_Sitemap': DataMining_Sitemap,
+    'ArtificialIntelligence_Sitemap': ArtificialIntelligence_Sitemap,
+    'Automata_Sitemap': Automata_Sitemap,
+    'ComputerGraphics_Sitemap': ComputerGraphics_Sitemap,
+    'WebApi_Sitemap': WebApi_Sitemap,
+    'DDBMS_Sitemap': DDBMS_Sitemap,
 }

@@ -21,6 +21,8 @@ class CExerciseDetailView(DetailView):
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
         context['title'] = 'C Exercise'
+        print(self.request.META.get('HTTP_X_FORWARDED_FOR'))
+
         # View Counter
         s = self.object
         s.viewcounter += 1

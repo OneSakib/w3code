@@ -1,7 +1,6 @@
 from django.shortcuts import HttpResponseRedirect
-from django.views.generic import View, FormView, DetailView
+from django.views.generic import View, DetailView
 from .models import *
-from .forms import *
 from next_prev import next_in_order, prev_in_order
 from django.urls import reverse_lazy
 
@@ -13,16 +12,14 @@ class DjangoView(View):
         return HttpResponseRedirect(reverse_lazy('Python:djangodetail', kwargs={'slug': slug}))
 
 
-class DjangoDetailView(DetailView, FormView):
+class DjangoDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = DjangoCommentsForm
     model = Django
 
     def get_context_data(self, **kwargs):
         context = super(DjangoDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = DjangoComments.objects.filter(post=self.object)
         context['title'] = 'Django'
         # View Counter
         s = self.object
@@ -40,11 +37,37 @@ class DjangoDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:djangodetail', kwargs={'slug': self.kwargs['slug']}))
+
+class RestApiView(View):
+    def get(self, request):
+        slug = RestApi.objects.first().slug
+        return HttpResponseRedirect(reverse_lazy('Python:restapidetail', kwargs={'slug': slug}))
+
+
+class RestApiDetailView(DetailView):
+    template_name = 'w3c/detail.html'
+    model = RestApi
+
+    def get_context_data(self, **kwargs):
+        context = super(RestApiDetailView, self).get_context_data(**kwargs)
+        obj_list = self.model.objects.all()
+        context['obj_list'] = obj_list
+        context['title'] = 'RestApi'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
+        # Pagination
+        currentpost = self.object
+        prev = prev_in_order(currentpost)
+        next = next_in_order(currentpost)
+        context['prev'] = None
+        context['next'] = None
+        if prev != None:
+            context['prev'] = prev
+        if next != None:
+            context['next'] = next
+        return context
 
 
 class FlaskView(View):
@@ -53,16 +76,14 @@ class FlaskView(View):
         return HttpResponseRedirect(reverse_lazy('Python:flaskdetail', kwargs={'slug': slug}))
 
 
-class FlaskDetailView(DetailView, FormView):
+class FlaskDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = FlaskCommentsForm
     model = Flask
 
     def get_context_data(self, **kwargs):
         context = super(FlaskDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = FlaskComments.objects.filter(post=self.object)
         context['title'] = 'Flask'
         # View Counter
         s = self.object
@@ -80,12 +101,6 @@ class FlaskDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:flaskdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class MachineLearningView(View):
     def get(self, request):
@@ -93,16 +108,14 @@ class MachineLearningView(View):
         return HttpResponseRedirect(reverse_lazy('Python:machinelearningdetail', kwargs={'slug': slug}))
 
 
-class MachineLearningDetailView(DetailView, FormView):
+class MachineLearningDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = MachineLearningCommentsForm
     model = MachineLearning
 
     def get_context_data(self, **kwargs):
         context = super(MachineLearningDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = MachineLearningComments.objects.filter(post=self.object)
         context['title'] = 'Machine Learning'
         # View Counter
         s = self.object
@@ -120,12 +133,6 @@ class MachineLearningDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:machinelearningdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class NumpyView(View):
     def get(self, request):
@@ -133,16 +140,14 @@ class NumpyView(View):
         return HttpResponseRedirect(reverse_lazy('Python:numpydetail', kwargs={'slug': slug}))
 
 
-class NumpyDetailView(DetailView, FormView):
+class NumpyDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = NumpysCommentsForm
     model = Numpys
 
     def get_context_data(self, **kwargs):
         context = super(NumpyDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = NumpysComments.objects.filter(post=self.object)
         context['title'] = 'Numpy'
         # View Counter
         s = self.object
@@ -160,12 +165,6 @@ class NumpyDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:numpydetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class TkinterView(View):
     def get(self, request):
@@ -173,16 +172,14 @@ class TkinterView(View):
         return HttpResponseRedirect(reverse_lazy('Python:tkinterdetail', kwargs={'slug': slug}))
 
 
-class TkinterDetailView(DetailView, FormView):
+class TkinterDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = TkintersCommentsForm
     model = Tkinters
 
     def get_context_data(self, **kwargs):
         context = super(TkinterDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = TkintersComments.objects.filter(post=self.object)
         context['title'] = 'Tkinter'
         # View Counter
         s = self.object
@@ -200,12 +197,6 @@ class TkinterDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:tkinterdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class PytorchView(View):
     def get(self, request):
@@ -213,16 +204,14 @@ class PytorchView(View):
         return HttpResponseRedirect(reverse_lazy('Python:pytorchdetail', kwargs={'slug': slug}))
 
 
-class PytorchDetailView(DetailView, FormView):
+class PytorchDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = PytorchsCommentsForm
     model = Pytorchs
 
     def get_context_data(self, **kwargs):
         context = super(PytorchDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = PytorchsComments.objects.filter(post=self.object)
         context['title'] = 'Pytorch'
         # View Counter
         s = self.object
@@ -240,12 +229,6 @@ class PytorchDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:pytorchdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class PygameView(View):
     def get(self, request):
@@ -253,16 +236,14 @@ class PygameView(View):
         return HttpResponseRedirect(reverse_lazy('Python:pygamedetail', kwargs={'slug': slug}))
 
 
-class PygameDetailView(DetailView, FormView):
+class PygameDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = PygamesCommentsForm
     model = Pygames
 
     def get_context_data(self, **kwargs):
         context = super(PygameDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = PygamesComments.objects.filter(post=self.object)
         context['title'] = 'PyGame'
         # View Counter
         s = self.object
@@ -280,12 +261,6 @@ class PygameDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:pygamedetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class ScipyView(View):
     def get(self, request):
@@ -293,16 +268,14 @@ class ScipyView(View):
         return HttpResponseRedirect(reverse_lazy('Python:scipydetail', kwargs={'slug': slug}))
 
 
-class ScipyDetailView(DetailView, FormView):
+class ScipyDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = ScipysCommentsForm
     model = Scipys
 
     def get_context_data(self, **kwargs):
         context = super(ScipyDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = ScipysComments.objects.filter(post=self.object)
         context['title'] = 'SciPy'
         # View Counter
         s = self.object
@@ -320,12 +293,6 @@ class ScipyDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:scipydetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class PandasView(View):
     def get(self, request):
@@ -333,16 +300,14 @@ class PandasView(View):
         return HttpResponseRedirect(reverse_lazy('Python:pandasdetail', kwargs={'slug': slug}))
 
 
-class PandasDetailView(DetailView, FormView):
+class PandasDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = PandassCommentsForm
     model = Pandass
 
     def get_context_data(self, **kwargs):
         context = super(PandasDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = PandassComments.objects.filter(post=self.object)
         context['title'] = 'Pandas'
         # View Counter
         s = self.object
@@ -360,12 +325,6 @@ class PandasDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:pandasdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class OpenCVView(View):
     def get(self, request):
@@ -373,16 +332,14 @@ class OpenCVView(View):
         return HttpResponseRedirect(reverse_lazy('Python:opencvdetail', kwargs={'slug': slug}))
 
 
-class OpenCVDetailView(DetailView, FormView):
+class OpenCVDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = OpenCVsCommentsForm
     model = OpenCVs
 
     def get_context_data(self, **kwargs):
         context = super(OpenCVDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = OpenCVsComments.objects.filter(post=self.object)
         context['title'] = 'OpenCV'
         # View Counter
         s = self.object
@@ -400,12 +357,6 @@ class OpenCVDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:opencvdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class MatplotlibView(View):
     def get(self, request):
@@ -413,16 +364,14 @@ class MatplotlibView(View):
         return HttpResponseRedirect(reverse_lazy('Python:matplotlibdetail', kwargs={'slug': slug}))
 
 
-class MatplotlibDetailView(DetailView, FormView):
+class MatplotlibDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = MatplotlibsCommentsForm
     model = Matplotlibs
 
     def get_context_data(self, **kwargs):
         context = super(MatplotlibDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = MatplotlibsComments.objects.filter(post=self.object)
         context['title'] = 'Matplotlib'
         # View Counter
         s = self.object
@@ -440,12 +389,6 @@ class MatplotlibDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:matplotlibdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class SeleniumView(View):
     def get(self, request):
@@ -453,16 +396,14 @@ class SeleniumView(View):
         return HttpResponseRedirect(reverse_lazy('Python:seleniumdetail', kwargs={'slug': slug}))
 
 
-class SeleniumDetailView(DetailView, FormView):
+class SeleniumDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = SeleniumsCommentsForm
     model = Seleniums
 
     def get_context_data(self, **kwargs):
         context = super(SeleniumDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = SeleniumsComments.objects.filter(post=self.object)
         context['title'] = 'Selenium'
         # View Counter
         s = self.object
@@ -480,12 +421,6 @@ class SeleniumDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:seleniumdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class KivyView(View):
     def get(self, request):
@@ -493,16 +428,14 @@ class KivyView(View):
         return HttpResponseRedirect(reverse_lazy('Python:kivydetail', kwargs={'slug': slug}))
 
 
-class KivyDetailView(DetailView, FormView):
+class KivyDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = KivysCommentsForm
     model = Kivys
 
     def get_context_data(self, **kwargs):
         context = super(KivyDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = KivysComments.objects.filter(post=self.object)
         context['title'] = 'Kivy'
         # View Counter
         s = self.object
@@ -520,12 +453,6 @@ class KivyDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:kivydetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class JupyterView(View):
     def get(self, request):
@@ -533,16 +460,14 @@ class JupyterView(View):
         return HttpResponseRedirect(reverse_lazy('Python:jupyterdetail', kwargs={'slug': slug}))
 
 
-class JupyterDetailView(DetailView, FormView):
+class JupyterDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = JupytersCommentsForm
     model = Jupyters
 
     def get_context_data(self, **kwargs):
         context = super(JupyterDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = JupytersComments.objects.filter(post=self.object)
         context['title'] = 'Jupyter'
         # View Counter
         s = self.object
@@ -560,12 +485,6 @@ class JupyterDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:jupyterdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class DataScienceView(View):
     def get(self, request):
@@ -573,16 +492,14 @@ class DataScienceView(View):
         return HttpResponseRedirect(reverse_lazy('Python:datasciencedetail', kwargs={'slug': slug}))
 
 
-class DataScienceDetailView(DetailView, FormView):
+class DataScienceDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = DataScienceCommentsForm
     model = DataScience
 
     def get_context_data(self, **kwargs):
         context = super(DataScienceDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = DataScienceComments.objects.filter(post=self.object)
         context['title'] = 'Data Science'
         # View Counter
         s = self.object
@@ -600,12 +517,6 @@ class DataScienceDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:datasciencedetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class DeepLearningView(View):
     def get(self, request):
@@ -613,16 +524,14 @@ class DeepLearningView(View):
         return HttpResponseRedirect(reverse_lazy('Python:deeplearningdetail', kwargs={'slug': slug}))
 
 
-class DeepLearningDetailView(DetailView, FormView):
+class DeepLearningDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = DeepLearningCommentsForm
     model = DeepLearning
 
     def get_context_data(self, **kwargs):
         context = super(DeepLearningDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = DeepLearningComments.objects.filter(post=self.object)
         context['title'] = 'Deep Learning'
         # View Counter
         s = self.object
@@ -640,12 +549,6 @@ class DeepLearningDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:deeplearningdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class PillowView(View):
     def get(self, request):
@@ -653,16 +556,14 @@ class PillowView(View):
         return HttpResponseRedirect(reverse_lazy('Python:pillowdetail', kwargs={'slug': slug}))
 
 
-class PillowDetailView(DetailView, FormView):
+class PillowDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = PillowsCommentsForm
     model = Pillows
 
     def get_context_data(self, **kwargs):
         context = super(PillowDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = PillowsComments.objects.filter(post=self.object)
         context['title'] = 'Pillow'
         # View Counter
         s = self.object
@@ -680,12 +581,6 @@ class PillowDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:pillowdetail', kwargs={'slug': self.kwargs['slug']}))
-
 
 class TensorflowView(View):
     def get(self, request):
@@ -693,16 +588,14 @@ class TensorflowView(View):
         return HttpResponseRedirect(reverse_lazy('Python:tensorflowdetail', kwargs={'slug': slug}))
 
 
-class TensorFlowDetailView(DetailView, FormView):
+class TensorFlowDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    form_class = TensorflowsCommentsForm
     model = Tensorflows
 
     def get_context_data(self, **kwargs):
         context = super(TensorFlowDetailView, self).get_context_data(**kwargs)
         obj_list = self.model.objects.all()
         context['obj_list'] = obj_list
-        context['comments'] = TensorflowsComments.objects.filter(post=self.object)
         context['title'] = 'Tensorflow'
         # View Counter
         s = self.object
@@ -720,8 +613,34 @@ class TensorFlowDetailView(DetailView, FormView):
             context['next'] = next
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        form.instance.post = self.model.objects.get(slug=self.kwargs.get('slug'))
-        form.save()
-        return HttpResponseRedirect(reverse_lazy('Python:tensorflowdetail', kwargs={'slug': self.kwargs['slug']}))
+
+class DSPythonView(View):
+    def get(self, request):
+        slug = DSPython.objects.first().slug
+        return HttpResponseRedirect(reverse_lazy('Python:dspythondetail', kwargs={'slug': slug}))
+
+
+class DSPythonDetailView(DetailView):
+    template_name = 'w3c/detail.html'
+    model = DSPython
+
+    def get_context_data(self, **kwargs):
+        context = super(DSPythonDetailView, self).get_context_data(**kwargs)
+        obj_list = self.model.objects.all()
+        context['obj_list'] = obj_list
+        context['title'] = 'DSPython'
+        # View Counter
+        s = self.object
+        s.viewcounter += 1
+        s.save()
+        # Pagination
+        currentpost = self.object
+        prev = prev_in_order(currentpost)
+        next = next_in_order(currentpost)
+        context['prev'] = None
+        context['next'] = None
+        if prev != None:
+            context['prev'] = prev
+        if next != None:
+            context['next'] = next
+        return context
