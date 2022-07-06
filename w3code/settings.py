@@ -165,6 +165,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
     'theme': 'silver',
+    'images_upload_url': '/upload_image/',
+    'height': '300',
     'plugins': 'codesample'
                '''
                    textcolor save link image media preview codesample contextmenu
@@ -175,11 +177,12 @@ TINYMCE_DEFAULT_CONFIG = {
                    ''',
     'toolbar1': 'codesample'
                 '''
-                    fullscreen preview bold italic underline | fontselect,
-                    fontsizeselect  | forecolor backcolor | alignleft alignright |
+                    fullscreen preview bold italic underline print fullpage | fontselect,
+                    fontsizeselect  | forecolor backcolor emotions | alignleft alignright |
                     aligncenter alignjustify | indent outdent | bullist numlist table |
-                    | link image media | codesample |
+                    | link image media | codesample | undo redo | styleselect | uploadimage help 
                     ''',
+    'paste_data_images': 'true',
     'toolbar2': '''
             visualblocks visualchars |
             charmap hr pagebreak nonbreaking anchor |  code |

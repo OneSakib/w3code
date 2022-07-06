@@ -18,4 +18,4 @@ urlpatterns = [
                   path('sqlite/<slug>/', views.SqliteDetailView.as_view(), name='sqlitedetail'),
                   path('mariadb/', views.MariaDBView.as_view(), name='mariadbd'),
                   path('mariadb/<slug>/', views.MariaDBDetailView.as_view(), name='mariadbddetail'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

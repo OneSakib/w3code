@@ -32,4 +32,4 @@ urlpatterns = [
                   path('dotnetlanguage/', views.DotNetView.as_view(), name='dotnet'),
                   path('dotnetlanguage/<slug>/', views.DotNetLanguageDetailView.as_view(), name='dotnetdetail'),
 
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

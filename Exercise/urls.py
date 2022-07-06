@@ -29,4 +29,4 @@ urlpatterns = [
                   path('phpexercise/<slug>/', views.PHPExerciseDetailView.as_view(), name='phpexercisedetail'),
                   path('dotnetexercise/', views.DotNetExerciseView.as_view(), name='dotnetexercise'),
                   path('dotnetexercise/<slug>/', views.DotNetExerciseDetailView.as_view(), name='dotnetexercisedetail'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

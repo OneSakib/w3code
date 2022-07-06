@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse, redirect
 from django.http import JsonResponse
 from django.views.generic import ListView, FormView, DetailView, View
@@ -12,6 +13,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -267,3 +269,31 @@ class Bookmark(View):
 def error_404(request, exception):
     data = {}
     return render(request, 'error.html', status=404)
+
+
+# Image for the post Upload
+@method_decorator(csrf_exempt, name='dispatch')
+class ImageUpload(View):
+    def post(self, request, **kwargs):
+        file_obj = request.FILES['file']
+        file_name_suffix = file_obj.name.split('.')[-1]
+        if file_name_suffix not in ["jpg", "png"]:
+            return JsonResponse({"message": "Wrong File Format"})
+        path = os.path.join(settings.MEDIA_ROOT, 'tinymce', )
+        # if there is not such path create it
+        if not os.path.exists(path):
+            os.makedirs(path)
+        file_path = os.path.join(path, file_obj.name)
+        file_url = f"{settings.MEDIA_URL}tinymce/{file_obj.name}"
+        if os.path.exists(file_path):
+            return JsonResponse({
+                "message": "File already exist",
+                "location": file_url
+            })
+        with open(file_path, 'wb+') as f:
+            for chunk in file_obj.chunks():
+                f.write(chunk)
+        return JsonResponse({
+            "message": "Image Uploaded Successfully",
+            "location": file_url
+        })

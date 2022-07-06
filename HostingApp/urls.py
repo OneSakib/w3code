@@ -33,4 +33,4 @@ urlpatterns = [
                   path('godaddy/', views.GoDaddyView.as_view(), name='godaddy'),
                   path('godaddy/<slug>/', views.GoDaddyDetailView.as_view(), name='godaddydetail'),
 
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ] 

@@ -19,4 +19,4 @@ urlpatterns = [
                   path('companyquestion/', views.CompanyQuestionView.as_view(), name='companyquestion'),
                   path('companyquestion/<slug>/', views.CompanyQuestionDetailView.as_view(),
                        name='companyquestiondetail'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

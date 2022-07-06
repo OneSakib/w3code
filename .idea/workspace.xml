@@ -6,7 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="5365347c-ec17-4fa3-8ad7-2b00be50eb90" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercise/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HostingApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/HostingApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaScriptApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScriptApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MsApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/MsApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PreparationApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PreparationApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programmes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programmes/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProgrammingApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProgrammingApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheoryApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/TheoryApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VCApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/VCApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebApp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/w3code/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/w3code/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/w3code/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/w3code/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +121,7 @@
       <workItem from="1657086467376" duration="10498000" />
       <workItem from="1657106853577" duration="3211000" />
       <workItem from="1657113616621" duration="2239000" />
-      <workItem from="1657117005346" duration="2060000" />
+      <workItem from="1657117005346" duration="4734000" />
     </task>
     <servers />
   </component>

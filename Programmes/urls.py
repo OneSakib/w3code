@@ -33,4 +33,4 @@ urlpatterns = [
                   path('dotnetprogramme/', views.DotNetProgrammeView.as_view(), name='dotnetprogramme'),
                   path('dotnetprogramme/<slug>/', views.DotNetProgrammeDetailView.as_view(),
                        name='dotnetprogrammedetail'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

@@ -31,6 +31,8 @@ from TheoryApp.sitemaps import TH_sitemap
 from VCApp.sitemaps import VC_sitemap
 from WebApp.sitemaps import W_sitemap
 from HostingApp.sitemaps import Host_sitemap
+from django.conf import settings
+from django.conf.urls.static import static
 
 sitemaps = dict()
 sitemaps.update(M_sitemap)
@@ -66,8 +68,12 @@ urlpatterns = [
     path('programme/', include('Programmes.urls', namespace='Programme')),
     path('projects/', include('Projects.urls', namespace='Projects')),
     path('hosting/', include('HostingApp.urls', namespace='Hosting')),
-    path('w3/sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('w3/sitemap.xml/', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
     path('accounts/', include('allauth.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'MainApp.views.error_404'

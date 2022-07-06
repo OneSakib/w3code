@@ -21,4 +21,4 @@ urlpatterns = [
                   path('typescript/<slug>/', views.TypescriptDetailView.as_view(), name='typescriptdetail'),
                   path('vuejs/', views.VuejsView.as_view(), name='vuejs'),
                   path('vuejs/<slug>/', views.VuejsDetailView.as_view(), name='vuejsdetail'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

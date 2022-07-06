@@ -49,4 +49,4 @@ urlpatterns = [
                   path('webapi/<slug>/', views.WebAPIDetailView.as_view(), name='webapidetail'),
                   path('ddbms/', views.DDBMSView.as_view(), name='ddbms'),
                   path('ddbms/<slug>/', views.DDBMSDetailView.as_view(), name='ddbmsdetail'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

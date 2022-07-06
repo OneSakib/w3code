@@ -20,4 +20,5 @@ urlpatterns = [
                   path('savedarticle/', views.UserSaveArticle.as_view(), name='savedarticle'),
                   path('profileupdate/', views.UserProfileUpdate.as_view(), name='profileupdate'),
                   path('bookmark/', views.Bookmark.as_view(), name='bookmark'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('upload_image/', views.ImageUpload.as_view(), name='upload_image')
+              ]

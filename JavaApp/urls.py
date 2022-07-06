@@ -31,4 +31,4 @@ urlpatterns = [
                   path('javaio/', views.JavaIOView.as_view(), name='javaio'),
                   path('javaio/<slug>/', views.JavaIODetailView.as_view(), name='javaiodetail'),
 
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]

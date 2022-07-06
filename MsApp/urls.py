@@ -14,4 +14,4 @@ urlpatterns = [
                   path('mspowerpoint/<slug>/', views.MSPowerpointDetailView.as_view(), name='mspowerpointdetail'),
                   path('msonenote/', views.MSOneNoteView.as_view(), name='msonenote'),
                   path('msonenote/<slug>/', views.MSOneNoteDetailView.as_view(), name='msonenotedetail'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]
