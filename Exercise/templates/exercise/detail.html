@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}{{ object.title }} {% endblock %}
+{% load bookmarkfilter %}
+{% block title %}{{ title }} {{ object.title }} {% endblock %}
 {% block css %}
     <style>
         .con-list {
@@ -7,35 +8,32 @@
             top: 0;
             height: 600px;
             overflow: auto;
+            width: 22%;
+            background-color: white;
+        }
+
+        .accordion-body a {
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 10px 13px;
+        }
+
+        .accordion-body a:hover {
+            font-size: 18px;
+        }
+
+        .accordion {
             background-color: #dedcdc;
-            width: 18%;
+        }
+
+        .accordion button:hover {
+            background-color: #e3e3e3;
+
         }
 
         .con-body {
             width: 75%;
-        }
-
-        .con-list a {
-            text-decoration: none;
-            margin-left: 10px;
-            color: black;
-        }
-
-        .con-list li:hover {
-            background-color: #bdbbbb;
-        }
-
-        ul li.active {
-            background-color: RGB(4, 170, 109);
-        }
-
-        ul li.active a {
-            color: white;
-        }
-
-        .show-button {
-            background-color: #627a3e;
-            color: white;
         }
 
         @media (max-width: 700px) {
@@ -62,6 +60,11 @@
                 font-size: 17px;
             }
         }
+
+        .like-share {
+            font-size: 25px;
+        }
+
     </style>
 {% endblock %}
 {% block content %}
@@ -69,19 +72,87 @@
     <div class="row" id="row">
         <div class="con-list" id="con-list">
             <h4 class="ms-3">{{ title }}</h4>
-            <ul class="list-unstyled">
+            <div class="accordion accordion-flush" id="accordion-list">
                 {% for l in obj_list %}
-                    <li class="{% if l.slug == object.slug %}active{% endif %}"><a
-                            href="{{ l.get_absolute_url }}">{{ l.title }}</a></li>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="accordion-heading-{{ forloop.counter }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#accordion-{{ forloop.counter }}" aria-expanded="false"
+                                    aria-controls="accordion-{{ forloop.counter }}">
+                                {{ l.title }}
+                            </button>
+                        </h2>
+                        <div id="accordion-{{ forloop.counter }}" class="accordion-collapse collapse"
+                             aria-labelledby="accordion-{{ forloop.counter }}" data-bs-parent="#accordion-list">
+                            <div class="accordion-body">
+                                {% for o in l.get_child %}
+                                    {% if l.title == o.parent.title %}
+                                        <a href="{{ o.get_absolute_url }}">{{ o.title }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
         <div class="con-body mt-2">
             <!--Body of Detail-->
-            <h3 class="text-center text-white p-1 rounded-2 bg-secondary">{{ object.title }}</h3>
-            <p>Views: <b>{{ object.viewcounter }}</b>&nbsp;<b>{{ object.timestamp }}</b></p>
-            <section class="overflow-auto">
-                {% for o in object.questionlist %}
+            <h3 class="text-center text-white p-1 rounded-2 bg-secondary">{{ object.title|title }}</h3>
+            <div class="d-flex justify-content-around">
+                <div>
+                    Views: <b>{{ object.viewcounter }}</b> Post Update&nbsp;: <b>{{ object.timestamp }}</b> Author :
+                    <b><a href="" class="text-decoration-none">{{ object.author|title }}</a></b>
+                </div>
+                <div>
+                    {% csrf_token %}
+                    <span class="like-share">
+                     {% if obj_like_exist == "Yes" %}
+                         <a class="text-decoration-none text-dark me-3 like-button" href="#"> <i
+                                 class="fa-solid fa-thumbs-up"
+                                 id="like-button-top"></i></a>
+                     {% else %}
+                         <a class="text-decoration-none text-dark me-3 like-button" href="#"> <i
+                                 class="fa-regular fa-thumbs-up" id="like-button-top"></i></a>
+                     {% endif %}
+
+                        {% if not request.user.is_authenticated %}
+                            <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                    class="fa-regular fa-bookmark"></i></a>
+                        {% else %}
+                            {% if article_obj|is_bookmark_exist:request %}
+                                <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                        class="fa fa-bookmark"></i></a>
+                            {% else %}
+                                <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                        class="fa-regular fa-bookmark"></i></a>
+                            {% endif %}
+                        {% endif %}
+                        <div class="dropdown d-inline">
+                          <a class="text-decoration-none text-dark dropdown-toggle" role="button" id="dropdownMenuLink"
+                             data-bs-toggle="dropdown"
+                             aria-expanded="false">
+                              <i class="fa fa-share-nodes"></i>
+                          </a>
+
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item text-success"
+                                   href="whatsapp://send?text={{ request.build_absolute_uri }}"><i
+                                    class="fa-brands fa-whatsapp"></i></a></li>
+                            <li><a class="dropdown-item text-danger" target="_blank"
+                                   href="https://www.instagram.com/?url={{ request.build_absolute_uri }}"><i
+                                    class="fa-brands fa-instagram"></i></a></li>
+                            <li><a class="dropdown-item text-primary" target="_blank"
+                                   href="https://www.twitter.com/share?url={{ request.build_absolute_uri }}"><i
+                                    class="fa-brands fa-twitter"></i></a></li>
+                          </ul>
+                        </div>
+
+            </span>
+                </div>
+            </div>
+            {% for o in object.questionlist %}
+                {% if object.title == o.exercise.title %}
                     <p><b>Question {{ forloop.counter }}</b> {{ o.question|safe }}</p>
                     <p>
                         <button class="btn show-button" type="button" data-bs-toggle="collapse"
@@ -95,24 +166,47 @@
                             {{ o.answer|safe }}
                         </div>
                     </div>
-                {% endfor %}
-            </section>
+                {% endif %}
+            {% endfor %}
+
 
             <!--Next and Previous button -->
-            <div>
-                {% if prev != None %}
-                    <a class="btn btn-success" href="{{ prev.get_absolute_url }}"><i class="fa fa-less-than"></i> &nbsp;
-                        Previous</a>
-                {% else %}
-                    <a class="btn btn-success disabled" href="#"><i class="fa fa-less-than"></i> &nbsp; Previous</a>
-                {% endif %}
-                {% if next != None %}
-                    <a class="btn btn-success float-end"
-                       href="{{ next.get_absolute_url }}">Next &nbsp; <i class="fa fa-greater-than"></i></a>
-                {% else %}
-                    <a class="btn btn-success float-end disabled" href="#">Next &nbsp; <i
-                            class="fa fa-greater-than"></i></a>
-                {% endif %}
+            <div class="d-flex justify-content-between bd-highlight mb-3">
+                <div>
+                    {% if prev != None %}
+                        <a class="btn btn-success" href="{{ prev.get_absolute_url }}"><i class="fa fa-less-than"></i>
+                            &nbsp;
+                            Previous</a>
+                    {% else %}
+                        <a class="btn btn-success disabled" href="#"><i class="fa fa-less-than"></i> &nbsp; Previous</a>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {% if obj_like_exist == "Yes" %}
+                        <button class="btn btn-outline-danger like-button" id="like-button"><i
+                                class="fa-solid fa-heart"></i>
+                            &nbsp;<span id="like-button-text">Liked</span>
+                            <span id="like-button-number">{{ obj_like_count }}</span> &nbsp;
+                        </button>
+                    {% else %}
+                        <button class="btn btn-outline-danger like-button" id="like-button"><i
+                                class="fa-regular fa-heart"></i>
+                            &nbsp;<span id="like-button-text">Like</span>
+                            <span id="like-button-number">{{ obj_like_count }}</span> &nbsp;
+                        </button>
+                    {% endif %}
+                </div>
+                <div>
+
+                    {% if next != None %}
+                        <a class="btn btn-success float-end"
+                           href="{{ next.get_absolute_url }}">Next &nbsp; <i class="fa fa-greater-than"></i></a>
+                    {% else %}
+                        <a class="btn btn-success float-end disabled" href="#">Next &nbsp; <i
+                                class="fa fa-greater-than"></i></a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -120,39 +214,5 @@
 {% endblock %}
 {% block js %}
     <script>
-        document.getElementById('row').onscroll = function () {
-            scrollFun()
-        }
-
-        function myFunction() {
-            $('.con-list').toggle(500)
-        }
-
-        conlist = document.getElementById('con-list');
-
-        function scrollFun() {
-            let swidth = window.screen.width;
-            if (swidth <= 700) {
-                conlist.style.display = "none";
-            }
-        }
-
-        $(window).on('resize', function (e) {
-            var swidth = window.screen.width;
-            if (swidth > 700) {
-                var container = $("#con-list").show()
-            }
-        })
-        $(document).mouseup(function (e) {
-            var container = $("#con-list");
-            var swidth = window.screen.width;
-            var icon = $('#icon');
-            if (swidth < 700) {
-                // if the target of the click isn't the container nor a descendant of the container
-                if (!container.is(e.target) && container.has(e.target).length === 0 && !icon.is(e.target) && icon.has(e.target).length === 0) {
-                    container.hide(500);
-                }
-            }
-        });
     </script>
 {% endblock %}

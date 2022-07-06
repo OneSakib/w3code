@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block css %}
+    <style>
+        .error-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .error-actions .btn {
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container-lg mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1 class="mb-2">
+                        Oops!</h1>
+                    <h2>
+                        404 Not Found</h2>
+                    <div class="error-details mb-5 mt-5">
+                        Sorry, an error has occurred, Requested page not found!
+                    </div>
+                    <div class="error-actions mt-5 mb-5">
+                        <a href="{% url 'w3c:index' %}" class="btn btn-secondary btn-lg"><i class="fa fa-home"></i> Go to Home </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

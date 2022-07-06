@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{{ title }} {{ object.title }} {% endblock %}
+{% load bookmarkfilter %}
 {% block css %}
     <style>
         pre code {
@@ -10,39 +11,111 @@
             background: white !important;
             color: black !important;
         }
+
+        .like-share {
+            font-size: 25px;
+        }
     </style>
 {% endblock %}
 {% block content %}
-    <div class="container-lg mt-1">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}" role="alert">
-                    <strong>Message:</strong>{{ message }}
-                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
+    {% include 'navbar.html' %}
+    <div class="container-lg mt-1" id="row">
         <!--Body of Blog-->
         <h3 class="text-center text-white p-1 rounded-2 bg-secondary">{{ object.title }}</h3>
-        <p>Views: <b>{{ object.viewcounter }}</b>&nbsp;<b>{{ object.timestamp }}</b></p>
-        <section>
-            {{ object.content|safe }}
-        </section>
+        <div class="d-flex justify-content-around">
+            <div>
+                Views: <b>{{ object.viewcounter }}</b> Post Update&nbsp;: <b>{{ object.timestamp }}</b> Author :
+                <b><a href="" class="text-decoration-none">{{ object.author|title }}</a></b>
+            </div>
+            <div>
+                {% csrf_token %}
+                <span class="like-share">
+                     {% if obj_like_exist == "Yes" %}
+                         <a class="text-decoration-none text-dark me-3 like-button" href="#"> <i
+                                 class="fa-solid fa-thumbs-up"
+                                 id="like-button-top"></i></a>
+                     {% else %}
+                         <a class="text-decoration-none text-dark me-3 like-button" href="#"> <i
+                                 class="fa-regular fa-thumbs-up" id="like-button-top"></i></a>
+                     {% endif %}
+
+                    {% if not request.user.is_authenticated %}
+                        <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                class="fa-regular fa-bookmark"></i></a>
+                    {% else %}
+                        {% if article_obj|is_bookmark_exist:request %}
+                            <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                    class="fa fa-bookmark"></i></a>
+                        {% else %}
+                            <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                    class="fa-regular fa-bookmark"></i></a>
+                        {% endif %}
+                    {% endif %}
+                    <div class="dropdown d-inline">
+                          <a class="text-decoration-none text-dark dropdown-toggle" role="button" id="dropdownMenuLink"
+                             data-bs-toggle="dropdown"
+                             aria-expanded="false">
+                              <i class="fa fa-share-nodes"></i>
+                          </a>
+
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item text-success"
+                                   href="whatsapp://send?text={{ request.build_absolute_uri }}"><i
+                                    class="fa-brands fa-whatsapp"></i></a></li>
+                            <li><a class="dropdown-item text-danger" target="_blank"
+                                   href="https://www.instagram.com/?url={{ request.build_absolute_uri }}"><i
+                                    class="fa-brands fa-instagram"></i></a></li>
+                            <li><a class="dropdown-item text-primary" target="_blank"
+                                   href="https://www.twitter.com/share?url={{ request.build_absolute_uri }}"><i
+                                    class="fa-brands fa-twitter"></i></a></li>
+                          </ul>
+                        </div>
+
+            </span>
+            </div>
+        </div>
+
+        <section>        {{ object.content|safe }}</section>
+
 
         <!--Next and Previous button -->
-        <div>
-            {% if prev != None %}
-                <a class="btn btn-success" href="{{ prev.get_absolute_url }}"><i class="fa fa-less-than"></i>&nbsp;Previous</a>
-            {% else %}
-                <a class="btn btn-success disabled" href="#"><i class="fa fa-less-than"></i>&nbsp;Previous</a>
-            {% endif %}
-            {% if next != None %}
-                <a class="btn btn-success float-end"
-                   href="{{ next.get_absolute_url }}">Next &nbsp;<i class="fa fa-greater-than"></i></a>
-            {% else %}
-                <a class="btn btn-success float-end disabled" href="#">Next &nbsp;<i class="fa fa-greater-than"></i></a>
-            {% endif %}
+        <!--Next and Previous button -->
+        <div class="d-flex justify-content-between bd-highlight mb-3">
+            <div>
+                {% if prev != None %}
+                    <a class="btn btn-success" href="{{ prev.get_absolute_url }}"><i class="fa fa-less-than"></i>
+                        &nbsp;
+                        Previous</a>
+                {% else %}
+                    <a class="btn btn-success disabled" href="#"><i class="fa fa-less-than"></i> &nbsp; Previous</a>
+                {% endif %}
+            </div>
+
+            <div>
+                {% if obj_like_exist == "Yes" %}
+                    <button class="btn btn-outline-danger like-button" id="like-button"><i
+                            class="fa-solid fa-heart"></i>
+                        &nbsp;<span id="like-button-text">Liked</span>
+                        <span id="like-button-number">{{ obj_like_count }}</span> &nbsp;
+                    </button>
+                {% else %}
+                    <button class="btn btn-outline-danger like-button" id="like-button"><i
+                            class="fa-regular fa-heart"></i>
+                        &nbsp;<span id="like-button-text">Like</span>
+                        <span id="like-button-number">{{ obj_like_count }}</span> &nbsp;
+                    </button>
+                {% endif %}
+            </div>
+            <div>
+
+                {% if next != None %}
+                    <a class="btn btn-success float-end"
+                       href="{{ next.get_absolute_url }}">Next &nbsp; <i class="fa fa-greater-than"></i></a>
+                {% else %}
+                    <a class="btn btn-success float-end disabled" href="#">Next &nbsp; <i
+                            class="fa fa-greater-than"></i></a>
+                {% endif %}
+            </div>
         </div>
         <!--Comment Section !-->
         <section style="background-color: #eee;">
@@ -79,6 +152,7 @@
                             {% endfor %}
                             <div class="card-footer py-1 border-0" style="background-color: #f8f9fa;">
                                 <form action="" method="post">
+                                    <input type="hidden" value="comment" name="type">
                                     {% csrf_token %}
                                     <h5>Comment:</h5>
                                     {% if form.subject.errors %}
@@ -123,38 +197,5 @@
 {% endblock %}
 {% block js %}
     <script>
-        // Copy to clipboard
-        const pretag = $('pre');
-        if (pretag.length > 0) {
-            let spantag = document.createElement('span');
-            spantag.classList = 'badge text-white bg-dark fs-6 copy'
-            spantag.textContent = 'copy'
-            spantag.style.position = 'absolute'
-            spantag.style.top = '10px'
-            spantag.style.right = '10px'
-            spantag.style.zIndex = '1'
-            spantag.style.cursor = 'pointer'
-
-            for (var i = 0; i < pretag.length; i++) {
-
-                let spantag = document.createElement('span');
-                spantag.classList = 'badge text-white bg-dark fs-6 copy'
-                spantag.textContent = 'copy'
-                spantag.style.position = 'absolute'
-                spantag.style.top = '10px'
-                spantag.style.right = '10px'
-                spantag.style.zIndex = '1'
-                spantag.style.cursor = 'pointer'
-                spantag.id = 'span-' + i
-                pretag[i].appendChild(spantag)
-            }
-            $('.copy').on('click', function () {
-                let ele = $(this)
-                ele.text('copied');
-                let parentele = ele.parent()
-                /* Copy the text inside the text field */
-                navigator.clipboard.writeText(parentele.text().replace('copied', ''))
-            })
-        }
     </script>
 {% endblock %}

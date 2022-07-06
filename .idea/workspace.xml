@@ -4,85 +4,76 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1716031-423a-4384-9530-8ae9227f5767" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DatabaseApp/migrations/0004_remove_mongodbcomments_comments_ptr_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/sitemaps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HostingApp/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+    <list default="true" id="5365347c-ec17-4fa3-8ad7-2b00be50eb90" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/MainApp/static/Fonts/sofiapro-light.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainApp/static/logo/g-logo.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainApp/templates/error.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainApp/templates/w3c/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainApp/templatetags/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainApp/templatetags/bookmarkfilter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/w3code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/w3code.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatabaseApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseApp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/HostingApp/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatabaseApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatabaseApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercise/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Exercise/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Exercise/templates/exercise/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise/templates/exercise/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Exercise/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HostingApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/HostingApp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HostingApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/HostingApp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HostingApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/HostingApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaScriptApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScriptApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaScriptApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaScriptApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScriptApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaScriptApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScriptApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainApp/context_preprocessor_tut.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/context_preprocessor_tut.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainApp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainApp/migrations/0014_blogcomments_ip_address.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/sitemaps.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/sitemaps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/templates/comments/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templates/comments/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/templates/comments/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templates/comments/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templates/navbar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/templates/w3c/blogdetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templates/w3c/blogdetail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/templates/w3c/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templates/w3c/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/templates/w3c/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templates/w3c/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MsApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/MsApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MsApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MsApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/MsApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MsApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/MsApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PreparationApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/PreparationApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PreparationApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/PreparationApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/PreparationApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PreparationApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/PreparationApp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programmes/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programmes/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programmes/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programmes/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programmes/templates/programme/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Programmes/templates/programme/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programmes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programmes/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProgrammingApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProgrammingApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProgrammingApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ProgrammingApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProgrammingApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProgrammingApp/templates/programming/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProgrammingApp/templates/programming/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProgrammingApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ProgrammingApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projects/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projects/templates/projects/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/templates/projects/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonApp/sitemaps.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonApp/sitemaps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonApp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheoryApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/TheoryApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheoryApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TheoryApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/TheoryApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheoryApp/sitemaps.py" beforeDir="false" afterPath="$PROJECT_DIR$/TheoryApp/sitemaps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheoryApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/TheoryApp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheoryApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/TheoryApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VCApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/VCApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VCApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/VCApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/VCApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VCApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/VCApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApp/forms.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WebApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/w3code/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/w3code/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/w3code/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/w3code/urls.py" afterDir="false" />
     </list>
@@ -91,13 +82,11 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
-    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -107,8 +96,8 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2BMFqfX6ODspleNF8UGBuD5J1EJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectId" id="2BTQBZ7gJJxWURGxB1F9ZblrREo" />
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -121,11 +110,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/MainApp/static/logo" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Django\Django Projects\w3code\MainApp\static\logo" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="w3code" type="Python.DjangoServer" factoryName="Django server">
@@ -134,7 +128,6 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="w3code.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -156,21 +149,27 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f1716031-423a-4384-9530-8ae9227f5767" name="Changes" comment="" />
-      <created>1656708250577</created>
+      <changelist id="5365347c-ec17-4fa3-8ad7-2b00be50eb90" name="Changes" comment="" />
+      <created>1656927470395</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1656708250577</updated>
-      <workItem from="1656708254373" duration="518000" />
-      <workItem from="1656715378596" duration="8576000" />
-      <workItem from="1656725302139" duration="3231000" />
-      <workItem from="1656730372683" duration="3360000" />
-      <workItem from="1656734383873" duration="134000" />
-      <workItem from="1656734676116" duration="291000" />
-      <workItem from="1656735279808" duration="397000" />
-      <workItem from="1656737642400" duration="632000" />
-      <workItem from="1656771035624" duration="62000" />
-      <workItem from="1656772030268" duration="145000" />
+      <updated>1656927470395</updated>
+      <workItem from="1656927473098" duration="2617000" />
+      <workItem from="1656932683892" duration="4369000" />
+      <workItem from="1656939439232" duration="9483000" />
+      <workItem from="1657004394660" duration="8203000" />
+      <workItem from="1657014197991" duration="3378000" />
+      <workItem from="1657021214838" duration="1331000" />
+      <workItem from="1657026731591" duration="1057000" />
+      <workItem from="1657027844448" duration="17000" />
+      <workItem from="1657027893502" duration="20000" />
+      <workItem from="1657028263566" duration="1441000" />
+      <workItem from="1657030856233" duration="4637000" />
+      <workItem from="1657037361795" duration="4810000" />
+      <workItem from="1657086467376" duration="10498000" />
+      <workItem from="1657106853577" duration="3211000" />
+      <workItem from="1657113616621" duration="2239000" />
+      <workItem from="1657117005346" duration="1365000" />
     </task>
     <servers />
   </component>
@@ -187,8 +186,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

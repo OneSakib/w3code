@@ -1,0 +1,103 @@
+{% load static %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginmodel"
+        style="font-size: 20px;">
+    Login or Signup
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="loginmodel" tabindex="-1" aria-labelledby="loginmodelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginmodelLabel">Login/Signup</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                aria-selected="true">Login
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                aria-controls="profile-tab-pane" aria-selected="false">Register
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                         tabindex="0">
+                        <form action="{% url 'w3c:loginuser' %}" method="post" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <label for="loginusername" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="loginusername" required name="username">
+                            <div class="invalid-feedback">
+                                Please Provide User Name
+                            </div>
+                            <label for="loginpassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginpassword" required name="password">
+                            <div class="invalid-feedback">
+                                Please Provide Password
+                            </div>
+                            <button type="submit" class="form-control mt-2 mb-3 btn btn-success">Login</button>
+                        </form>
+                        <hr>
+                        <span class="text-center d-block">OR</span>
+                        <hr>
+                        <span class="text-center d-block mt-1 mb-1">
+                            <a href="{% provider_login_url 'google' %}" class="shadow p-3 text-decoration-none "
+                               style="border-radius: 10px"><img class="logo-image"
+                                                                src="{% static 'logo/g-logo.webp' %}">&nbsp;&nbsp;<b>Sign
+                            in with Google</b></a>
+                        </span>
+                    </div>
+                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                         tabindex="0">
+                        <form action="{% url 'w3c:register' %}" method="post">
+                            {% csrf_token %}
+                            {{ registration_form|crispy }}
+                            <input type="hidden" value="{{ request.get_full_path }}" name="currenturl">
+                            <button type="submit" class="form-control mt-2 mb-3 btn btn-success">Register</button>
+                        </form>
+                        <hr>
+                        <span class="text-center d-block">OR</span>
+                        <hr>
+                        <span class="text-center d-block mt-1 mb-1">
+                            <a href="{% provider_login_url 'google' %}" class="shadow p-3 text-decoration-none "
+                               style="border-radius: 10px"><img class="logo-image"
+                                                                src="{% static 'logo/g-logo.webp' %}">&nbsp;&nbsp;<b>Register
+                            with Google</b></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>

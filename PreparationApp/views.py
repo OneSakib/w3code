@@ -2,6 +2,8 @@ from django.shortcuts import HttpResponseRedirect
 from django.views.generic import View, DetailView
 from .models import *
 from next_prev import next_in_order, prev_in_order
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -14,11 +16,21 @@ class AptitudeView(View):
 class AptitudeDetailView(DetailView):
     template_name = 'w3c/detail.html'
     model = Aptitude
+    like_obj = AptitudeLike
+    parent_obj = AptitudeParent
 
     def get_context_data(self, **kwargs):
         context = super(AptitudeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Aptitude'
         # View Counter
         s = self.object
@@ -36,6 +48,19 @@ class AptitudeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
 
 
 class ReasoningView(View):
@@ -47,11 +72,21 @@ class ReasoningView(View):
 class ReasoningDetailView(DetailView):
     template_name = 'w3c/detail.html'
     model = Reasoning
+    like_obj = ReasoningLike
+    parent_obj = ReasoningParent
 
     def get_context_data(self, **kwargs):
         context = super(ReasoningDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Reasoning'
         # View Counter
         s = self.object
@@ -69,6 +104,19 @@ class ReasoningDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
 
 
 class VerbalAbilityView(View):
@@ -80,11 +128,21 @@ class VerbalAbilityView(View):
 class VerbalAbilityDetailView(DetailView):
     template_name = 'w3c/detail.html'
     model = VerbalAbility
+    like_obj = VerbalAbilityLike
+    parent_obj = VerbalAbilityParent
 
     def get_context_data(self, **kwargs):
         context = super(VerbalAbilityDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Verbal Ability'
         # View Counter
         s = self.object
@@ -102,6 +160,19 @@ class VerbalAbilityDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
 
 
 class InterViewQuestionView(View):
@@ -113,11 +184,21 @@ class InterViewQuestionView(View):
 class InterviewQuestionDetailView(DetailView):
     template_name = 'w3c/detail.html'
     model = InterviewQuestion
+    like_obj = InterviewQuestionLike
+    parent_obj = InterviewQuestionParent
 
     def get_context_data(self, **kwargs):
         context = super(InterviewQuestionDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Interview Question'
         # View Counter
         s = self.object
@@ -135,6 +216,20 @@ class InterviewQuestionDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class CompanyQuestionView(View):
     def get(self, request):
@@ -145,11 +240,21 @@ class CompanyQuestionView(View):
 class CompanyQuestionDetailView(DetailView):
     template_name = 'w3c/detail.html'
     model = CompanyQuestion
+    like_obj = CompanyQuestionLike
+    parent_obj = CompanyQuestionParent
 
     def get_context_data(self, **kwargs):
         context = super(CompanyQuestionDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Company Question'
         # View Counter
         s = self.object
@@ -167,3 +272,16 @@ class CompanyQuestionDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)

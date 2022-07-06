@@ -1,36 +1,56 @@
 from django.contrib import admin
 from .models import *
-
+from MainApp.admin import CommonAdmin
 
 # Register your models here.
 
 
-@admin.register(Aptitude)
-class AptitudeAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class AptitudeAdmin(CommonAdmin):
+    model = Aptitude
 
 
-@admin.register(Reasoning)
-class ReasoningAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class ReasoningAdmin(CommonAdmin):
+    model = Reasoning
 
 
-@admin.register(VerbalAbility)
-class VerbalAbilityAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class VerbalAbilityAdmin(CommonAdmin):
+    model = VerbalAbility
 
 
-@admin.register(InterviewQuestion)
-class InterviewQuestionAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class InterviewQuestionAdmin(CommonAdmin):
+    model = InterviewQuestion
 
 
-@admin.register(CompanyQuestion)
-class CompanyQuestionAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class CompanyQuestionAdmin(CommonAdmin):
+    model = CompanyQuestion
 
+
+# parent Admin
+@admin.register(AptitudeParent)
+class AptitudeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (AptitudeAdmin,)
+
+
+@admin.register(ReasoningParent)
+class ReasoningParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (ReasoningAdmin,)
+
+
+@admin.register(VerbalAbilityParent)
+class VerbalAbilityParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (VerbalAbilityAdmin,)
+
+
+@admin.register(InterviewQuestionParent)
+class InterviewQuestionParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (InterviewQuestionAdmin,)
+
+
+@admin.register(CompanyQuestionParent)
+class CompanyQuestionParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CompanyQuestionAdmin,)

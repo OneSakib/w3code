@@ -1,30 +1,46 @@
 from django.contrib import admin
 from .models import *
+from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
-
-@admin.register(MSExcel)
-class MSExcelAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class MSExcelAdmin(CommonAdmin):
+    model = MSExcel
 
 
-@admin.register(MSWord)
-class MSWordAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class MSWordAdmin(CommonAdmin):
+    model = MSWord
 
 
-@admin.register(MSPowerpoint)
-class MSPowerpointAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class MSPowerpointAdmin(CommonAdmin):
+    model = MSPowerpoint
 
 
-@admin.register(MSOneNote)
-class MSOneNoteAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class MSOneNoteAdmin(CommonAdmin):
+    model = MSOneNote
 
+
+# Parent Admin
+@admin.register(MSExcelParent)
+class MSExcelParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (MSExcelAdmin,)
+
+
+@admin.register(MSWordParent)
+class MSWordParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (MSWordAdmin,)
+
+
+@admin.register(MSPowerpointParent)
+class MSPowerpointParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (MSPowerpointAdmin,)
+
+
+@admin.register(MSOneNoteParent)
+class MSOneNoteParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (MSOneNoteAdmin,)

@@ -33,7 +33,15 @@ class TutList(models.Model):
         verbose_name_plural = 'Tut-Lists'
 
 
+class TutCommonParent(models.Model):
+    title = models.CharField(max_length=100, default='')
+
+    def __str__(self):
+        return self.title
+
+
 class TutCommon(models.Model):
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, default='1')
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=200, unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -45,6 +53,16 @@ class TutCommon(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class LikeCommon(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return f"Likes of {self.user}"
 
 
 class Comments(models.Model):
@@ -74,5 +92,23 @@ class Blogs(TutCommon):
 class BlogComments(Comments):
     ip_address = models.GenericIPAddressField(default="45.243.82.169")
     post = models.ForeignKey(Blogs, on_delete=models.CASCADE, related_name='BlogComments')
+
     class Meta:
         verbose_name_plural = 'BlogComments'
+
+
+class ArticleBookmark(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='articlebookmark')
+    title = models.CharField(max_length=300)
+    link = models.URLField()
+
+    class Meta:
+        verbose_name_plural = 'User Article Bookmark'
+
+    def __str__(self):
+        return self.title
+
+
+# Like Counter
+class BlogsLike(LikeCommon):
+    post = models.ForeignKey(Blogs, on_delete=models.CASCADE)

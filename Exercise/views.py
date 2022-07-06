@@ -3,6 +3,8 @@ from .models import *
 from next_prev import next_in_order, prev_in_order
 from django.urls import reverse_lazy
 from django.views.generic import View, DetailView
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -15,14 +17,22 @@ class CExerciseView(View):
 class CExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = CExercise
+    like_obj = CExerciseLike
+    parent_obj = CExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(CExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'C Exercise'
-        print(self.request.META.get('HTTP_X_FORWARDED_FOR'))
-
         # View Counter
         s = self.object
         s.viewcounter += 1
@@ -39,6 +49,20 @@ class CExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class CPlusExerciseView(View):
     def get(self, request):
@@ -49,11 +73,21 @@ class CPlusExerciseView(View):
 class CPlusExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = CPlusExercise
+    like_obj = CPlusExerciseLike
+    parent_obj = CPlusExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(CPlusExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'C++ Exercise'
         # View Counter
         s = self.object
@@ -71,6 +105,20 @@ class CPlusExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class PythonExerciseView(View):
     def get(self, request):
@@ -81,11 +129,21 @@ class PythonExerciseView(View):
 class PythonExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = PythonExercise
+    like_obj = PythonExerciseLike
+    parent_obj = PythonExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(PythonExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Python Exercise'
         # View Counter
         s = self.object
@@ -103,6 +161,20 @@ class PythonExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class JavaExerciseView(View):
     def get(self, request):
@@ -113,11 +185,21 @@ class JavaExerciseView(View):
 class JavaExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = JavaExercise
+    like_obj = JavaExerciseLike
+    parent_obj = JavaExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Java Exercise'
         # View Counter
         s = self.object
@@ -135,6 +217,20 @@ class JavaExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class KotlinExerciseView(View):
     def get(self, request):
@@ -145,11 +241,21 @@ class KotlinExerciseView(View):
 class KotlinExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = KotlinExercise
+    like_obj = KotlinExerciseLike
+    parent_obj = KotlinExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(KotlinExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Kotlin Exercise'
         # View Counter
         s = self.object
@@ -167,6 +273,20 @@ class KotlinExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class RExerciseView(View):
     def get(self, request):
@@ -177,11 +297,21 @@ class RExerciseView(View):
 class RExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = RExercise
+    like_obj = RExerciseLike
+    parent_obj = RExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(RExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'R Exercise'
         # View Counter
         s = self.object
@@ -199,6 +329,20 @@ class RExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class CSharpExerciseView(View):
     def get(self, request):
@@ -209,11 +353,21 @@ class CSharpExerciseView(View):
 class CSharpExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = CSharpExercise
+    like_obj = CSharpExerciseLike
+    parent_obj = CSharpExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(CSharpExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'C# Exercise'
         # View Counter
         s = self.object
@@ -231,6 +385,20 @@ class CSharpExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class SwiftExerciseView(View):
     def get(self, request):
@@ -241,11 +409,21 @@ class SwiftExerciseView(View):
 class SwiftExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = SwiftExercise
+    like_obj = SwiftExerciseLike
+    parent_obj = SwiftExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(SwiftExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Swift Exercise'
         # View Counter
         s = self.object
@@ -263,6 +441,20 @@ class SwiftExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class JavaScriptExerciseView(View):
     def get(self, request):
@@ -273,11 +465,21 @@ class JavaScriptExerciseView(View):
 class JavaScriptExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = JavaScriptExercise
+    like_obj = JavaScriptExerciseLike
+    parent_obj = JavaScriptExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaScriptExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'JavaScript Exercise'
         # View Counter
         s = self.object
@@ -295,6 +497,20 @@ class JavaScriptExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class PHPExerciseView(View):
     def get(self, request):
@@ -305,11 +521,21 @@ class PHPExerciseView(View):
 class PHPExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = PHPExercise
+    like_obj = PHPExerciseLike
+    parent_obj = PHPExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(PHPExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'PHP Exercise'
         # View Counter
         s = self.object
@@ -327,6 +553,20 @@ class PHPExerciseDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class DotNetExerciseView(View):
     def get(self, request):
@@ -337,11 +577,21 @@ class DotNetExerciseView(View):
 class DotNetExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
     model = DotNetExercise
+    like_obj = DotNetExerciseLike
+    parent_obj = DotNetExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(DotNetExerciseDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = '.NET Exercise'
         # View Counter
         s = self.object
@@ -358,3 +608,17 @@ class DotNetExerciseDetailView(DetailView):
         if next != None:
             context['next'] = next
         return context
+
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)

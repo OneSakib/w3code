@@ -66,5 +66,8 @@ urlpatterns = [
     path('programme/', include('Programmes.urls', namespace='Programme')),
     path('projects/', include('Projects.urls', namespace='Projects')),
     path('hosting/', include('HostingApp.urls', namespace='Hosting')),
-    path('w3/sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
+    path('w3/sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('accounts/', include('allauth.urls')),
 ]
+
+handler404 = 'MainApp.views.error_404'

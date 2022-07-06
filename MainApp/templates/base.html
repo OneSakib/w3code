@@ -22,8 +22,8 @@
 
     <meta property="og:title"
           content="{% if object.title %} {{ object.title }} {% else %}Welcome to w3code{% endif %}"/>
-    <meta property="og:image" content="{{ host_name }}/static/logo.png">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="{{ host_name }}/static/logo.ico">
+    <meta property="og:image:type" content="image/ico">
     <meta property="og:image:width" content="50">
     <meta property="og:image:height" content="50">
     <meta property="og:description"
@@ -61,9 +61,28 @@
     {% block css %}
     {% endblock %}
     <style>
+        @font-face {
+            font-family: sofia-pro;
+            src: local('sofia-pro'), url("{% static 'Fonts/sofiapro-light.otf' %}") format("truetype");
+        }
+
+        div::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        div::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        div::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+        }
+
         body {
             margin: 0;
-            font-family: sans-serif, Arial, Helvetica;
+            font-family: sofia-pro, sans-serif, Arial, Helvetica;
         }
 
         .navbar {
@@ -75,6 +94,7 @@
             font-weight: bold;
         }
 
+
         .tut-body {
             color: #cbcb33;
             font-weight: bold;
@@ -84,6 +104,7 @@
             text-decoration: none;
             color: white;
             width: 100%;
+            display: block;
         }
 
         .tut-body ul li {
@@ -130,6 +151,16 @@
         .copy:hover {
             background: green !important;
         }
+
+        .img_full {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            cursor: zoom-out;
+        }
     </style>
 </head>
 <body>
@@ -137,7 +168,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'w3c:index' %}">
-            <img src="{% static 'logo.png' %}" alt="logo not load">
+            <img src="{% static 'logo.png' %}" alt="logo not load" class="logo-image">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -240,6 +271,17 @@
                     </ul>
                 </div>
             {% endif %}
+            <div>
+                <div class="collapse d-flex">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'w3c:profile' %}" class="text-decoration-none"><span class="ms-2 shadow p-2"
+                                                                                             style="font-size: 20px">Welcome <b
+                                class="text-success ">{{ request.user|title }}</b></span></a>
+                    {% else %}
+                        {% include 'loginmodel.html' %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </nav>
@@ -360,6 +402,17 @@
     </div>
 </div>
 <!--Body content Block-->
+<div class="container-fluid">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mt-1 mb-1" role="alert" id="alert-message">
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                <strong>Message:</strong>{{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 {% block content %}
 {% endblock %}
 <!-- Back to top button -->
@@ -372,7 +425,7 @@
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-2 col-sm-1 d-flex align-items-center">
             <a href="{% url 'w3c:index' %}" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <img src="{% static 'logo.png' %}" alt="image not load">
+                <img src="{% static 'logo.png' %}" alt="image not load" class="logo-image">
             </a>
         </div>
         <span class="mb-3 mb-md-0 text-muted text-center">© 2022 W3code, Inc</span>
@@ -397,6 +450,46 @@
 {% block js %}
 {% endblock %}
 <script>
+    //detail.py js
+    document.getElementById('row').onscroll = function () {
+        scrollFun();
+    }
+
+    function myFunction() {
+        if ($('.con-list').length > 0) {
+            $('.con-list').toggle(500)
+        }
+    }
+
+    conlist = document.getElementById('con-list');
+
+    function scrollFun() {
+        let swidth = window.screen.width;
+        if (swidth <= 700) {
+            conlist.style.display = "none";
+        }
+    }
+
+    $(window).on('resize', function (e) {
+        var swidth = window.screen.width;
+        if (swidth > 700) {
+            var container = $("#con-list").show()
+        }
+    })
+    $(document).mouseup(function (e) {
+        var container = $("#con-list");
+        var swidth = window.screen.width;
+        var icon = $('#icon');
+        if (swidth < 700) {
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!container.is(e.target) && container.has(e.target).length === 0 && !icon.is(e.target) && icon.has(e.target).length === 0) {
+                container.hide(500);
+            }
+        }
+    });
+
+
+    //base js
     $('#nav-tut').click(function () {
         if ($('.collapsed').text() == '') {
             $('.fa-caret-down').addClass('fa-caret-up');
@@ -456,9 +549,83 @@
             /* Copy the text inside the text field */
             navigator.clipboard.writeText(parentele.text().replace('copied', ''))
             console.log(parentele.text().replace('copied', ''))
-
         })
     }
+
+    //Full screen
+    const img_tag = $('img');
+    if (img_tag.length > 0) {
+        $(document).ready(function () {
+            $("img:not(.logo-image)").click(function () {
+                $(this).toggleClass('img_full');
+            });
+        });
+    }
+
+    //hide alert after some time
+    setTimeout(hideElement, 1000 * 30) //milliseconds until timeout//
+    function hideElement() {
+        $('#alert-message').css('display', 'none');
+    }
+
+    //Bookmark
+    let unknown_user = 'AnonymousUser'
+    $('#bookmark').on('click', function (e) {
+        e.preventDefault()
+        if ('{{ request.user }}' !== unknown_user) {
+            csrf = $('input[name=csrfmiddlewaretoken]').val()
+            title = '{{ title }} {{ object.title }}'
+            url = '{{ request.build_absolute_uri }}'
+            data = {'title': title, 'url': url, 'csrfmiddlewaretoken': csrf}
+            $.ajax({
+                type: 'POST',
+                url: '{% url "w3c:bookmark" %}',
+                data: data,
+                success: function (response) {
+                    let ok = response.data['ok']
+                    if (ok === 'delete') {
+                        $('#bookmark i').toggleClass('fa-regular fa')
+                    } else {
+                        $('#bookmark i').toggleClass('fa fa-regular')
+                    }
+                }
+            })
+        } else {
+            alert("Please login and try again! ")
+        }
+    })
+    //like button
+    $('.like-button').on('click', function (e) {
+        e.preventDefault()
+        if ('{{ request.user }}' !== unknown_user) {
+            csrf = $('input[name=csrfmiddlewaretoken]').val()
+            pk = '{{ object.pk }}'
+            data = {'csrfmiddlewaretoken': csrf, 'pk': pk}
+            $.ajax({
+                type: 'POST',
+                url: '{{ request.build_absolute_uri }}',
+                data: data,
+                success: function (response) {
+                    if (response['ok'] === 'create') {
+                        $('#like-button-text').text("liked");
+                        $('#like-button-number').text(response['number']);
+                        $('#like-button i').toggleClass('fa-regular fa-solid')
+                        $('#like-button-top').toggleClass('fa-regular fa-solid')
+
+
+                    } else {
+                        $('#like-button-text').text("like");
+                        $('#like-button-number').text(response['number']);
+                        $('#like-button i').toggleClass('fa-solid fa-regular')
+                        $('#like-button-top').toggleClass('fa-solid fa-regular')
+
+                    }
+                }
+            })
+        } else {
+            alert("Please login and try again! ")
+        }
+    })
 </script>
 </html>
 

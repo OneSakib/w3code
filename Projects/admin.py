@@ -1,76 +1,127 @@
 from django.contrib import admin
 from .models import *
+from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
-@admin.register(CProjects)
-class CProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+
+class CProjectsAdmin(CommonAdmin):
+    model = CProjects
 
 
-@admin.register(CPlusProjects)
-class CPlusProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CPlusProjectsAdmin(CommonAdmin):
+    model = CPlusProjects
 
 
-@admin.register(PythonProjects)
-class PythonProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PythonProjectsAdmin(CommonAdmin):
+    model = PythonProjects
 
 
-@admin.register(JavaProjects)
-class JavaProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class JavaProjectsAdmin(CommonAdmin):
+    model = JavaProjects
 
 
-@admin.register(KotlinProjects)
-class KotlinProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class KotlinProjectsAdmin(CommonAdmin):
+    model = KotlinProjects
 
 
-@admin.register(RProjects)
-class RProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class RProjectsAdmin(CommonAdmin):
+    model = RProjects
 
 
-@admin.register(CSharpProjects)
-class CSharpProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CSharpProjectsAdmin(CommonAdmin):
+    model = CSharpProjects
 
 
-@admin.register(SwiftProjects)
-class SwiftProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class SwiftProjectsAdmin(CommonAdmin):
+    model = SwiftProjects
 
 
-@admin.register(JavaScriptProjects)
-class JavaScriptProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class JavaScriptProjectsAdmin(CommonAdmin):
+    model = JavaScriptProjects
 
 
-@admin.register(AndroidProjects)
-class AndroidProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class AndroidProjectsAdmin(CommonAdmin):
+    model = AndroidProjects
 
 
-@admin.register(PHPProjects)
-class PHPProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PHPProjectsAdmin(CommonAdmin):
+    model = PHPProjects
 
 
-@admin.register(DotNetProjects)
-class DotNetProjectsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class DotNetProjectsAdmin(CommonAdmin):
+    model = DotNetProjects
+
+
+# Parent Admin
+@admin.register(CProjectsParent)
+class CProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CProjectsAdmin,)
+
+
+@admin.register(CPlusProjectsParent)
+class CPlusProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CPlusProjectsAdmin,)
+
+
+@admin.register(PythonProjectsParent)
+class PythonProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PythonProjectsAdmin,)
+
+
+@admin.register(JavaProjectsParent)
+class JavaProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JavaProjectsAdmin,)
+
+
+@admin.register(KotlinProjectsParent)
+class KotlinProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (KotlinProjectsAdmin,)
+
+
+@admin.register(RProjectsParent)
+class RProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (RProjectsAdmin,)
+
+
+@admin.register(CSharpProjectsParent)
+class CSharpProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CSharpProjectsAdmin,)
+
+
+@admin.register(SwiftProjectsParent)
+class SwiftProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (SwiftProjectsAdmin,)
+
+
+@admin.register(JavaScriptProjectsParent)
+class JavaScriptProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JavaScriptProjectsAdmin,)
+
+
+@admin.register(AndroidProjectsParent)
+class AndroidProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (AndroidProjectsAdmin,)
+
+
+@admin.register(PHPProjectsParent)
+class PHPProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PHPProjectsAdmin,)
+
+
+@admin.register(DotNetProjectsParent)
+class DotNetProjectsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DotNetProjectsAdmin,)

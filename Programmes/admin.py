@@ -1,70 +1,118 @@
 from django.contrib import admin
 from .models import *
-
+from MainApp.admin import CommonAdmin
 
 # Register your models here.
 
-@admin.register(CProgramme)
-class CProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
 
 
-@admin.register(CPlusProgramme)
-class CPlusProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CProgrammeAdmin(CommonAdmin):
+    model = CProgramme
 
 
-@admin.register(PythonProgramme)
-class PythonProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CPlusProgrammeAdmin(CommonAdmin):
+    model = CPlusProgramme
 
 
-@admin.register(JavaProgramme)
-class JavaProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PythonProgrammeAdmin(CommonAdmin):
+    model = PythonProgramme
 
 
-@admin.register(KotlinProgramme)
-class KotlinProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class JavaProgrammeAdmin(CommonAdmin):
+    model = JavaProgramme
 
 
-@admin.register(RProgramme)
-class RProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class KotlinProgrammeAdmin(CommonAdmin):
+    model = KotlinProgramme
 
 
-@admin.register(CSharpProgramme)
-class CSharpProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class RProgrammeAdmin(CommonAdmin):
+    model = RProgramme
 
 
-@admin.register(SwiftProgramme)
-class SwiftProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CSharpProgrammeAdmin(CommonAdmin):
+    model = CSharpProgramme
 
 
-@admin.register(JavaScriptProgramme)
-class JavaScriptProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class SwiftProgrammeAdmin(CommonAdmin):
+    model = SwiftProgramme
 
 
-@admin.register(PHPProgramme)
-class PHPProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class JavaScriptProgrammeAdmin(CommonAdmin):
+    model = JavaScriptProgramme
 
 
-@admin.register(DotNetProgramme)
-class DotNetProgrammeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PHPProgrammeAdmin(CommonAdmin):
+    model = PHPProgramme
+
+
+class DotNetProgrammeAdmin(CommonAdmin):
+    model = DotNetProgramme
+
+
+# Parent Admin
+
+@admin.register(CProgrammeParent)
+class CProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CProgrammeAdmin,)
+
+
+@admin.register(CPlusProgrammeParent)
+class CPlusProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CPlusProgrammeAdmin,)
+
+
+@admin.register(PythonProgrammeParent)
+class PythonProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PythonProgrammeAdmin,)
+
+
+@admin.register(JavaProgrammeParent)
+class JavaProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JavaProgrammeAdmin,)
+
+
+@admin.register(KotlinProgrammeParent)
+class KotlinProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (KotlinProgrammeAdmin,)
+
+
+@admin.register(RProgrammeParent)
+class RProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (RProgrammeAdmin,)
+
+
+@admin.register(CSharpProgrammeParent)
+class CSharpProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CSharpProgrammeAdmin,)
+
+
+@admin.register(SwiftProgrammeParent)
+class SwiftProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (SwiftProgrammeAdmin,)
+
+
+@admin.register(JavaScriptProgrammeParent)
+class JavaScriptProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JavaScriptProgrammeAdmin,)
+
+
+@admin.register(PHPProgrammeParent)
+class PHPProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PHPProgrammeAdmin,)
+
+
+@admin.register(DotNetProgrammeParent)
+class DotNetProgrammeParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DotNetProgrammeAdmin,)

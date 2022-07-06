@@ -1,24 +1,37 @@
 from django.contrib import admin
 from .models import *
+from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
 
-@admin.register(Docker)
-class DockerAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class DockerAdmin(CommonAdmin):
+    model = Docker
 
 
-@admin.register(Gits)
-class GitsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class GitsAdmin(CommonAdmin):
+    model = Gits
 
 
-@admin.register(Githubs)
-class GithubsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class GithubsAdmin(CommonAdmin):
+    model = Githubs
 
+
+# Parent Admin
+@admin.register(DockerParent)
+class DockerParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DockerAdmin,)
+
+
+@admin.register(GitsParent)
+class GitsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (GitsAdmin,)
+
+
+@admin.register(GithubsParent)
+class GithubsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (GithubsAdmin,)

@@ -1,77 +1,126 @@
 from django.contrib import admin
 from .models import *
+from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
-@admin.register(CLanguage)
-class CLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CLanguageAdmin(CommonAdmin):
+    model = CLanguage
 
 
-@admin.register(CplusLanguage)
-class CplusLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CplusLanguageAdmin(CommonAdmin):
+    model = CplusLanguage
 
 
-@admin.register(PythonLanguage)
-class PythonLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PythonLanguageAdmin(CommonAdmin):
+    model = PythonLanguage
 
 
-@admin.register(JavaLanguage)
-class JavaLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class JavaLanguageAdmin(CommonAdmin):
+    model = JavaLanguage
 
 
-@admin.register(AndroidLanguage)
-class AndroidLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class AndroidLanguageAdmin(CommonAdmin):
+    model = AndroidLanguage
 
 
-@admin.register(KotlinLanguage)
-class KotlinLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class KotlinLanguageAdmin(CommonAdmin):
+    model = KotlinLanguage
 
 
-@admin.register(RLanguage)
-class RLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class RLanguageAdmin(CommonAdmin):
+    model = RLanguage
 
 
-@admin.register(CsharpLanguage)
-class CsharpLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class CsharpLanguageAdmin(CommonAdmin):
+    model = CsharpLanguage
 
 
-@admin.register(SwiftLanguage)
-class SwiftLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class SwiftLanguageAdmin(CommonAdmin):
+    model = SwiftLanguage
 
 
-@admin.register(JavaScriptLanguage)
-class JavaScriptAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class JavaScriptAdmin(CommonAdmin):
+    model = JavaScriptLanguage
 
 
-@admin.register(PHPLanguage)
-class PHPLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PHPLanguageAdmin(CommonAdmin):
+    model = PHPLanguage
 
 
-@admin.register(DotNetLanguage)
-class DotNetLanguageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class DotNetLanguageAdmin(CommonAdmin):
+    model = DotNetLanguage
 
+
+# Parent Admin
+@admin.register(CLanguageParent)
+class CLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CLanguageAdmin,)
+
+
+@admin.register(CplusLanguageParent)
+class CplusLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CplusLanguageAdmin,)
+
+
+@admin.register(PythonLanguageParent)
+class PythonLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PythonLanguageAdmin,)
+
+
+@admin.register(JavaLanguageParent)
+class JavaLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JavaLanguageAdmin,)
+
+
+@admin.register(AndroidLanguageParent)
+class AndroidLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (AndroidLanguageAdmin,)
+
+
+@admin.register(KotlinLanguageParent)
+class KotlinLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (KotlinLanguageAdmin,)
+
+
+@admin.register(RLanguageParent)
+class RLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (RLanguageAdmin,)
+
+
+@admin.register(CsharpLanguageParent)
+class CsharpLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (CsharpLanguageAdmin,)
+
+
+@admin.register(SwiftLanguageParent)
+class SwiftLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (SwiftLanguageAdmin,)
+
+
+@admin.register(JavaScriptLanguageParent)
+class JavaScriptLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JavaScriptAdmin,)
+
+
+@admin.register(PHPLanguageParent)
+class PHPLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PHPLanguageAdmin,)
+
+
+@admin.register(DotNetLanguageParent)
+class DotNetLanguageParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DotNetLanguageAdmin,)

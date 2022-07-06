@@ -3,6 +3,14 @@ from .models import *
 
 
 # Register your models here.
+# Child
+
+
+class CommonAdmin(admin.StackedInline):
+    extra = 1
+    prepopulated_fields = {'slug': ['title']}
+
+
 @admin.register(TutList)
 class TutListAdmin(admin.ModelAdmin):
     list_display = ['name', 'type']
@@ -15,6 +23,4 @@ class BlogAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
 
 
-# @admin.register(BlogComments)
-# class BlogCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
+admin.site.register(ArticleBookmark)

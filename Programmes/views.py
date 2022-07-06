@@ -3,6 +3,8 @@ from .models import *
 from next_prev import next_in_order, prev_in_order
 from django.urls import reverse_lazy
 from django.views.generic import View, DetailView
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -15,11 +17,21 @@ class CProgrammeView(View):
 class CProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = CProgramme
+    like_obj = CProgrammeLike
+    parent_obj = CProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(CProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'C Programme'
         # View Counter
         s = self.object
@@ -37,6 +49,20 @@ class CProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class CPlusProgrammeView(View):
     def get(self, request):
@@ -47,11 +73,21 @@ class CPlusProgrammeView(View):
 class CPlusProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = CPlusProgramme
+    like_obj = CPlusProgrammeLike
+    parent_obj = CPlusProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(CPlusProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'C++ Programme'
         # View Counter
         s = self.object
@@ -69,6 +105,20 @@ class CPlusProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class PythonProgrammeView(View):
     def get(self, request):
@@ -79,11 +129,21 @@ class PythonProgrammeView(View):
 class PythonProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = PythonProgramme
+    like_obj = PythonProgrammeLike
+    parent_obj = PythonProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(PythonProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Python Programme'
         # View Counter
         s = self.object
@@ -101,6 +161,20 @@ class PythonProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class JavaProgrammeView(View):
     def get(self, request):
@@ -111,11 +185,21 @@ class JavaProgrammeView(View):
 class JavaProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = JavaProgramme
+    like_obj = JavaProgrammeLike
+    parent_obj = JavaProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Java Programme'
         # View Counter
         s = self.object
@@ -133,6 +217,20 @@ class JavaProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class KotlinProgrammeView(View):
     def get(self, request):
@@ -143,11 +241,21 @@ class KotlinProgrammeView(View):
 class KotlinProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = KotlinProgramme
+    like_obj = KotlinProgrammeLike
+    parent_obj = KotlinProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(KotlinProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Kotlin Programme'
         # View Counter
         s = self.object
@@ -165,6 +273,20 @@ class KotlinProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class RProgrammeView(View):
     def get(self, request):
@@ -175,11 +297,21 @@ class RProgrammeView(View):
 class RProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = RProgramme
+    like_obj = RProgrammeLike
+    parent_obj = RProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(RProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'R Programme'
         # View Counter
         s = self.object
@@ -197,6 +329,20 @@ class RProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class CSharpProgrammeView(View):
     def get(self, request):
@@ -207,11 +353,21 @@ class CSharpProgrammeView(View):
 class CSharpProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = CSharpProgramme
+    like_obj = CSharpProgrammeLike
+    parent_obj = CSharpProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(CSharpProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'C# Programme'
         # View Counter
         s = self.object
@@ -229,6 +385,20 @@ class CSharpProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class SwiftProgrammeView(View):
     def get(self, request):
@@ -239,11 +409,21 @@ class SwiftProgrammeView(View):
 class SwiftProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = SwiftProgramme
+    like_obj = SwiftProgrammeLike
+    parent_obj = SwiftProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(SwiftProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'Swift Programme'
         # View Counter
         s = self.object
@@ -261,6 +441,20 @@ class SwiftProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class JavaScriptProgrammeView(View):
     def get(self, request):
@@ -271,11 +465,21 @@ class JavaScriptProgrammeView(View):
 class JavaScriptProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = JavaScriptProgramme
+    like_obj = JavaScriptProgrammeLike
+    parent_obj = JavaScriptProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaScriptProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'JavaScript Programme'
         # View Counter
         s = self.object
@@ -293,6 +497,20 @@ class JavaScriptProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class PHPProgrammeView(View):
     def get(self, request):
@@ -303,11 +521,21 @@ class PHPProgrammeView(View):
 class PHPProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = PHPProgramme
+    like_obj = PHPProgrammeLike
+    parent_obj = PHPProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(PHPProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = 'PHP Programme'
         # View Counter
         s = self.object
@@ -325,6 +553,20 @@ class PHPProgrammeDetailView(DetailView):
             context['next'] = next
         return context
 
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)
+
 
 class DotNetProgrammeView(View):
     def get(self, request):
@@ -335,11 +577,21 @@ class DotNetProgrammeView(View):
 class DotNetProgrammeDetailView(DetailView):
     template_name = 'programme/detail.html'
     model = DotNetProgramme
+    like_obj = DotNetProgrammeLike
+    parent_obj = DotNetProgrammeParent
 
     def get_context_data(self, **kwargs):
         context = super(DotNetProgrammeDetailView, self).get_context_data(**kwargs)
-        obj_list = self.model.objects.all()
+        obj_list = self.parent_obj.objects.all()
         context['obj_list'] = obj_list
+        # Like Button
+        context['obj_like_count'] = self.like_obj.objects.all().count()
+        if self.request.user.is_authenticated:
+            user = User.objects.get(username=self.request.user)
+            if self.like_obj.objects.filter(user=user, post=self.object).exists():
+                context['obj_like_exist'] = "Yes"
+        else:
+            context['obj_like_exist'] = "No"
         context['title'] = '.NET Programme'
         # View Counter
         s = self.object
@@ -356,3 +608,17 @@ class DotNetProgrammeDetailView(DetailView):
         if next != None:
             context['next'] = next
         return context
+
+    def post(self, request, **kwargs):
+        pk = request.POST.get('pk')
+        user = User.objects.get(username=request.user)
+        context = {}
+        if self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk)).exists():
+            o = self.like_obj.objects.filter(user=user, post=self.model.objects.get(pk=pk))
+            o.delete()
+            context['ok'] = 'delete'
+        else:
+            self.like_obj.objects.create(user=user, post=self.model.objects.get(pk=pk))
+            context['ok'] = 'create'
+        context['number'] = self.like_obj.objects.all().count()
+        return JsonResponse(context)

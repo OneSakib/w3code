@@ -1,49 +1,77 @@
 from django.contrib import admin
 from .models import *
+from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
-
-@admin.register(Jquery)
-class JqueryAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class JqueryAdmin(CommonAdmin):
+    model = Jquery
 
 
-@admin.register(Angularjs)
-class AngularjsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class AngularjsAdmin(CommonAdmin):
+    model = Angularjs
 
 
-@admin.register(Nodejs)
-class NodejsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class NodejsAdmin(CommonAdmin):
+    model = Nodejs
 
 
-@admin.register(Expressjs)
-class ExpressjsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class ExpressjsAdmin(CommonAdmin):
+    model = Expressjs
 
 
-@admin.register(Reactjs)
-class ReactjsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class ReactjsAdmin(CommonAdmin):
+    model = Reactjs
 
 
-@admin.register(TypeScripts)
-class TypeScriptsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class TypeScriptsAdmin(CommonAdmin):
+    model = TypeScripts
 
 
-@admin.register(VUEjs)
-class VUEjsAdmin(admin.ModelAdmin):
-     list_display = ['title', 'slug']
-     prepopulated_fields = {'slug': ['title']}
+class VUEjsAdmin(CommonAdmin):
+    model = VUEjs
 
 
+# Parent Admin
+
+@admin.register(JqueryParent)
+class JqueryParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JqueryAdmin,)
+
+
+@admin.register(AngularjsParent)
+class AngularjsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (AngularjsAdmin,)
+
+
+@admin.register(NodejsParent)
+class NodejsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (NodejsAdmin,)
+
+
+@admin.register(ExpressjsParent)
+class ExpressjsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (ExpressjsAdmin,)
+
+
+@admin.register(ReactjsParent)
+class ReactjsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (ReactjsAdmin,)
+
+
+@admin.register(TypeScriptsParent)
+class TypeScriptsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (TypeScriptsAdmin,)
+
+
+@admin.register(VUEjsParent)
+class VUEjsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (VUEjsAdmin,)

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-sm-6 col-md-6  col-lg-2 col-xl-2 px-sm-2 px-0 bg-light">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white ">
+                    <span class="d-flex align-items-center  pb-3 text-dark fs-3">
+                       {{ request.user|title }}
+                    </span>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                        id="menu">
+                        <li class="nav-item">
+                            <a href="{% url 'w3c:profile' %}" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'w3c:savedarticle' %}" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1">Saved Article</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'w3c:profileupdate' %}" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span
+                                    class="ms-1">Profile Update</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <a href="{% url 'w3c:logoutuser' %}" class="btn btn-success">Logout</a>
+                </div>
+            </div>
+            <div class="col py-3">
+                <h3 class="text-center">{{ title }}</h3>
+                {% if type == 'article' %}
+
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th>Article</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if data %}
+                            {% for d in data %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><a href="{{ d.link }}" class="text-decoration-none">{{ d.title }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+
+
+                {% elif type == 'update' %}
+                    <form action="" method="post">
+                        {{ form|crispy }}
+                        {% csrf_token %}
+                        <input type="submit" value="Update" class="btn btn-success">
+                    </form>
+                {% else %}
+                    <div class="row text-center fs-5">
+                        <div class="col-6">
+                            User Name
+                        </div>
+                        <div class="col-6">
+                            <b>{{ user }}</b>
+                        </div>
+                        <div class="col-6">
+                            First Name
+                        </div>
+                        <div class="col-6">
+                            <b>{{ user.first_name }}</b>
+                        </div>
+                        <div class="col-6">
+                            Last Name
+                        </div>
+                        <div class="col-6">
+                            <b>{{ user.last_name }}</b>
+                        </div>
+                        <div class="col-6">
+                            Email
+                        </div>
+                        <div class="col-6">
+                            <b>{{ user.email }}</b>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

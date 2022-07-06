@@ -1,126 +1,208 @@
 from django.contrib import admin
 from .models import *
+from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
 
-@admin.register(Django)
-class DjangoAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+
+class DjangoAdmin(CommonAdmin):
+    model = Django
 
 
-@admin.register(RestApi)
-class RestApiAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class RestApiAdmin(CommonAdmin):
+    model = RestApi
 
 
-@admin.register(Flask)
-class FlaskAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class FlaskAdmin(CommonAdmin):
+    model = Flask
 
 
-@admin.register(MachineLearning)
-class MachineLearningAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class MachineLearningAdmin(CommonAdmin):
+    model = MachineLearning
 
 
-@admin.register(Numpys)
-class NumpysAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class NumpysAdmin(CommonAdmin):
+    model = Numpys
 
 
-@admin.register(Tkinters)
-class TkintersAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class TkintersAdmin(CommonAdmin):
+    model = Tkinters
 
 
-@admin.register(Pytorchs)
-class PytorchsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PytorchsAdmin(CommonAdmin):
+    model = Pytorchs
 
 
-@admin.register(Pygames)
-class PygamesAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PygamesAdmin(CommonAdmin):
+    model = Pygames
 
 
-@admin.register(Scipys)
-class ScipysAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class ScipysAdmin(CommonAdmin):
+    model = Scipys
 
 
-@admin.register(Pandass)
-class PandassAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PandassAdmin(CommonAdmin):
+    model = Pandass
 
 
-@admin.register(OpenCVs)
-class OpenCVsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class OpenCVsAdmin(CommonAdmin):
+    model = OpenCVs
 
 
-@admin.register(Matplotlibs)
-class MatplotlibsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class MatplotlibsAdmin(CommonAdmin):
+    model = Matplotlibs
 
 
-@admin.register(Seleniums)
-class SeleniumsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class SeleniumsAdmin(CommonAdmin):
+    model = Seleniums
 
 
-@admin.register(Kivys)
-class KivysAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class KivysAdmin(CommonAdmin):
+    model = Kivys
 
 
-@admin.register(Jupyters)
-class JupytersAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class JupytersAdmin(CommonAdmin):
+    model = Jupyters
 
 
-@admin.register(DataScience)
-class DataScienceAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class DataScienceAdmin(CommonAdmin):
+    model = DataScience
 
 
-@admin.register(DeepLearning)
-class DeepLearningAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class DeepLearningAdmin(CommonAdmin):
+    model = DeepLearning
 
 
-@admin.register(Pillows)
-class PillowsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PillowsAdmin(CommonAdmin):
+    model = Pillows
 
 
-@admin.register(Tensorflows)
-class TensorflowsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class TensorflowsAdmin(CommonAdmin):
+    model = Tensorflows
 
 
-@admin.register(DSPython)
-class DSPythonAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class DSPythonAdmin(CommonAdmin):
+    model = DSPython
 
+
+# Parent ADmin
+@admin.register(DjangoParent)
+class DjangoParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DjangoAdmin,)
+
+
+@admin.register(RestApiParent)
+class RestApiParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (RestApiAdmin,)
+
+
+@admin.register(FlaskParent)
+class FlaskParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (FlaskAdmin,)
+
+
+@admin.register(MachineLearningParent)
+class MachineLearningParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (MachineLearningAdmin,)
+
+
+@admin.register(NumpysParent)
+class NumpysParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (NumpysAdmin,)
+
+
+@admin.register(TkintersParent)
+class TkintersParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (TkintersAdmin,)
+
+
+@admin.register(PytorchsParent)
+class PytorchsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PytorchsAdmin,)
+
+
+@admin.register(PygamesParent)
+class PygamesParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PygamesAdmin,)
+
+
+@admin.register(ScipysParent)
+class ScipysParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (ScipysAdmin,)
+
+
+@admin.register(PandassParent)
+class PandassParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PandassAdmin,)
+
+
+@admin.register(OpenCVsParent)
+class OpenCVsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (OpenCVsAdmin,)
+
+
+@admin.register(MatplotlibsParent)
+class MatplotlibsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (MatplotlibsAdmin,)
+
+
+@admin.register(SeleniumsParent)
+class SeleniumsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (SeleniumsAdmin,)
+
+
+@admin.register(KivysParent)
+class KivysParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (KivysAdmin,)
+
+
+@admin.register(JupytersParent)
+class JupytersParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (JupytersAdmin,)
+
+
+@admin.register(DataScienceParent)
+class DataScienceParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DataScienceAdmin,)
+
+
+@admin.register(DeepLearningParent)
+class DeepLearningParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DeepLearningAdmin,)
+
+
+@admin.register(PillowsParent)
+class PillowsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PillowsAdmin,)
+
+
+@admin.register(TensorflowsParent)
+class TensorflowsParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (TensorflowsAdmin,)
+
+
+@admin.register(DSPythonParent)
+class DSPythonParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DSPythonAdmin,)

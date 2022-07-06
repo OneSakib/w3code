@@ -1,148 +1,137 @@
 from django.contrib import admin
 from .models import *
+from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
-@admin.register(DigitalOcean)
-class DigitalOceanAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+
+class DigitalOceanAdmin(CommonAdmin):
+    model = DigitalOcean
 
 
-@admin.register(AWS)
-class AWSAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class AWSAdmin(CommonAdmin):
+    model = AWS
 
 
-@admin.register(PythonAnywhere)
-class PythonAnywhereAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class PythonAnywhereAdmin(CommonAdmin):
+    model = PythonAnywhere
 
 
-@admin.register(HerokuApp)
-class HerokuAppAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class HerokuAppAdmin(CommonAdmin):
+    model = HerokuApp
 
 
-@admin.register(GithubHost)
-class GithubHostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class GithubHostAdmin(CommonAdmin):
+    model = GithubHost
 
 
-@admin.register(BlueHost)
-class BlueHostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class BlueHostAdmin(CommonAdmin):
+    model = BlueHost
 
 
-@admin.register(HostGator)
-class HostGatorAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class HostGatorAdmin(CommonAdmin):
+    model = HostGator
 
 
-@admin.register(InMotionHosting)
-class InMotionHostingAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class InMotionHostingAdmin(CommonAdmin):
+    model = InMotionHosting
 
 
-@admin.register(A2Hosting)
-class A2HostingAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class A2HostingAdmin(CommonAdmin):
+    model = A2Hosting
 
 
-@admin.register(GreenGeeks)
-class GreenGeeksAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class GreenGeeksAdmin(CommonAdmin):
+    model = GreenGeeks
 
 
-@admin.register(Hostinger)
-class HostingerAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class HostingerAdmin(CommonAdmin):
+    model = Hostinger
 
 
-@admin.register(MSAzure)
-class MSAzureAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class MSAzureAdmin(CommonAdmin):
+    model = MSAzure
 
 
-@admin.register(GoDaddy)
-class GoDaddyAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ['title']}
+class GoDaddyAdmin(CommonAdmin):
+    model = GoDaddy
 
 
-# Comments
-# @admin.register(DigitalOceanComments)
-# class DigitalOceanCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(MSAzureComments)
-# class MSAzureCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(AWSComments)
-# class AWSCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(PythonAnywhereComments)
-# class PythonAnywhereCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(HerokuAppComments)
-# class HerokuAppCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(GithubHostComments)
-# class GithubHostCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(BlueHostComments)
-# class BlueHostCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(HostGatorComments)
-# class HostGatorCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(InMotionHostingComments)
-# class InMotionHostingCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(A2HostingComments)
-# class A2HostingCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(GreenGeeksComments)
-# class GreenGeeksCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(HostingerComments)
-# class HostingerCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
-#
-#
-# @admin.register(GoDaddyComments)
-# class GoDaddyCommentsAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'post']
+# parent
+@admin.register(DigitalOceanParent)
+class DigitalOceanParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (DigitalOceanAdmin,)
+
+
+@admin.register(MSAzureParent)
+class MSAzureParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (MSAzureAdmin,)
+
+
+@admin.register(AWSParent)
+class AWSParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (AWSAdmin,)
+
+
+@admin.register(PythonAnywhereParent)
+class PythonAnywhereParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (PythonAnywhereAdmin,)
+
+
+@admin.register(HerokuAppParent)
+class HerokuAppParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (HerokuAppAdmin,)
+
+
+@admin.register(GithubHostParent)
+class GithubHostParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (GithubHostAdmin,)
+
+
+@admin.register(BlueHostParent)
+class BlueHostParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (BlueHostAdmin,)
+
+
+@admin.register(HostGatorParent)
+class HostGatorParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (HostGatorAdmin,)
+
+
+@admin.register(InMotionHostingParent)
+class InMotionHostingParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (InMotionHostingAdmin,)
+
+
+@admin.register(A2HostingParent)
+class A2HostingParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (A2HostingAdmin,)
+
+
+@admin.register(GreenGeeksParent)
+class GreenGeeksParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (GreenGeeksAdmin,)
+
+
+@admin.register(HostingerParent)
+class HostingerParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (HostingerAdmin,)
+
+
+@admin.register(GoDaddyParent)
+class GoDaddyParentAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    inlines = (GoDaddyAdmin,)
