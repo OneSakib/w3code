@@ -34,6 +34,11 @@ from HostingApp.sitemaps import Host_sitemap
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Admin page customization
+admin.site.site_header = "W3Code.tech"
+admin.site.site_title = "W3Code.tech Admin Portal"
+admin.site.index_title = "W3Code.tech"
+
 sitemaps = dict()
 sitemaps.update(M_sitemap)
 sitemaps.update(D_sitemap)
@@ -52,28 +57,25 @@ sitemaps.update(W_sitemap)
 sitemaps.update(Host_sitemap)
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin'),
-    path('', include('MainApp.urls', namespace='w3c')),
-    path('programming/', include('ProgrammingApp.urls', namespace='Programming')),
-    path('preparation/', include('PreparationApp.urls', namespace='Preparation')),
-    path('theory/', include('TheoryApp.urls', namespace='Theory')),
-    path('db/', include('DatabaseApp.urls', namespace='Database')),
-    path('python/', include('PythonApp.urls', namespace='Python')),
-    path('java/', include('JavaApp.urls', namespace='Java')),
-    path('javascript/', include('JavaScriptApp.urls', namespace='Javascript')),
-    path('web/', include('WebApp.urls', namespace='Web')),
-    path('ms/', include('MsApp.urls', namespace='MS')),
-    path('vc/', include('VCApp.urls', namespace='VC')),
-    path('exercise/', include('Exercise.urls', namespace='Exercise')),
-    path('programme/', include('Programmes.urls', namespace='Programme')),
-    path('projects/', include('Projects.urls', namespace='Projects')),
-    path('hosting/', include('HostingApp.urls', namespace='Hosting')),
-    path('w3/sitemap.xml/', sitemap, {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap'),
-    path('accounts/', include('allauth.urls')),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls, name='admin'),
+                  path('', include('MainApp.urls', namespace='w3c')),
+                  path('programming/', include('ProgrammingApp.urls', namespace='Programming')),
+                  path('preparation/', include('PreparationApp.urls', namespace='Preparation')),
+                  path('theory/', include('TheoryApp.urls', namespace='Theory')),
+                  path('db/', include('DatabaseApp.urls', namespace='Database')),
+                  path('python/', include('PythonApp.urls', namespace='Python')),
+                  path('java/', include('JavaApp.urls', namespace='Java')),
+                  path('javascript/', include('JavaScriptApp.urls', namespace='Javascript')),
+                  path('web/', include('WebApp.urls', namespace='Web')),
+                  path('ms/', include('MsApp.urls', namespace='MS')),
+                  path('vc/', include('VCApp.urls', namespace='VC')),
+                  path('exercise/', include('Exercise.urls', namespace='Exercise')),
+                  path('programme/', include('Programmes.urls', namespace='Programme')),
+                  path('projects/', include('Projects.urls', namespace='Projects')),
+                  path('hosting/', include('HostingApp.urls', namespace='Hosting')),
+                  path('sitemap.xml/', sitemap, {'sitemaps': sitemaps},
+                       name='django.contrib.sitemaps.views.sitemap'),
+                  path('accounts/', include('allauth.urls')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'MainApp.views.error_404'

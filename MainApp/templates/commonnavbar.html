@@ -1,0 +1,121 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'w3c:index' %}">
+            <img src="{% static 'logo.png' %}" alt="logo not load" class="logo-image">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2  mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active " aria-current="page" href="{% url 'w3c:index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" id="nav-tut" aria-current="page" data-bs-toggle="collapse"
+                       href="#tutorial" role="button" aria-expanded="false" aria-controls="tutorial">Tutorial <i
+                            class="fa fa-caret-down"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'w3c:blog' %}">Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Exercise
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'Exercise:cexercise' %}">C</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:cplusexcise' %}">C++</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:pythonexercise' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:javaexercise' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:kotlinexercise' %}">Kotlin</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:rexercise' %}">R</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:csharpexercise' %}">C#</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:swiftexercise' %}">Swift</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:javascriptexercise' %}">JavaScript</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:phpexercise' %}">PHP</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Exercise:dotnetexercise' %}">.NET</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Programmes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'Programme:cprogramme' %}">C</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:cplusprogramme' %}">C++</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:pythonprogramme' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:javaprogramme' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:kotlinprogramme' %}">Kotlin</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:rprogramme' %}">R</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:csharpprogramme' %}">C#</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:swiftprogramme' %}">Swift</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:javascriptprogramme' %}">JavaScript</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:phpprogramme' %}">PHP</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Programme:dotnetprogramme' %}">.NET</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'Projects:cprojects' %}">C</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:cplusprojects' %}">C++</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:pythonprojects' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:javaprojects' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:kotlinprojects' %}">Kotlin</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:rprojects' %}">R</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:csharpprojects' %}">C#</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:swiftprojects' %}">Swift</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:javascriptprojects' %}">JavaScript</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:phpprojects' %}">PHP</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:dotnetprojects' %}">.NET</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Projects:androidprojects' %}">Android</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Online IDE
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'python' %}">Python</a></li>
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'java' %}">Java</a></li>
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'html' %}">HTML</a></li>
+                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'r' %}">R</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% if request.user.is_superuser %}
+                <div class="collapse d-flex">
+                    <ul class="navbar-nav me-auto mb-2  mb-lg-0">
+                        <li class="nav-item "><a href="/admin/" class="text-decoration-none text-success">Admin
+                            Login</a></li>
+                        <li class="nav-item ms-2"><a href="{% url 'w3c:comments' %}"
+                                                     class="text-decoration-none">Comments</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+            <div>
+                <div class="collapse d-flex">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'w3c:profile' %}" class="text-decoration-none"><span class="ms-2 shadow p-2"
+                                                                                             style="font-size: 20px">Welcome <b
+                                class="text-success ">{{ request.user|title }}</b></span></a>
+                    {% else %}
+                        {% include 'loginmodel.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

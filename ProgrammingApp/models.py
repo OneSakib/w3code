@@ -115,10 +115,10 @@ class CLanguage(TutCommon):
         return f'{reverse_lazy("Programming:cdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.CProgramme.objects.all()
+        return progmodel.CProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.CProjects.objects.all()
+        return projmodel.CProjectsParent.objects.all()
 
 
 class CplusLanguage(TutCommon):
@@ -131,10 +131,10 @@ class CplusLanguage(TutCommon):
         return f'{reverse_lazy("Programming:cplusdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.CPlusProgramme.objects.all()
+        return progmodel.CPlusProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.CPlusProjects.objects.all()
+        return projmodel.CPlusProjectsParent.objects.all()
 
 
 class PythonLanguage(TutCommon):
@@ -147,10 +147,10 @@ class PythonLanguage(TutCommon):
         return f'{reverse_lazy("Programming:pythondetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.PythonProgramme.objects.all()
+        return progmodel.PythonProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.PythonProjects.objects.all()
+        return projmodel.PythonProjectsParent.objects.all()
 
 
 class JavaLanguage(TutCommon):
@@ -163,10 +163,10 @@ class JavaLanguage(TutCommon):
         return f'{reverse_lazy("Programming:javadetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.JavaProgramme.objects.all()
+        return progmodel.JavaProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.JavaProjects.objects.all()
+        return projmodel.JavaProjectsParent.objects.all()
 
 
 class AndroidLanguage(TutCommon):
@@ -179,7 +179,7 @@ class AndroidLanguage(TutCommon):
         return f'{reverse_lazy("Programming:androiddetail", kwargs={"slug": self.slug})}'
 
     def projects(self):
-        return projmodel.AndroidProjects.objects.all()
+        return projmodel.AndroidProjectsParent.objects.all()
 
 
 class KotlinLanguage(TutCommon):
@@ -192,10 +192,10 @@ class KotlinLanguage(TutCommon):
         return f'{reverse_lazy("Programming:kotlindetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.KotlinProgramme.objects.all()
+        return progmodel.KotlinProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.KotlinProjects.objects.all()
+        return projmodel.KotlinProjectsParent.objects.all()
 
 
 class RLanguage(TutCommon):
@@ -208,10 +208,10 @@ class RLanguage(TutCommon):
         return f'{reverse_lazy("Programming:rdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.RProgramme.objects.all()
+        return progmodel.RProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.RProjects.objects.all()
+        return projmodel.RProjectsParent.objects.all()
 
 
 class CsharpLanguage(TutCommon):
@@ -224,10 +224,10 @@ class CsharpLanguage(TutCommon):
         return f'{reverse_lazy("Programming:csharpdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.CSharpProgramme.objects.all()
+        return progmodel.CSharpProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.CSharpProjects.objects.all()
+        return projmodel.CSharpProjectsParent.objects.all()
 
 
 class SwiftLanguage(TutCommon):
@@ -240,10 +240,10 @@ class SwiftLanguage(TutCommon):
         return f'{reverse_lazy("Programming:swiftdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.SwiftProgramme.objects.all()
+        return progmodel.SwiftProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.SwiftProjects.objects.all()
+        return projmodel.SwiftProjectsParent.objects.all()
 
 
 class JavaScriptLanguage(TutCommon):
@@ -256,10 +256,10 @@ class JavaScriptLanguage(TutCommon):
         return f'{reverse_lazy("Programming:javascriptdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.JavaScriptProgramme.objects.all()
+        return progmodel.JavaScriptProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.JavaScriptProjects.objects.all()
+        return projmodel.JavaScriptProjectsParent.objects.all()
 
 
 class PHPLanguage(TutCommon):
@@ -272,10 +272,10 @@ class PHPLanguage(TutCommon):
         return f'{reverse_lazy("Programming:phpdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.PHPProgramme.objects.all()
+        return progmodel.PHPProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.PHPProjects.objects.all()
+        return projmodel.PHPProjectsParent.objects.all()
 
 
 class DotNetLanguage(TutCommon):
@@ -288,10 +288,10 @@ class DotNetLanguage(TutCommon):
         return f'{reverse_lazy("Programming:dotnetdetail", kwargs={"slug": self.slug})}'
 
     def programmes(self):
-        return progmodel.DotNetProgramme.objects.all()
+        return progmodel.DotNetProgrammeParent.objects.all()
 
     def projects(self):
-        return projmodel.DotNetProjects.objects.all()
+        return projmodel.DotNetProjectsParent.objects.all()
 
 
 # Like Counter

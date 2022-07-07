@@ -57,6 +57,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--Custom stylesheet-->
+    <link rel="stylesheet" href="{% static 'customstyle.css' %}">
     <!--CSS BLock-->
     {% block css %}
     {% endblock %}
@@ -65,226 +67,11 @@
             font-family: sofia-pro;
             src: local('sofia-pro'), url("{% static 'Fonts/sofiapro-light.otf' %}") format("truetype");
         }
-
-        div::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        div::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-        }
-
-        div::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
-        }
-
-        body {
-            margin: 0;
-            font-family: sofia-pro, sans-serif, Arial, Helvetica;
-        }
-
-        .navbar {
-            background-color: #e3d4d4;
-        }
-
-        .nav-item a {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-
-        .tut-body {
-            color: #cbcb33;
-            font-weight: bold;
-        }
-
-        .tut-body ul li a {
-            text-decoration: none;
-            color: white;
-            width: 100%;
-            display: block;
-        }
-
-        .tut-body ul li {
-            padding: 3px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .tut-body ul li:hover a {
-            color: black;
-            background-color: #b29999;
-        }
-
-        .tut-body ul li:hover {
-            color: black;
-            background-color: #b29999;
-            width: 100%;
-        }
-
-        #btn-back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: none;
-        }
-
-        footer a img {
-            height: 50px;
-            width: 50px;
-        }
-
-        pre code {
-            padding: 20px !important;
-        }
-
-        .copy {
-            display: none;
-        }
-
-        pre:hover > .copy {
-            display: block;
-        }
-
-        .copy:hover {
-            background: green !important;
-        }
-
-        .img_full {
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: 10000;
-            top: 0;
-            left: 0;
-            cursor: zoom-out;
-        }
     </style>
 </head>
 <body>
 <!--Navabar -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'w3c:index' %}">
-            <img src="{% static 'logo.png' %}" alt="logo not load" class="logo-image">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2  mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="{% url 'w3c:index' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" id="nav-tut" aria-current="page" data-bs-toggle="collapse"
-                       href="#tutorial" role="button" aria-expanded="false" aria-controls="tutorial">Tutorial <i
-                            class="fa fa-caret-down"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'w3c:blog' %}">Blog</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Exercise
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'Exercise:cexercise' %}">C</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:cplusexcise' %}">C++</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:pythonexercise' %}">Python</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:javaexercise' %}">Java</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:kotlinexercise' %}">Kotlin</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:rexercise' %}">R</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:csharpexercise' %}">C#</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:swiftexercise' %}">Swift</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:javascriptexercise' %}">JavaScript</a>
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:phpexercise' %}">PHP</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Exercise:dotnetexercise' %}">.NET</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Programmes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'Programme:cprogramme' %}">C</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:cplusprogramme' %}">C++</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:pythonprogramme' %}">Python</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:javaprogramme' %}">Java</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:kotlinprogramme' %}">Kotlin</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:rprogramme' %}">R</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:csharpprogramme' %}">C#</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:swiftprogramme' %}">Swift</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:javascriptprogramme' %}">JavaScript</a>
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:phpprogramme' %}">PHP</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Programme:dotnetprogramme' %}">.NET</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Projects
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'Projects:cprojects' %}">C</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:cplusprojects' %}">C++</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:pythonprojects' %}">Python</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:javaprojects' %}">Java</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:kotlinprojects' %}">Kotlin</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:rprojects' %}">R</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:csharpprojects' %}">C#</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:swiftprojects' %}">Swift</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:javascriptprojects' %}">JavaScript</a>
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:phpprojects' %}">PHP</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:dotnetprojects' %}">.NET</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Projects:androidprojects' %}">Android</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Online IDE
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'python' %}">Python</a></li>
-                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'java' %}">Java</a></li>
-                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'html' %}">HTML</a></li>
-                        <li><a class="dropdown-item" href="{% url 'w3c:onlineide' 'r' %}">R</a></li>
-                    </ul>
-                </li>
-            </ul>
-            {% if request.user.is_superuser %}
-                <div class="collapse d-flex">
-                    <ul class="navbar-nav me-auto mb-2  mb-lg-0">
-                        <li class="nav-item "><a href="/admin/" class="text-decoration-none text-success">Admin
-                            Login</a></li>
-                        <li class="nav-item ms-2"><a href="{% url 'w3c:comments' %}"
-                                                     class="text-decoration-none">Comments</a></li>
-                    </ul>
-                </div>
-            {% endif %}
-            <div>
-                <div class="collapse d-flex">
-                    {% if request.user.is_authenticated %}
-                        <a href="{% url 'w3c:profile' %}" class="text-decoration-none"><span class="ms-2 shadow p-2"
-                                                                                             style="font-size: 20px">Welcome <b
-                                class="text-success ">{{ request.user|title }}</b></span></a>
-                    {% else %}
-                        {% include 'loginmodel.html' %}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
+{% include 'commonnavbar.html' %}
 <div class="collapse container-fluid bg-dark tut-body p-3" id="tutorial">
     <div class="container-lg row m-auto">
         <h3 class="fw-bold">Tutorial</h3>
@@ -401,6 +188,17 @@
         </div>
     </div>
 </div>
+
+<!--Full width image-->
+<!-- The Modal -->
+<div id="myModal" class="image-modal">
+
+    <!-- The Close Button -->
+    <span class="image-close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="image-modal-content" id="img01">
+</div>
 <!--Body content Block-->
 <div class="container-fluid">
     {% if messages %}
@@ -449,124 +247,8 @@
 <script src="{% static 'Bootstrap/jquery/jquery-3.6.0.js' %}"></script>
 {% block js %}
 {% endblock %}
+<script src="{% static 'customjavascript.js' %}"></script>
 <script>
-    //detail.py js
-    document.getElementById('row').onscroll = function () {
-        scrollFun();
-    }
-
-    function myFunction() {
-        if ($('.con-list').length > 0) {
-            $('.con-list').toggle(500)
-        }
-    }
-
-    conlist = document.getElementById('con-list');
-
-    function scrollFun() {
-        let swidth = window.screen.width;
-        if (swidth <= 700) {
-            conlist.style.display = "none";
-        }
-    }
-
-    $(window).on('resize', function (e) {
-        var swidth = window.screen.width;
-        if (swidth > 700) {
-            var container = $("#con-list").show()
-        }
-    })
-    $(document).mouseup(function (e) {
-        var container = $("#con-list");
-        var swidth = window.screen.width;
-        var icon = $('#icon');
-        if (swidth < 700) {
-            // if the target of the click isn't the container nor a descendant of the container
-            if (!container.is(e.target) && container.has(e.target).length === 0 && !icon.is(e.target) && icon.has(e.target).length === 0) {
-                container.hide(500);
-            }
-        }
-    });
-
-
-    //base js
-    $('#nav-tut').click(function () {
-        if ($('.collapsed').text() == '') {
-            $('.fa-caret-down').addClass('fa-caret-up');
-            $('.fa-caret-up').removeClass('fa-caret-down');
-        } else {
-            $('.fa-caret-up').addClass('fa-caret-down');
-            $('.fa-caret-down').removeClass('fa-caret-up');
-        }
-    })
-    //Get the button
-    let mybutton = document.getElementById("btn-back-to-top");
-
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function () {
-        scrollFunction();
-    };
-
-    function scrollFunction() {
-        if (
-            document.body.scrollTop > 100 ||
-            document.documentElement.scrollTop > 100
-        ) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-    }
-
-    // When the user clicks on the button, scroll to the top of the document
-    mybutton.addEventListener("click", backToTop);
-
-    function backToTop() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
-
-
-    // Copy to clipboard
-    const pretag = $('pre');
-    if (pretag.length > 0) {
-        for (var i = 0; i < pretag.length; i++) {
-            let spantag = document.createElement('span');
-            spantag.classList = 'badge text-white bg-primary fs-6 copy'
-            spantag.textContent = 'copy'
-            spantag.style.position = 'absolute'
-            spantag.style.top = '10px'
-            spantag.style.right = '10px'
-            spantag.style.zIndex = '1'
-            spantag.style.cursor = 'pointer'
-            spantag.id = 'span-' + i
-            pretag[i].appendChild(spantag)
-        }
-        $('.copy').on('click', function () {
-            let ele = $(this)
-            ele.text('copied');
-            let parentele = ele.parent()
-            /* Copy the text inside the text field */
-            navigator.clipboard.writeText(parentele.text().replace('copied', ''))
-            console.log(parentele.text().replace('copied', ''))
-        })
-    }
-
-    //Full screen
-    const img_tag = $('img');
-    if (img_tag.length > 0) {
-        $(document).ready(function () {
-            $("img:not(.logo-image)").click(function () {
-                $(this).toggleClass('img_full');
-            });
-        });
-    }
-
-    //hide alert after some time
-    setTimeout(hideElement, 1000 * 30) //milliseconds until timeout//
-    function hideElement() {
-        $('#alert-message').css('display', 'none');
-    }
 
     //Bookmark
     let unknown_user = 'AnonymousUser'
@@ -626,6 +308,7 @@
             alert("Please login and try again! ")
         }
     })
+
 </script>
 </html>
 

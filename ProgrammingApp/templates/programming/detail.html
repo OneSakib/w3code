@@ -1,71 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }} {{ object.title }} {% endblock %}
 {% load bookmarkfilter %}
+{% load static %}
 {% block css %}
-    <style>
-        .con-list {
-            position: sticky;
-            top: 0;
-            height: 600px;
-            overflow: auto;
-            width: 22%;
-            background-color: white;
-        }
-
-        .accordion-body a {
-            text-decoration: none;
-            color: black;
-            display: block;
-            padding: 10px 13px;
-        }
-
-        .accordion-body a:hover {
-            font-size: 18px;
-        }
-
-        .accordion {
-            background-color: #dedcdc;
-        }
-
-        .accordion button:hover {
-            background-color: #e3e3e3;
-
-        }
-
-        .con-body {
-            width: 75%;
-        }
-
-        @media (max-width: 700px) {
-            .con-list {
-                display: none;
-                width: 75%;
-                z-index: 100;
-                position: absolute;
-                top: 125px;
-            }
-
-            .con-body {
-                width: 95%;
-                margin: auto;
-            }
-        }
-
-        @media (min-width: 989px) {
-            .con-title {
-                display: none;
-            }
-
-            .con-list ul li a {
-                font-size: 17px;
-            }
-        }
-
-        .like-share {
-            font-size: 25px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'customdetailstyle.css' %}">
 {% endblock %}
 {% block content %}
     {% include 'navbar.html' %}
@@ -152,7 +90,7 @@
             <!--Body of Detail-->
             <h3 class="text-center text-white p-1 rounded-2 bg-secondary">{{ object.title }}</h3>
             <div class="d-flex justify-content-around">
-                <div>
+                <div class="view-top">
                     Views: <b>{{ object.viewcounter }}</b> Post Update&nbsp;: <b>{{ object.timestamp }}</b> Author :
                     <b><a href="" class="text-decoration-none">{{ object.author|title }}</a></b>
                 </div>
@@ -160,23 +98,23 @@
                     {% csrf_token %}
                     <span class="like-share">
                      {% if obj_like_exist == "Yes" %}
-                         <a class="text-decoration-none text-dark me-3 like-button" href="#"> <i
+                         <a class="text-decoration-none text-dark me-md-3 like-button" href="#"> <i
                                  class="fa-solid fa-thumbs-up"
                                  id="like-button-top"></i></a>
                      {% else %}
-                         <a class="text-decoration-none text-dark me-3 like-button" href="#"> <i
+                         <a class="text-decoration-none text-dark me-md-3 like-button" href="#"> <i
                                  class="fa-regular fa-thumbs-up" id="like-button-top"></i></a>
                      {% endif %}
 
                         {% if not request.user.is_authenticated %}
-                            <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                            <a class="text-decoration-none text-dark me-md-3" href="#" id="bookmark"> <i
                                     class="fa-regular fa-bookmark"></i></a>
                         {% else %}
                             {% if article_obj|is_bookmark_exist:request %}
-                                <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                <a class="text-decoration-none text-dark me-md-3" href="#" id="bookmark"> <i
                                         class="fa fa-bookmark"></i></a>
                             {% else %}
-                                <a class="text-decoration-none text-dark me-3" href="#" id="bookmark"> <i
+                                <a class="text-decoration-none text-dark me-md-3" href="#" id="bookmark"> <i
                                         class="fa-regular fa-bookmark"></i></a>
                             {% endif %}
                         {% endif %}
@@ -191,9 +129,9 @@
                             <li><a class="dropdown-item text-success"
                                    href="whatsapp://send?text={{ request.build_absolute_uri }}"><i
                                     class="fa-brands fa-whatsapp"></i></a></li>
-                            <li><a class="dropdown-item text-danger" target="_blank"
-                                   href="https://www.instagram.com/?url={{ request.build_absolute_uri }}"><i
-                                    class="fa-brands fa-instagram"></i></a></li>
+                            <li><a class="dropdown-item text-primary" target="_blank"
+                                   href="http://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ object.title }}"><i
+                                    class="fa-brands fa-linkedin"></i></a></li>
                             <li><a class="dropdown-item text-primary" target="_blank"
                                    href="https://www.twitter.com/share?url={{ request.build_absolute_uri }}"><i
                                     class="fa-brands fa-twitter"></i></a></li>

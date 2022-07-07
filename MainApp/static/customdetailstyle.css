@@ -1,0 +1,79 @@
+/* details css */
+.con-list {
+    position: sticky;
+    top: 0;
+    height: 600px;
+    overflow: auto;
+    width: 22%;
+    background-color: white;
+}
+
+.accordion-body a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 10px 13px;
+}
+
+.accordion-body a:hover {
+    font-size: 18px;
+}
+
+.accordion {
+    background-color: #dedcdc;
+}
+
+.accordion button:hover {
+    background-color: #e3e3e3;
+
+}
+
+.con-body {
+    width: 75%;
+}
+
+@media (max-width: 700px) {
+    .con-list {
+        display: none;
+        width: 75%;
+        z-index: 100;
+        position: absolute;
+        top: 125px;
+    }
+
+    .con-body {
+        width: 95%;
+        margin: auto;
+    }
+
+    .view-top, .like-share i {
+        font-size: 10px;
+    }
+}
+
+.like-share .dropdown-menu {
+    min-width: 30px !important;
+}
+
+@media (min-width: 989px) {
+    .con-title {
+        display: none;
+    }
+
+    .con-list ul li a {
+        font-size: 17px;
+    }
+}
+
+.like-share {
+    font-size: 25px;
+}
+
+pre code {
+    padding: 20px !important;
+}
+
+.copy:hover {
+    background: white !important;
+    color: black !important;
+}

@@ -1,0 +1,163 @@
+
+div::-webkit-scrollbar {
+    width: 8px;
+}
+
+div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+div::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+body {
+    margin: 0;
+    font-family: sofia-pro, sans-serif, Arial, Helvetica;
+}
+
+.navbar {
+    background-color: #e3d4d4;
+}
+
+.nav-item a {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.tut-body {
+    color: #cbcb33;
+    font-weight: bold;
+}
+
+.tut-body ul li a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    display: block;
+}
+
+.tut-body ul li {
+    padding: 3px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.tut-body ul li:hover a {
+    color: black;
+    background-color: #b29999;
+}
+
+.tut-body ul li:hover {
+    color: black;
+    background-color: #b29999;
+    width: 100%;
+}
+
+#btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+}
+
+footer a img {
+    height: 50px;
+    width: 50px;
+}
+
+pre code {
+    padding: 20px !important;
+}
+
+.copy {
+    display: none;
+}
+
+pre:hover > .copy {
+    display: block;
+}
+
+.copy:hover {
+    background: green !important;
+}
+
+/*
+        .img_full {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            cursor: zoom-out;
+        }
+
+
+ */
+/* Style the Image Used to Trigger the Modal */
+.myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* The Modal (background) */
+.image-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.image-modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    height: auto;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+
+/* The Close Button */
+.image-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.image-close:hover,
+.image-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+    .image-modal-content {
+        width: 100%;
+    }
+}
