@@ -48,6 +48,11 @@
                             <button type="submit" class="form-control mt-2 mb-3 btn btn-success">Login</button>
                         </form>
                         <hr>
+                        <span class="text-center d-block mt-1 mb-1">
+                            <a href="{% url 'w3c:password_reset' %}" class="shadow p-3 text-decoration-none "
+                               style="border-radius: 10px">&nbsp;<b>Password Forget</b></a>
+                        </span>
+                        <hr>
                         <span class="text-center d-block">OR</span>
                         <hr>
                         <span class="text-center d-block mt-1 mb-1">
@@ -63,6 +68,20 @@
                             {% csrf_token %}
                             {{ registration_form|crispy }}
                             <input type="hidden" value="{{ request.get_full_path }}" name="currenturl">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input invalidCheck" type="checkbox" value=""
+                                           id="invalidCheck2" required>
+                                    <label class="form-check-label" for="invalidCheck2">
+                                        Agree to terms and conditions <a href="{% url 'w3c:privacypolicy' %}"
+                                                                         class="text-decoration-none">Read Privacy
+                                        Policy</a>
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="form-control mt-2 mb-3 btn btn-success">Register</button>
                         </form>
                         <hr>
@@ -100,4 +119,6 @@
             }, false)
         })
     })()
+
+
 </script>

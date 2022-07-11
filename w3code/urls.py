@@ -33,6 +33,7 @@ from WebApp.sitemaps import W_sitemap
 from HostingApp.sitemaps import Host_sitemap
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views  # import this
 
 # Admin page customization
 admin.site.site_header = "W3Code.tech"
@@ -76,6 +77,18 @@ urlpatterns = [
                   path('sitemap.xml/', sitemap, {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
                   path('accounts/', include('allauth.urls')),
+                  path('accounts_admin/', include('django.contrib.auth.urls')),
+                  path('password_reset/done/',
+                       auth_views.PasswordResetDoneView.as_view(template_name='password/password_reset_done.html'),
+                       name='password_reset_done'),
+                  path('reset/<uidb64>/<token>/',
+                       auth_views.PasswordResetConfirmView.as_view(
+                           template_name="password/password_reset_confirm.html"),
+                       name='password_reset_confirm'),
+                  path('reset/done/',
+                       auth_views.PasswordResetCompleteView.as_view(
+                           template_name='password/password_reset_complete.html'),
+                       name='password_reset_complete'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'MainApp.views.error_404'

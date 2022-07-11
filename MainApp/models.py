@@ -44,7 +44,7 @@ class TutCommon(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, default='1')
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=200, unique=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=True)
     content = HTMLField()
     viewcounter = models.IntegerField(default=0)
 
@@ -69,7 +69,7 @@ class Comments(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     body = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
 
     class Meta:
@@ -112,3 +112,37 @@ class ArticleBookmark(models.Model):
 # Like Counter
 class BlogsLike(LikeCommon):
     post = models.ForeignKey(Blogs, on_delete=models.CASCADE)
+
+
+# user account Verification
+class EmailVerification(models.Model):
+    user = models.ForeignKey('auth.User', related_name='user', on_delete=models.CASCADE)
+    activation_key = models.CharField(max_length=40)
+    key_expires = models.DateTimeField()
+
+    def __str__(self):
+        return self.user.username
+
+
+# Contact us
+
+class ContactUsModel(Comments):
+    class Meta:
+        verbose_name_plural = 'Contact US page'
+
+
+# Profile Image
+class ProfileImage(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    image = models.ImageField(default='userprofile/default.jpg', upload_to='userprofile')
+
+    def __str__(self):
+        return f"{self.user}' Profile"
+
+
+class AuthorModel(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='author')
+    profession = HTMLField()
+
+    def __str__(self):
+        return self.user.username

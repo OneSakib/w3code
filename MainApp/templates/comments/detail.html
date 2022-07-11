@@ -30,7 +30,7 @@
                             <form action="" method="post">
                                 {% csrf_token %}
                                 <input value="{{ o.pk }}" type="hidden" name="id">
-                                <input type="submit" value="Delete" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>

@@ -59,10 +59,7 @@ window.onscroll = function () {
 };
 
 function scrollFunction() {
-    if (
-        document.body.scrollTop > 100 ||
-        document.documentElement.scrollTop > 100
-    ) {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
         mybutton.style.display = "block";
     } else {
         mybutton.style.display = "none";
@@ -130,6 +127,9 @@ var modalImg = document.getElementById("img01");
 $('.myImg').on('click', function (e) {
     modal.style.display = "block";
     modalImg.src = this.src;
+    if ($('pre').length > 0) {
+        $('pre').css('opacity', '0')
+    }
 })
 
 // Get the <span> element that closes the modal
@@ -138,4 +138,35 @@ var span = document.getElementsByClassName("image-close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
     modal.style.display = "none";
+    if ($('pre').length > 0) {
+        $('pre').css('opacity', '1')
+    }
 }
+
+
+// show loading button
+$('form').on('submit', function (e) {
+    if ($('#invalidCheck').length > 0) {
+        alert("Invalid check")
+        if ($('.invalidCheck').is(':checked')) {
+            $('.overlay').css('display', 'block');
+            if ($('.modal').length > 0) {
+                $('.modal').removeClass('show');
+                // redirect to google after 5 seconds
+                window.setTimeout(function () {
+                    window.location.href = 'http://w3code.tech/';
+                }, 15000);
+            }
+        }
+    } else {
+        $('.overlay').css('display', 'block');
+        if ($('.modal').length > 0) {
+            $('.modal').removeClass('show');
+            // redirect to google after 5 seconds
+            window.setTimeout(function () {
+                window.location.href = 'http://w3code.tech/';
+            }, 15000);
+        }
+    }
+})
+

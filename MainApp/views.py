@@ -1,7 +1,12 @@
+import datetime
+import time
+from django.db.models import Q
+from django.utils.http import urlsafe_base64_encode
+from django.utils.timezone import utc
 import os
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse, redirect
 from django.http import JsonResponse
-from django.views.generic import ListView, FormView, DetailView, View
+from django.views.generic import ListView, FormView, DetailView, View, TemplateView
 from .models import *
 from .forms import *
 from next_prev import next_in_order, prev_in_order
@@ -12,8 +17,12 @@ from django.utils.decorators import method_decorator
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, PasswordResetForm
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail, BadHeaderError
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
 
 
 # Create your views here.
@@ -135,6 +144,9 @@ class CommentsDetailView(View):
         if name == 'blog':
             obj = BlogComments.objects.all()
             title = 'Blogs Comments'
+        if name == 'contactus':
+            obj = ContactUsModel.objects.all()
+            title = 'Contact Us Comments'
         if obj != None:
             obj = obj[:50:-1]
         context = {
@@ -148,6 +160,8 @@ class CommentsDetailView(View):
         name = str(slug).strip()
         if name == 'blog':
             obj = BlogComments
+        if name == 'contactus':
+            obj = ContactUsModel
 
         if obj != None:
             obj = obj.objects.get(pk=pk)
@@ -161,10 +175,21 @@ class RegisterUser(View):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            messages.success(request, "Registration successful.")
+            # send Email for verification
+            e_verify = EmailVerification.objects.filter(user=user).first()
+            if e_verify:
+                msg_plain = render_to_string('email/email.txt')
+                verify_link = HOST_NAME + '/verify/' + str(e_verify.activation_key)
+                msg_html = render_to_string('email/emailverification.html',
+                                            context={'username': user.username, 'email': user.email,
+                                                     'verify_link': verify_link, 'host_name': settings.HOST_NAME})
+                send_mail("For the w3code.tech account verification", msg_plain, settings.EMAIL_HOST_USER,
+                          [user.email], html_message=msg_html, fail_silently=True)
+                # login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                messages.success(request, f"Verify code has been send your email {user.email}")
             return HttpResponseRedirect(reverse_lazy('w3c:index'))
-        errors_str = "Unsuccessful registration. Invalid information.>>>>"
+
+        errors_str = "Unsuccessful registration. Invalid information/Your Account maybe not activate first activate.>>>>"
         for error in form.errors:
             errors_str += ' '.join(form.errors.get(error)) + '>>>>'
         messages.error(request, errors_str)
@@ -200,10 +225,11 @@ class UserLogout(View):
 @method_decorator(login_required(login_url=reverse_lazy('w3c:index')), name='dispatch')
 class UserProfile(View):
     def get(self, request, **kwargs):
+        user = User.objects.get(username=request.user)
         context = {
             'title': str(request.user).title() + "' Dashboard",
             'type': 'dashboard',
-            'user': User.objects.get(username=request.user)
+            'user': user,
         }
         return render(request, 'w3c/profile.html', context)
 
@@ -225,22 +251,27 @@ class UserSaveArticle(View):
 class UserProfileUpdate(View):
     def get(self, request, **kwargs):
         form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profileimage)
         context = {
             'title': 'Profile Update',
             'type': 'update',
-            'form': form
+            'form': form,
+            'p_form': p_form
         }
         return render(request, 'w3c/profile.html', context)
 
     def post(self, request, **kwargs):
         form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profileimage)
         context = {
             'title': 'Profile Update',
             'type': 'update',
-            'form': form
+            'form': form,
+            'p_form': p_form
         }
-        if form.is_valid():
+        if form.is_valid() and p_form.is_valid():
             form.save()
+            p_form.save()
             messages.success(request, 'User has been updated')
             return HttpResponseRedirect(reverse_lazy('w3c:profile'))
         return render(request, 'w3c/profile.html', context)
@@ -297,3 +328,114 @@ class ImageUpload(View):
             "message": "Image Uploaded Successfully",
             "location": file_url
         })
+
+
+class VerifyAccount(View):
+    def get(self, request, key):
+        # First check all the expired key if any delete and delete the user whose is not verify
+        try:
+            for obj in EmailVerification.objects.all():
+                now = datetime.datetime.utcnow().replace(tzinfo=utc)
+                diff = now - obj.key_expires
+                if diff.days > 2:
+                    obj.delete()
+            for obj in User.objects.all():
+                now = datetime.datetime.utcnow().replace(tzinfo=utc)
+                diff = now - obj.date_joined
+                if diff.days > 2 and obj.is_active == False:
+                    obj.delete()
+        except Exception as e:
+            print("Exception", e)
+
+        obj = EmailVerification.objects.filter(activation_key=key).first()
+        if obj:
+            user = User.objects.filter(username=obj.user).first()
+            user.is_active = True
+            user.save()
+            messages.success(request,
+                             f'Your account has been verified Now you can login UserName:{user} Email:{user.email}')
+
+        else:
+            messages.error(request, 'Your activation key has been expired please registration again !')
+        return HttpResponseRedirect(reverse_lazy('w3c:index'))
+
+
+# Contact Us
+class ContactUsView(TemplateView, FormView):
+    form_class = ContactUsCommentForm
+    template_name = 'about/contactus.html'
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            try:
+                send_mail(f"{request.POST.get('name')} is Contact to you {request.POST.get('email')}",
+                          request.POST.get('body'),
+                          settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=True)
+            except:
+                pass
+            messages.success(request,
+                             'Your Query has been successfully send, Soon i will responses you on your email address')
+        else:
+            messages.error(request, "Your Query has any error please right details")
+            return render(request, self.template_name, {'form': form})
+
+        return HttpResponseRedirect(reverse_lazy('w3c:index'))
+
+
+class AboutUsView(TemplateView):
+    template_name = 'about/aboutus.html'
+
+
+class PasswordResetRequest(TemplateView, FormView):
+    template_name = 'password/password_reset.html'
+    form_class = PasswordResetForm
+
+    def form_valid(self, form):
+        if form.is_valid():
+            data = form.cleaned_data['email']
+            associated_users = User.objects.filter(Q(email=data))
+            print(associated_users)
+            if associated_users.exists():
+                for user in associated_users:
+                    subject = "Password Reset Request"
+                    email_template_plain = 'password/password_reset_email.txt'
+                    email_template_html = 'password/mailpasswordreset.html'
+                    c = {
+                        'email': user.email,
+                        'host_name': settings.HOST_NAME,
+                        'site_name': 'w3code.tech',
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'user': user,
+                        'token': default_token_generator.make_token(user)
+                    }
+                    email_plain = render_to_string(email_template_plain, c)
+                    email_html = render_to_string(email_template_html, c)
+                    try:
+                        send_mail(subject, email_plain, settings.EMAIL_HOST_USER, [user.email], html_message=email_html,
+                                  fail_silently=True)
+                    except BadHeaderError:
+                        return HttpResponse('Invalid Header found')
+                return HttpResponseRedirect(reverse_lazy('password_reset_done'))
+            else:
+                messages.error(self.request, "You email is Incorrect")
+                return HttpResponseRedirect(reverse_lazy('w3c:index'))
+            return super(PasswordResetRequest, self).form_valid(form)
+
+
+# Privacy Policy
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'w3c/privacypolicy.html'
+
+
+# Author
+class AuthorView(View):
+    def get(self, request, name):
+        username = name
+        user = User.objects.filter(username=username).first()
+        context = {
+            'user': user
+        }
+        return render(request, 'w3c/author.html', context)

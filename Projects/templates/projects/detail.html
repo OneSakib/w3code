@@ -40,7 +40,7 @@
             <div class="d-flex justify-content-around">
                 <div class="view-top">
                     Views: <b>{{ object.viewcounter }}</b> Post Update&nbsp;: <b>{{ object.timestamp }}</b> Author :
-                    <b><a href="" class="text-decoration-none">{{ object.author|title }}</a></b>
+                    <b><a href="{% url 'w3c:author' object.author %}" class="text-decoration-none">{{ object.author|title }}</a></b>
                 </div>
                 <div>
                     {% csrf_token %}

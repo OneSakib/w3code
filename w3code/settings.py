@@ -21,10 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 DOMAIN_NAME = '127.0.0.1'
-HOST_NAME = 'http://' + DOMAIN_NAME + ":8000"
+PROTOCOL = 'http'
+HOST_NAME = PROTOCOL + '://' + DOMAIN_NAME + ":8000"
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$h8&!iox$hjs*eeo2^9gt@k!1r#4@qey-&ormv_91$lb13@-41'
+SECRET_KEY = ''
 # SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -138,11 +139,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -218,7 +219,17 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 2
+SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# Send Email
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+
+# EMail Backend for local machine
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

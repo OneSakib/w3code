@@ -188,7 +188,14 @@
         </div>
     </div>
 </div>
-
+<!-- spinnner element is
+    defined with id  -->
+<div class="overlay">
+    <div class="d-flex justify-content-center spinner-main">
+        <div class="spinner  spinner-grow text-primary" role="status">
+        </div>
+    </div>
+</div>
 <!--Full width image-->
 <!-- The Modal -->
 <div id="myModal" class="image-modal">
@@ -219,28 +226,7 @@
 </button>
 
 <!--Footer-->
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-2 col-sm-1 d-flex align-items-center">
-            <a href="{% url 'w3c:index' %}" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <img src="{% static 'logo.png' %}" alt="image not load" class="logo-image">
-            </a>
-        </div>
-        <span class="mb-3 mb-md-0 text-muted text-center">© 2022 W3code, Inc</span>
-        <span class="mb-3 mb-md-0 text-muted text-center">This Website is Developed by Sakib Malik</span>
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-muted" href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a></li>
-            <li class="ms-3"><a class="text-muted" href="#">
-                <i class="fa-brands fa-twitter"></i>
-            </a></li>
-            <li class="ms-3"><a class="text-muted" href="#">
-                <i class="fa-brands fa-facebook"></i>
-            </a></li>
-        </ul>
-    </footer>
-</div>
+{% include 'footer.html' %}
 </body>
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="{% static 'Bootstrap/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
@@ -308,7 +294,6 @@
             alert("Please login and try again! ")
         }
     })
-
 </script>
 </html>
 
