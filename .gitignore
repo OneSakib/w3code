@@ -1,4 +1,4 @@
 .idea
 venv
-secret.txt
+secret.json
 db.sqlite3
