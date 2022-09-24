@@ -2,3 +2,4 @@
 venv
 secret.json
 db.sqlite3
+.env
