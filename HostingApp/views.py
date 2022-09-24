@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from next_prev import next_in_order, prev_in_order
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from MainApp.views import CACHE_TTL, cache
 
 
 # Create your views here.
@@ -17,9 +18,17 @@ class DigitalOceanView(View):
 class DigitalOceanDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = DigitalOceanCommentsForm
-    model = DigitalOcean
+    if cache.get('DigitalOceanmodel') and cache.get('DigitalOceanparent_obj'):
+        model = cache.get('DigitalOceanmodel')
+        parent_obj = cache.get('DigitalOceanparent_obj')
+
+    else:
+        model = DigitalOcean
+        parent_obj = DigitalOceanParent
+        cache.set('DigitalOceanmodel', model)
+        cache.set('DigitalOceanparent_obj', parent_obj)
+
     like_obj = DigitalOceanLike
-    parent_obj = DigitalOceanParent
 
     def get_context_data(self, **kwargs):
         context = super(DigitalOceanDetailView, self).get_context_data(**kwargs)
@@ -40,15 +49,9 @@ class DigitalOceanDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -82,9 +85,15 @@ class MSAzureView(View):
 class MSAzureDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = MSAzureCommentsForm
-    model = MSAzure
+    if cache.get('MSAzuremodel') and cache.get('MSAzureparent_obj'):
+        model = cache.get('MSAzuremodel')
+        parent_obj = cache.get('MSAzureparent_obj')
+    else:
+        model = MSAzure
+        parent_obj = MSAzureParent
+        cache.set('MSAzuremodel', model)
+        cache.set('MSAzureparent_obj', parent_obj)
     like_obj = MSAzureLike
-    parent_obj = MSAzureParent
 
     def get_context_data(self, **kwargs):
         context = super(MSAzureDetailView, self).get_context_data(**kwargs)
@@ -105,15 +114,9 @@ class MSAzureDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -146,9 +149,15 @@ class AWSView(View):
 class AWSDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = AWSCommentsForm
-    model = AWS
+    if cache.get('AWSmodel') and cache.get('AWSparent_obj'):
+        model = cache.get('AWSmodel')
+        parent_obj = cache.get('AWSparent_obj')
+    else:
+        model = AWS
+        parent_obj = AWSParent
+        cache.set('AWSmodel', model)
+        cache.set('AWSparent_obj', parent_obj)
     like_obj = AWSLike
-    parent_obj = AWSParent
 
     def get_context_data(self, **kwargs):
         context = super(AWSDetailView, self).get_context_data(**kwargs)
@@ -169,15 +178,9 @@ class AWSDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -211,9 +214,15 @@ class PythonAnywhereView(View):
 class PythonAnywhereDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = PythonAnywhereCommentsForm
-    model = PythonAnywhere
+    if cache.get('PythonAnywheremodel') and cache.get('PythonAnywhereparent_obj'):
+        model = cache.get('PythonAnywheremodel')
+        parent_obj = cache.get('PythonAnywhereparent_obj')
+    else:
+        model = PythonAnywhere
+        parent_obj = PythonAnywhereParent
+        cache.set('PythonAnywheremodel', model)
+        cache.set('PythonAnywhereparent_obj', parent_obj)
     like_obj = PythonAnywhereLike
-    parent_obj = PythonAnywhereParent
 
     def get_context_data(self, **kwargs):
         context = super(PythonAnywhereDetailView, self).get_context_data(**kwargs)
@@ -234,15 +243,9 @@ class PythonAnywhereDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -276,9 +279,15 @@ class HerokuAppView(View):
 class HerokuAppDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = HerokuAppCommentsForm
-    model = HerokuApp
+    if cache.get('HerokuAppmodel') and cache.get('HerokuAppparent_obj'):
+        model = cache.get('HerokuAppmodel')
+        parent_obj = cache.get('HerokuAppparent_obj')
+    else:
+        model = HerokuApp
+        parent_obj = HerokuAppParent
+        cache.set('HerokuAppmodel', model)
+        cache.set('HerokuAppparent_obj', parent_obj)
     like_obj = HerokuAppLike
-    parent_obj = HerokuAppParent
 
     def get_context_data(self, **kwargs):
         context = super(HerokuAppDetailView, self).get_context_data(**kwargs)
@@ -299,15 +308,9 @@ class HerokuAppDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -340,9 +343,15 @@ class GithubHostView(View):
 class GithubHostDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = GithubHostCommentsForm
-    model = GithubHost
+    if cache.get('GithubHostmodel') and cache.get('GithubHostparent_obj'):
+        model = cache.get('GithubHostmodel')
+        parent_obj = cache.get('GithubHostparent_obj')
+    else:
+        model = GithubHost
+        parent_obj = GithubHostParent
+        cache.set('GithubHostmodel', model)
+        cache.set('GithubHostparent_obj', parent_obj)
     like_obj = GithubHostLike
-    parent_obj = GithubHostParent
 
     def get_context_data(self, **kwargs):
         context = super(GithubHostDetailView, self).get_context_data(**kwargs)
@@ -363,15 +372,9 @@ class GithubHostDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -404,9 +407,15 @@ class BlueHostView(View):
 class BlueHostDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = BlueHostCommentsForm
-    model = BlueHost
+    if cache.get('BlueHostmodel') and cache.get('BlueHostparent_obj'):
+        model = cache.get('BlueHostmodel')
+        parent_obj = cache.get('BlueHostparent_obj')
+    else:
+        model = BlueHost
+        parent_obj = BlueHostParent
+        cache.set('BlueHostmodel', model)
+        cache.set('BlueHostparent_obj', parent_obj)
     like_obj = BlueHostLike
-    parent_obj = BlueHostParent
 
     def get_context_data(self, **kwargs):
         context = super(BlueHostDetailView, self).get_context_data(**kwargs)
@@ -427,15 +436,9 @@ class BlueHostDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -469,9 +472,15 @@ class HostGatorView(View):
 class HostGatorDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = HostGatorCommentsForm
-    model = HostGator
+    if cache.get('HostGatormodel') and cache.get('HostGatorparent_obj'):
+        model = cache.get('HostGatormodel')
+        parent_obj = cache.get('HostGatorparent_obj')
+    else:
+        model = HostGator
+        parent_obj = HostGatorParent
+        cache.set('HostGatormodel', model)
+        cache.set('HostGatorparent_obj', parent_obj)
     like_obj = HostGatorLike
-    parent_obj = HostGatorParent
 
     def get_context_data(self, **kwargs):
         context = super(HostGatorDetailView, self).get_context_data(**kwargs)
@@ -492,15 +501,9 @@ class HostGatorDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -533,9 +536,15 @@ class InMotionHostingView(View):
 class InMotionHostingDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = InMotionHostingCommentsForm
-    model = InMotionHosting
+    if cache.get('InMotionHostingmodel') and cache.get('InMotionHostingparent_obj'):
+        model = cache.get('InMotionHostingmodel')
+        parent_obj = cache.get('InMotionHostingparent_obj')
+    else:
+        model = InMotionHosting
+        parent_obj = InMotionHostingParent
+        cache.set('InMotionHostingmodel', model)
+        cache.set('InMotionHostingparent_obj', parent_obj)
     like_obj = InMotionHostingLike
-    parent_obj = InMotionHostingParent
 
     def get_context_data(self, **kwargs):
         context = super(InMotionHostingDetailView, self).get_context_data(**kwargs)
@@ -556,15 +565,9 @@ class InMotionHostingDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -599,9 +602,15 @@ class A2HostingView(View):
 class A2HostingDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = A2HostingCommentsForm
-    model = A2Hosting
+    if cache.get('A2Hostingmodel') and cache.get('A2Hostingparent_obj'):
+        model = cache.get('A2Hostingmodel')
+        parent_obj = cache.get('A2Hostingparent_obj')
+    else:
+        model = A2Hosting
+        parent_obj = A2HostingParent
+        cache.set('A2Hostingmodel', model)
+        cache.set('A2Hostingparent_obj', parent_obj)
     like_obj = A2HostingLike
-    parent_obj = A2HostingParent
 
     def get_context_data(self, **kwargs):
         context = super(A2HostingDetailView, self).get_context_data(**kwargs)
@@ -622,15 +631,9 @@ class A2HostingDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -664,9 +667,15 @@ class GreenGeeksView(View):
 class GreenGeeksDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = GreenGeeksCommentsForm
-    model = GreenGeeks
+    if cache.get('GreenGeeksmodel') and cache.get('GreenGeeksparent_obj'):
+        model = cache.get('GreenGeeksmodel')
+        parent_obj = cache.get('GreenGeeksparent_obj')
+    else:
+        model = GreenGeeks
+        parent_obj = GreenGeeksParent
+        cache.set('GreenGeeksmodel', model)
+        cache.set('GreenGeeksparent_obj', parent_obj)
     like_obj = GreenGeeksLike
-    parent_obj = GreenGeeksParent
 
     def get_context_data(self, **kwargs):
         context = super(GreenGeeksDetailView, self).get_context_data(**kwargs)
@@ -687,15 +696,9 @@ class GreenGeeksDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -729,9 +732,15 @@ class HostingerView(View):
 class HostingerDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = HostingerCommentsForm
-    model = Hostinger
+    if cache.get('Hostingermodel') and cache.get('Hostingerparent_obj'):
+        model = cache.get('Hostingermodel')
+        parent_obj = cache.get('Hostingerparent_obj')
+    else:
+        model = Hostinger
+        parent_obj = HostingerParent
+        cache.set('Hostingermodel', model)
+        cache.set('Hostingerparent_obj', parent_obj)
     like_obj = HostingerLike
-    parent_obj = HostingerParent
 
     def get_context_data(self, **kwargs):
         context = super(HostingerDetailView, self).get_context_data(**kwargs)
@@ -752,15 +761,9 @@ class HostingerDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -794,9 +797,15 @@ class GoDaddyView(View):
 class GoDaddyDetailView(DetailView, FormView):
     template_name = 'w3c/detail.html'
     form_class = GoDaddyCommentsForm
-    model = GoDaddy
+    if cache.get('GoDaddymodel') and cache.get('GoDaddyparent_obj'):
+        model = cache.get('GoDaddymodel')
+        parent_obj = cache.get('GoDaddyparent_obj')
+    else:
+        model = GoDaddy
+        parent_obj = GoDaddyParent
+        cache.set('GoDaddymodel', model)
+        cache.set('GoDaddyparent_obj', parent_obj)
     like_obj = GoDaddyLike
-    parent_obj = GoDaddyParent
 
     def get_context_data(self, **kwargs):
         context = super(GoDaddyDetailView, self).get_context_data(**kwargs)
@@ -817,15 +826,9 @@ class GoDaddyDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):

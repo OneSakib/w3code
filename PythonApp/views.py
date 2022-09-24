@@ -5,6 +5,8 @@ from next_prev import next_in_order, prev_in_order
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 
 # Create your views here.
@@ -16,9 +18,15 @@ class DjangoView(View):
 
 class DjangoDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Django
+    if cache.get('Djangomodel') and cache.get('Djangoparent_obj'):
+        model = cache.get('Djangomodel')
+        parent_obj = cache.get('Djangoparent_obj')
+    else:
+        model = Django
+        parent_obj = DjangoParent
+        cache.set('Djangomodel', model)
+        cache.set('Djangoparent_obj', parent_obj)
     like_obj = DjangoLike
-    parent_obj = DjangoParent
 
     def get_context_data(self, **kwargs):
         context = super(DjangoDetailView, self).get_context_data(**kwargs)
@@ -38,15 +46,9 @@ class DjangoDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -72,9 +74,15 @@ class RestApiView(View):
 
 class RestApiDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = RestApi
+    if cache.get('RestApimodel') and cache.get('RestApiparent_obj'):
+        model = cache.get('RestApimodel')
+        parent_obj = cache.get('RestApiparent_obj')
+    else:
+        model = RestApi
+        parent_obj = RestApiParent
+        cache.set('RestApimodel', model)
+        cache.set('RestApiparent_obj', parent_obj)
     like_obj = RestApiLike
-    parent_obj = RestApiParent
 
     def get_context_data(self, **kwargs):
         context = super(RestApiDetailView, self).get_context_data(**kwargs)
@@ -94,15 +102,9 @@ class RestApiDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -128,9 +130,15 @@ class FlaskView(View):
 
 class FlaskDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Flask
+    if cache.get('Flaskmodel') and cache.get('Flaskparent_obj'):
+        model = cache.get('Flaskmodel')
+        parent_obj = cache.get('Flaskparent_obj')
+    else:
+        model = Flask
+        parent_obj = FlaskParent
+        cache.set('Flaskmodel', model)
+        cache.set('Flaskparent_obj', parent_obj)
     like_obj = FlaskLike
-    parent_obj = FlaskParent
 
     def get_context_data(self, **kwargs):
         context = super(FlaskDetailView, self).get_context_data(**kwargs)
@@ -150,15 +158,9 @@ class FlaskDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -184,9 +186,15 @@ class MachineLearningView(View):
 
 class MachineLearningDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MachineLearning
+    if cache.get('MachineLearningmodel') and cache.get('MachineLearningparent_obj'):
+        model = cache.get('MachineLearningmodel')
+        parent_obj = cache.get('MachineLearningparent_obj')
+    else:
+        model = MachineLearning
+        parent_obj = MachineLearningParent
+        cache.set('MachineLearningmodel', model)
+        cache.set('MachineLearningparent_obj', parent_obj)
     like_obj = MachineLearningLike
-    parent_obj = MachineLearningParent
 
     def get_context_data(self, **kwargs):
         context = super(MachineLearningDetailView, self).get_context_data(**kwargs)
@@ -206,15 +214,9 @@ class MachineLearningDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -240,9 +242,15 @@ class NumpyView(View):
 
 class NumpyDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Numpys
+    if cache.get('Numpysmodel') and cache.get('Numpysparent_obj'):
+        model = cache.get('Numpysmodel')
+        parent_obj = cache.get('Numpysparent_obj')
+    else:
+        model = Numpys
+        parent_obj = NumpysParent
+        cache.set('Numpysmodel', model)
+        cache.set('Numpysparent_obj', parent_obj)
     like_obj = NumpysLike
-    parent_obj = NumpysParent
 
     def get_context_data(self, **kwargs):
         context = super(NumpyDetailView, self).get_context_data(**kwargs)
@@ -262,15 +270,9 @@ class NumpyDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -296,9 +298,15 @@ class TkinterView(View):
 
 class TkinterDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Tkinters
+    if cache.get('TkintersLikemodel') and cache.get('TkintersLikeparent_obj'):
+        model = cache.get('TkintersLikemodel')
+        parent_obj = cache.get('TkintersLikeparent_obj')
+    else:
+        model = Tkinters
+        parent_obj = TkintersParent
+        cache.set('TkintersLikemodel', model)
+        cache.set('TkintersLikeparent_obj', parent_obj)
     like_obj = TkintersLike
-    parent_obj = TkintersParent
 
     def get_context_data(self, **kwargs):
         context = super(TkinterDetailView, self).get_context_data(**kwargs)
@@ -352,9 +360,15 @@ class PytorchView(View):
 
 class PytorchDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Pytorchs
+    if cache.get('Pytorchsmodel') and cache.get('Pytorchsparent_obj'):
+        model = cache.get('Pytorchsmodel')
+        parent_obj = cache.get('Pytorchsparent_obj')
+    else:
+        model = Pytorchs
+        parent_obj = PytorchsParent
+        cache.set('Pytorchsmodel', model)
+        cache.set('Pytorchsparent_obj', parent_obj)
     like_obj = PytorchsLike
-    parent_obj = PytorchsParent
 
     def get_context_data(self, **kwargs):
         context = super(PytorchDetailView, self).get_context_data(**kwargs)
@@ -374,15 +388,9 @@ class PytorchDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -408,9 +416,15 @@ class PygameView(View):
 
 class PygameDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Pygames
+    if cache.get('Pygamesmodel') and cache.get('Pygamesparent_obj'):
+        model = cache.get('Pygamesmodel')
+        parent_obj = cache.get('Pygamesparent_obj')
+    else:
+        model = Pygames
+        parent_obj = PygamesParent
+        cache.set('Pygamesmodel', model)
+        cache.set('Pygamesparent_obj', parent_obj)
     like_obj = PygamesLike
-    parent_obj = PygamesParent
 
     def get_context_data(self, **kwargs):
         context = super(PygameDetailView, self).get_context_data(**kwargs)
@@ -430,15 +444,9 @@ class PygameDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -464,9 +472,15 @@ class ScipyView(View):
 
 class ScipyDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Scipys
+    if cache.get('Scipysmodel') and cache.get('Scipysparent_obj'):
+        model = cache.get('Scipysmodel')
+        parent_obj = cache.get('Scipysparent_obj')
+    else:
+        model = Scipys
+        parent_obj = ScipysParent
+        cache.set('Scipysmodel', model)
+        cache.set('Scipysparent_obj', parent_obj)
     like_obj = ScipysLike
-    parent_obj = ScipysParent
 
     def get_context_data(self, **kwargs):
         context = super(ScipyDetailView, self).get_context_data(**kwargs)
@@ -486,15 +500,9 @@ class ScipyDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -520,9 +528,15 @@ class PandasView(View):
 
 class PandasDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Pandass
+    if cache.get('Pandassmodel') and cache.get('Pandassparent_obj'):
+        model = cache.get('Pandassmodel')
+        parent_obj = cache.get('Pandassparent_obj')
+    else:
+        model = Pandass
+        parent_obj = PandassParent
+        cache.set('Pandassmodel', model)
+        cache.set('Pandassparent_obj', parent_obj)
     like_obj = PandassLike
-    parent_obj = PandassParent
 
     def get_context_data(self, **kwargs):
         context = super(PandasDetailView, self).get_context_data(**kwargs)
@@ -542,15 +556,9 @@ class PandasDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -576,9 +584,15 @@ class OpenCVView(View):
 
 class OpenCVDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = OpenCVs
+    if cache.get('OpenCVsmodel') and cache.get('OpenCVsparent_obj'):
+        model = cache.get('OpenCVsmodel')
+        parent_obj = cache.get('OpenCVsparent_obj')
+    else:
+        model = OpenCVs
+        parent_obj = OpenCVsParent
+        cache.set('OpenCVsmodel', model)
+        cache.set('OpenCVsparent_obj', parent_obj)
     like_obj = OpenCVsLike
-    parent_obj = OpenCVsParent
 
     def get_context_data(self, **kwargs):
         context = super(OpenCVDetailView, self).get_context_data(**kwargs)
@@ -598,15 +612,9 @@ class OpenCVDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -632,9 +640,15 @@ class MatplotlibView(View):
 
 class MatplotlibDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Matplotlibs
+    if cache.get('Matplotlibsmodel') and cache.get('Matplotlibsparent_obj'):
+        model = cache.get('Matplotlibsmodel')
+        parent_obj = cache.get('Matplotlibsparent_obj')
+    else:
+        model = Matplotlibs
+        parent_obj = MatplotlibsParent
+        cache.set('Matplotlibsmodel', model)
+        cache.set('Matplotlibsparent_obj', parent_obj)
     like_obj = MatplotlibsLike
-    parent_obj = MatplotlibsParent
 
     def get_context_data(self, **kwargs):
         context = super(MatplotlibDetailView, self).get_context_data(**kwargs)
@@ -654,15 +668,9 @@ class MatplotlibDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -688,9 +696,15 @@ class SeleniumView(View):
 
 class SeleniumDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Seleniums
+    if cache.get('Seleniumsmodel') and cache.get('Seleniumsparent_obj'):
+        model = cache.get('Seleniumsmodel')
+        parent_obj = cache.get('Seleniumsparent_obj')
+    else:
+        model = Seleniums
+        parent_obj = SeleniumsParent
+        cache.set('Seleniumsmodel', model)
+        cache.set('Seleniumsparent_obj', parent_obj)
     like_obj = SeleniumsLike
-    parent_obj = SeleniumsParent
 
     def get_context_data(self, **kwargs):
         context = super(SeleniumDetailView, self).get_context_data(**kwargs)
@@ -710,15 +724,9 @@ class SeleniumDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -744,9 +752,15 @@ class KivyView(View):
 
 class KivyDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Kivys
+    if cache.get('Kivysmodel') and cache.get('Kivysparent_obj'):
+        model = cache.get('Kivysmodel')
+        parent_obj = cache.get('Kivysparent_obj')
+    else:
+        model = Kivys
+        parent_obj = KivysParent
+        cache.set('Kivysmodel', model)
+        cache.set('Kivysparent_obj', parent_obj)
     like_obj = KivysLike
-    parent_obj = KivysParent
 
     def get_context_data(self, **kwargs):
         context = super(KivyDetailView, self).get_context_data(**kwargs)
@@ -800,9 +814,15 @@ class JupyterView(View):
 
 class JupyterDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Jupyters
+    if cache.get('Jupytersmodel') and cache.get('Jupytersparent_obj'):
+        model = cache.get('Jupytersmodel')
+        parent_obj = cache.get('Jupytersparent_obj')
+    else:
+        model = Jupyters
+        parent_obj = JupytersParent
+        cache.set('Jupytersmodel', model)
+        cache.set('Jupytersparent_obj', parent_obj)
     like_obj = JupytersLike
-    parent_obj = JupytersParent
 
     def get_context_data(self, **kwargs):
         context = super(JupyterDetailView, self).get_context_data(**kwargs)
@@ -822,15 +842,9 @@ class JupyterDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -856,9 +870,15 @@ class DataScienceView(View):
 
 class DataScienceDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = DataScience
+    if cache.get('DataSciencemodel') and cache.get('DataScienceparent_obj'):
+        model = cache.get('DataSciencemodel')
+        parent_obj = cache.get('DataScienceparent_obj')
+    else:
+        model = DataScience
+        parent_obj = DataScienceParent
+        cache.set('DataSciencemodel', model)
+        cache.set('DataScienceparent_obj', parent_obj)
     like_obj = DataScienceLike
-    parent_obj = DataScienceParent
 
     def get_context_data(self, **kwargs):
         context = super(DataScienceDetailView, self).get_context_data(**kwargs)
@@ -912,9 +932,15 @@ class DeepLearningView(View):
 
 class DeepLearningDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = DeepLearning
+    if cache.get('DeepLearningmodel') and cache.get('DeepLearningparent_obj'):
+        model = cache.get('DeepLearningmodel')
+        parent_obj = cache.get('DeepLearningparent_obj')
+    else:
+        model = DeepLearning
+        parent_obj = DeepLearningParent
+        cache.set('DeepLearningmodel', model)
+        cache.set('DeepLearningparent_obj', parent_obj)
     like_obj = DeepLearningLike
-    parent_obj = DeepLearningParent
 
     def get_context_data(self, **kwargs):
         context = super(DeepLearningDetailView, self).get_context_data(**kwargs)
@@ -934,15 +960,9 @@ class DeepLearningDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -968,9 +988,15 @@ class PillowView(View):
 
 class PillowDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Pillows
+    if cache.get('Pillowsmodel') and cache.get('Pillowsparent_obj'):
+        model = cache.get('Pillowsmodel')
+        parent_obj = cache.get('Pillowsparent_obj')
+    else:
+        model = Pillows
+        parent_obj = PillowsParent
+        cache.set('Pillowsmodel', model)
+        cache.set('Pillowsparent_obj', parent_obj)
     like_obj = PillowsLike
-    parent_obj = PillowsParent
 
     def get_context_data(self, **kwargs):
         context = super(PillowDetailView, self).get_context_data(**kwargs)
@@ -990,15 +1016,9 @@ class PillowDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -1024,9 +1044,15 @@ class TensorflowView(View):
 
 class TensorFlowDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Tensorflows
+    if cache.get('Tensorflowsmodel') and cache.get('Tensorflowsparent_obj'):
+        model = cache.get('Tensorflowsmodel')
+        parent_obj = cache.get('Tensorflowsparent_obj')
+    else:
+        model = Tensorflows
+        parent_obj = TensorflowsParent
+        cache.set('Tensorflowsmodel', model)
+        cache.set('Tensorflowsparent_obj', parent_obj)
     like_obj = TensorflowsLike
-    parent_obj = TensorflowsParent
 
     def get_context_data(self, **kwargs):
         context = super(TensorFlowDetailView, self).get_context_data(**kwargs)
@@ -1046,15 +1072,9 @@ class TensorFlowDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -1080,9 +1100,15 @@ class DSPythonView(View):
 
 class DSPythonDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = DSPython
+    if cache.get('DSPythonmodel') and cache.get('DSPythonparent_obj'):
+        model = cache.get('DSPythonmodel')
+        parent_obj = cache.get('DSPythonparent_obj')
+    else:
+        model = DSPython
+        parent_obj = DSPythonParent
+        cache.set('DSPythonmodel', model)
+        cache.set('DSPythonparent_obj', parent_obj)
     like_obj = DSPythonLike
-    parent_obj = DSPythonParent
 
     def get_context_data(self, **kwargs):
         context = super(DSPythonDetailView, self).get_context_data(**kwargs)
@@ -1102,15 +1128,9 @@ class DSPythonDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

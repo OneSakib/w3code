@@ -1,0 +1,146 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$NUlMSR8VNuRzGw5pBcyWX9$xT+XD8rH0PCCWO4ZXlHkXWhwdUZtOXQrxWy9YAiDjzE=",
+      "last_login": "2022-08-21T17:30:14.426",
+      "is_superuser": true,
+      "username": "sakib",
+      "first_name": "Sakib",
+      "last_name": "Malik",
+      "email": "maliksakib347@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-06-23T01:52:47.411",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9iWFCnlHC8dyREZ20JcRwf$xkhXuDv6fWK39H2j/Np2HMUSttkOoFsm/QKQABQfro0=",
+      "last_login": "2022-07-09T11:56:13.086",
+      "is_superuser": false,
+      "username": "Kajal",
+      "first_name": "",
+      "last_name": "",
+      "email": "maliksakib347@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-09T11:55:40.152",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+      "password": "!mmm9gPiiBDVpi58aTUQhszyAtiAQ24qEXp36WrQD",
+      "last_login": "2022-07-09T13:47:28.067",
+      "is_superuser": false,
+      "username": "govind",
+      "first_name": "Govind",
+      "last_name": "Malik",
+      "email": "malikgovind348@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-09T13:47:28.013",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$485jJ0Nk4U0ScHfddkL2FO$y07fZwXqBJYGbVxNTxlyxDAo3UMdGidk8NSJDHnMN74=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Kanhiya",
+      "first_name": "",
+      "last_name": "",
+      "email": "maliksakib347@gmail.com",
+      "is_staff": false,
+      "is_active": false,
+      "date_joined": "2022-07-28T15:50:09.411",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$T0z2PVTHqubvQXGwHordzb$/Z7r2fim2jUKH604lWVcMgdDnPwx17pbNZqttiIguso=",
+      "last_login": "2022-07-28T15:53:41.231",
+      "is_superuser": false,
+      "username": "Kanha",
+      "first_name": "",
+      "last_name": "",
+      "email": "sakibwis347@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-28T15:51:44.532",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$pZS1x8WiF5BYsoR9bOdkp4$Hu0W45QpZJT23dH/NwmND7aF0Qgafo+mfYkemezVSsU=",
+      "last_login": "2022-08-02T15:37:56.338",
+      "is_superuser": false,
+      "username": "Sakibwis",
+      "first_name": "",
+      "last_name": "",
+      "email": "sakibwis.wis@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-02T15:30:48.133",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 12,
+    "fields": {
+      "password": "!l77RIAdluNuVtKi9UkiO2mcHqBk4z0b9lviE7flr",
+      "last_login": "2022-08-12T20:10:20.487",
+      "is_superuser": false,
+      "username": "abhi",
+      "first_name": "ABHI",
+      "last_name": "",
+      "email": "abhishekkumarkhantwal123@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-12T20:10:20.364",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$CGc9jcKUAYEeHgB1mFslr0$0nsQAPg5tkohc0qE/cdj4ZIEcbisG+CiV3sTII6iu2Y=",
+      "last_login": "2022-08-13T05:36:03.417",
+      "is_superuser": false,
+      "username": "borsaty",
+      "first_name": "",
+      "last_name": "",
+      "email": "sasco_me@yahoo.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-13T05:33:31.370",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

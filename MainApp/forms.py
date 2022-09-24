@@ -4,6 +4,8 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 import uuid
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class BlogCommentForm(forms.ModelForm):
@@ -18,13 +20,15 @@ class BlogCommentForm(forms.ModelForm):
 
 
 class ContactUsCommentForm(forms.ModelForm):
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+
     class Meta:
         model = ContactUsModel
-        fields = ['name', 'email', 'body']
+        fields = ['name', 'email', 'body', 'captcha']
         widgets = {
             'body': forms.Textarea(attrs={'class': 'form-control', 'rows': 10, 'cols': 2}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'})
         }
 
 

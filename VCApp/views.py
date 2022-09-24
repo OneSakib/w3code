@@ -5,7 +5,8 @@ from next_prev import next_in_order, prev_in_order
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 # Create your views here.
 
@@ -15,11 +16,18 @@ class DockerView(View):
         return HttpResponseRedirect(reverse_lazy('VC:dockerdetail', kwargs={'slug': slug}))
 
 
+
 class DockerDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Docker
+    if cache.get('Dockermodel') and cache.get('Dockerparent_obj'):
+        model = cache.get('Dockermodel')
+        parent_obj = cache.get('Dockerparent_obj')
+    else:
+        model = Docker
+        parent_obj = DockerParent
+        cache.set('Dockermodel', model)
+        cache.set('Dockerparent_obj', parent_obj)
     like_obj = DockerLike
-    parent_obj = DockerParent
 
     def get_context_data(self, **kwargs):
         context = super(DockerDetailView, self).get_context_data(**kwargs)
@@ -39,15 +47,9 @@ class DockerDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -73,9 +75,15 @@ class GitView(View):
 
 class GitDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Gits
+    if cache.get('Gitsmodel') and cache.get('Gitsparent_obj'):
+        model = cache.get('Gitsmodel')
+        parent_obj = cache.get('Gitsparent_obj')
+    else:
+        model = Gits
+        parent_obj = GithubsParent
+        cache.set('Gitsmodel', model)
+        cache.set('Gitsparent_obj', parent_obj)
     like_obj = GitsLike
-    parent_obj = GitsParent
 
     def get_context_data(self, **kwargs):
         context = super(GitDetailView, self).get_context_data(**kwargs)
@@ -95,15 +103,9 @@ class GitDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -127,11 +129,18 @@ class GithubView(View):
         return HttpResponseRedirect(reverse_lazy('VC:githubdetail', kwargs={'slug': slug}))
 
 
+
 class GitHubDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Githubs
+    if cache.get('Githubsmodel') and cache.get('Githubsparent_obj'):
+        model = cache.get('Githubsmodel')
+        parent_obj = cache.get('Githubsparent_obj')
+    else:
+        model = Githubs
+        parent_obj = GithubsParent
+        cache.set('Githubsmodel', model)
+        cache.set('Githubsparent_obj', parent_obj)
     like_obj = GithubsLike
-    parent_obj = GithubsParent
 
     def get_context_data(self, **kwargs):
         context = super(GitHubDetailView, self).get_context_data(**kwargs)
@@ -151,15 +160,9 @@ class GitHubDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

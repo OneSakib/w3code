@@ -4,6 +4,8 @@ from .models import *
 from next_prev import prev_in_order, next_in_order
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 
 # Create your views here.
@@ -15,9 +17,15 @@ class MSExcelView(View):
 
 class MSExcelDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MSExcel
+    if cache.get('MSExcelmodel') and cache.get('MSExcelparent_obj'):
+        model = cache.get('MSExcelmodel')
+        parent_obj = cache.get('MSExcelparent_obj')
+    else:
+        model = MSExcel
+        parent_obj = MSExcelParent
+        cache.set('MSExcelmodel', model)
+        cache.set('MSExcelparent_obj', parent_obj)
     like_obj = MSExcelLike
-    parent_obj = MSExcelParent
 
     def get_context_data(self, **kwargs):
         context = super(MSExcelDetailView, self).get_context_data(**kwargs)
@@ -37,15 +45,9 @@ class MSExcelDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -71,9 +73,15 @@ class MSWordView(View):
 
 class MSWordDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MSWord
+    if cache.get('MSWordmodel') and cache.get('MSWordparent_obj'):
+        model = cache.get('MSWordmodel')
+        parent_obj = cache.get('MSWordparent_obj')
+    else:
+        model = MSWord
+        parent_obj = MSWordParent
+        cache.set('MSWordmodel', model)
+        cache.set('MSWordparent_obj', parent_obj)
     like_obj = MSWordLike
-    parent_obj = MSWordParent
 
     def get_context_data(self, **kwargs):
         context = super(MSWordDetailView, self).get_context_data(**kwargs)
@@ -93,15 +101,9 @@ class MSWordDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -127,9 +129,15 @@ class MSPowerpointView(View):
 
 class MSPowerpointDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MSPowerpoint
+    if cache.get('MSPowerpointmodel') and cache.get('MSPowerpointparent_obj'):
+        model = cache.get('MSPowerpointmodel')
+        parent_obj = cache.get('MSPowerpointparent_obj')
+    else:
+        model = MSPowerpoint
+        parent_obj = MSPowerpointParent
+        cache.set('MSPowerpointmodel', model)
+        cache.set('MSPowerpointparent_obj', parent_obj)
     like_obj = MSPowerpointLike
-    parent_obj = MSPowerpointParent
 
     def get_context_data(self, **kwargs):
         context = super(MSPowerpointDetailView, self).get_context_data(**kwargs)
@@ -149,15 +157,9 @@ class MSPowerpointDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -183,9 +185,15 @@ class MSOneNoteView(View):
 
 class MSOneNoteDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MSOneNote
+    if cache.get('MSOneNotemodel') and cache.get('MSOneNoteparent_obj'):
+        model = cache.get('MSOneNotemodel')
+        parent_obj = cache.get('MSOneNoteparent_obj')
+    else:
+        model = MSOneNote
+        parent_obj = MSOneNoteParent
+        cache.set('MSOneNotemodel', model)
+        cache.set('MSOneNoteparent_obj', parent_obj)
     like_obj = MSOneNoteLike
-    parent_obj = MSOneNoteParent
 
     def get_context_data(self, **kwargs):
         context = super(MSOneNoteDetailView, self).get_context_data(**kwargs)
@@ -205,15 +213,9 @@ class MSOneNoteDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

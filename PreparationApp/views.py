@@ -4,6 +4,8 @@ from .models import *
 from next_prev import next_in_order, prev_in_order
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 
 # Create your views here.
@@ -15,9 +17,15 @@ class AptitudeView(View):
 
 class AptitudeDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Aptitude
+    if cache.get('Aptitudemodel') and cache.get('Aptitudeparent_obj'):
+        model = cache.get('Aptitudemodel')
+        parent_obj = cache.get('Aptitudeparent_obj')
+    else:
+        model = Aptitude
+        parent_obj = AptitudeParent
+        cache.set('Aptitudemodel', model)
+        cache.set('Aptitudeparent_obj', parent_obj)
     like_obj = AptitudeLike
-    parent_obj = AptitudeParent
 
     def get_context_data(self, **kwargs):
         context = super(AptitudeDetailView, self).get_context_data(**kwargs)
@@ -37,15 +45,9 @@ class AptitudeDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -71,9 +73,15 @@ class ReasoningView(View):
 
 class ReasoningDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Reasoning
+    if cache.get('Reasoningmodel') and cache.get('Reasoningparent_obj'):
+        model = cache.get('Reasoningmodel')
+        parent_obj = cache.get('Reasoningparent_obj')
+    else:
+        model = Reasoning
+        parent_obj = ReasoningParent
+        cache.set('Reasoningmodel', model)
+        cache.set('Reasoningparent_obj', parent_obj)
     like_obj = ReasoningLike
-    parent_obj = ReasoningParent
 
     def get_context_data(self, **kwargs):
         context = super(ReasoningDetailView, self).get_context_data(**kwargs)
@@ -93,15 +101,9 @@ class ReasoningDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -127,9 +129,15 @@ class VerbalAbilityView(View):
 
 class VerbalAbilityDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = VerbalAbility
+    if cache.get('VerbalAbilitymodel') and cache.get('VerbalAbilityparent_obj'):
+        model = cache.get('VerbalAbilitymodel')
+        parent_obj = cache.get('VerbalAbilityparent_obj')
+    else:
+        model = VerbalAbility
+        parent_obj = VerbalAbilityParent
+        cache.set('VerbalAbilitymodel', model)
+        cache.set('VerbalAbilityparent_obj', parent_obj)
     like_obj = VerbalAbilityLike
-    parent_obj = VerbalAbilityParent
 
     def get_context_data(self, **kwargs):
         context = super(VerbalAbilityDetailView, self).get_context_data(**kwargs)
@@ -149,15 +157,9 @@ class VerbalAbilityDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -183,9 +185,15 @@ class InterViewQuestionView(View):
 
 class InterviewQuestionDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = InterviewQuestion
+    if cache.get('InterviewQuestionmodel') and cache.get('InterviewQuestionparent_obj'):
+        model = cache.get('InterviewQuestionmodel')
+        parent_obj = cache.get('InterviewQuestionparent_obj')
+    else:
+        model = InterviewQuestion
+        parent_obj = InterviewQuestionParent
+        cache.set('InterviewQuestionmodel', model)
+        cache.set('InterviewQuestionparent_obj', parent_obj)
     like_obj = InterviewQuestionLike
-    parent_obj = InterviewQuestionParent
 
     def get_context_data(self, **kwargs):
         context = super(InterviewQuestionDetailView, self).get_context_data(**kwargs)
@@ -205,15 +213,9 @@ class InterviewQuestionDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -239,9 +241,15 @@ class CompanyQuestionView(View):
 
 class CompanyQuestionDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = CompanyQuestion
+    if cache.get('CompanyQuestionmodel') and cache.get('CompanyQuestionparent_obj'):
+        model = cache.get('CompanyQuestionmodel')
+        parent_obj = cache.get('CompanyQuestionparent_obj')
+    else:
+        model = CompanyQuestion
+        parent_obj = CompanyQuestionParent
+        cache.set('CompanyQuestionmodel', model)
+        cache.set('CompanyQuestionparent_obj', parent_obj)
     like_obj = CompanyQuestionLike
-    parent_obj = CompanyQuestionParent
 
     def get_context_data(self, **kwargs):
         context = super(CompanyQuestionDetailView, self).get_context_data(**kwargs)
@@ -261,15 +269,9 @@ class CompanyQuestionDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

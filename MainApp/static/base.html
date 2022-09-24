@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!--load static files-->
+    {% load static %}
+    <!--Google search console meta -->
+    <meta name="google-site-verification" content="O637b8VrKweSEsTgXfEogQQIqpF67zo6eWEC5MhFaA0"/>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="{% if object.title %} {{ object.title }} {% else %}Welcome to w3code{% endif %}">
+    <meta name="Keywords"
+          content="HTML, Python, CSS, SQL, JavaScript, How to, PHP, Java, C, C++, C#, jQuery, Bootstrap, Colors, XML, MySQL, Icons, NodeJS, React, Graphics, Angular, R, AI, Git, Data Science, Code Game, Tutorials, Programming, Web Development, Training, Learning, Quiz, Exercises, Courses, Lessons, References, Examples, Learn to code, Source code, Demos, Tips, Website">
+    <meta name="Description"
+          content="Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more.">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="days">
+    <meta name="author" content="Sakib Malik">
+    <!--Og properties-->
+
+    <meta property="og:title"
+          content="{% if object.title %} {{ object.title }} {% else %}Welcome to w3code{% endif %}"/>
+    <meta property="og:image" content="{{ host_name }}/static/logo.ico">
+    <meta property="og:image:type" content="image/ico">
+    <meta property="og:image:width" content="50">
+    <meta property="og:image:height" content="50">
+    <meta property="og:description"
+          content="W3Code offers free online tutorials, references and exercises in all the major languages of the web. Covering popular subjects like HTML, CSS, JavaScript, Python, SQL, Java, and many, many more.">
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:type" content="website"/>
+    <meta name="theme-color" content="#4CAF50"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--Twitter Meta -->
+    <meta name="twitter:description" property="og:description"
+          content="Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more."/>
+    <meta name="twitter:title" property="og:title"
+          content="{% if object.title %} {{ object.title }} {% else %}Welcome to w3code{% endif %}"/>
+    <meta property="og:url" content="{{ host_name }}"/>
+    <meta property="og:site_name" content="w3code.tech"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@pagew3code.tech"/>
+    <meta name="twitter:domain" content="w3code.tech"/>
+    <meta name="twitter:creator" content="@pagew3code.tech"/>
+    <title>{% block title %}Welcome to w3code{% endblock %}</title>
+    <!--Code Highlight-->
+    <link rel="stylesheet" type="text/css" href="{% static 'codehighlight/prism.css' %}">
+    <script src="{% static 'codehighlight/prism.js' %}"></script>
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'Bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
+    <!--Icon for the title bar-->
+    <link rel="icon" href="{% static 'logo.ico' %}" type="image/x-icon">
+
+    <!--Font awesome kit cdn-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--Custom stylesheet-->
+    <link rel="stylesheet" href="{% static 'customstyle.css' %}">
+    <!--CSS BLock-->
+    {% block css %}
+    {% endblock %}
+    <style>
+        @font-face {
+            font-family: sofialight;
+            src: local("{% static 'Fonts/sofiapro-light.otf' %}"), url("{% static 'Fonts/sofiapro-light.otf' %}") format('truetype');
+        }
+    </style>
+</head>
+<body>
+<!--Navabar -->
+{% include 'commonnavbar.html' %}
+<div class="collapse container-fluid bg-dark tut-body p-3" id="tutorial">
+    <div class="container-lg row m-auto">
+        <h3 class="fw-bold">Tutorial</h3>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Programming Language</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Programming-Language' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Preparation</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Preparation' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Theory Tutorial</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Theory-Tutorial' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Python</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Python' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Java Technology</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Java' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>JavaScript Tutorial</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Javascript' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Database Tutorial</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Database-Tutorial' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Web Technology</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Web-Technology' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Microsoft Office</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Microsoft-Office' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Versioning Control</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Versioning-Control' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+            <h5>Web Hosting</h5>
+            <ul class="list-unstyled">
+                {% for d in object_list_tut %}
+                    {% if d.type == 'Web-Hosting' %}
+                        <li><a href="{{ d.link }}">{{ d.name }} </a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- spinnner element is
+    defined with id  -->
+<div class="overlay">
+    <div class="d-flex justify-content-center spinner-main">
+        <div class="spinner  spinner-grow text-primary" role="status">
+        </div>
+    </div>
+</div>
+<!--Full width image-->
+<!-- The Modal -->
+<div id="myModal" class="image-modal">
+
+    <!-- The Close Button -->
+    <span class="image-close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="image-modal-content" id="img01">
+</div>
+<!--Body content Block-->
+<div class="container-fluid">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mt-1 mb-1" role="alert" id="alert-message">
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                <strong>Message:</strong>{{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% block content %}
+{% endblock %}
+<!-- Back to top button -->
+<button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!--Footer-->
+{% include 'footer.html' %}
+</body>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="{% static 'Bootstrap/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
+<script src="{% static 'Bootstrap/jquery/jquery-3.6.0.js' %}"></script>
+{% block js %}
+{% endblock %}
+<script src="{% static 'customjavascript.js' %}"></script>
+<script>
+
+    //Bookmark
+    let unknown_user = 'AnonymousUser'
+    $('#bookmark').on('click', function (e) {
+        e.preventDefault()
+        if ('{{ request.user }}' !== unknown_user) {
+            csrf = $('input[name=csrfmiddlewaretoken]').val()
+            title = '{{ title }} {{ object.title }}'
+            url = '{{ request.build_absolute_uri }}'
+            data = {'title': title, 'url': url, 'csrfmiddlewaretoken': csrf}
+            $.ajax({
+                type: 'POST',
+                url: '{% url "w3c:bookmark" %}',
+                data: data,
+                success: function (response) {
+                    let ok = response.data['ok']
+                    if (ok === 'delete') {
+                        $('#bookmark i').toggleClass('fa-regular fa')
+                    } else {
+                        $('#bookmark i').toggleClass('fa fa-regular')
+                    }
+                }
+            })
+        } else {
+            alert("Please login and try again! ")
+        }
+    })
+    //like button
+    $('.like-button').on('click', function (e) {
+        e.preventDefault()
+        if ('{{ request.user }}' !== unknown_user) {
+            csrf = $('input[name=csrfmiddlewaretoken]').val()
+            pk = '{{ object.pk }}'
+            data = {'csrfmiddlewaretoken': csrf, 'pk': pk}
+            $.ajax({
+                type: 'POST',
+                url: '{{ request.build_absolute_uri }}',
+                data: data,
+                success: function (response) {
+                    if (response['ok'] === 'create') {
+                        $('#like-button-text').text("liked");
+                        $('#like-button-number').text(response['number']);
+                        $('#like-button i').toggleClass('fa-regular fa-solid')
+                        $('#like-button-top').toggleClass('fa-regular fa-solid')
+
+
+                    } else {
+                        $('#like-button-text').text("like");
+                        $('#like-button-number').text(response['number']);
+                        $('#like-button i').toggleClass('fa-solid fa-regular')
+                        $('#like-button-top').toggleClass('fa-solid fa-regular')
+
+                    }
+                }
+            })
+        } else {
+            alert("Please login and try again! ")
+        }
+    })
+</script>
+</html>
+

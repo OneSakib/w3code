@@ -5,7 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import View, DetailView
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 # Create your views here.
 class CExerciseView(View):
@@ -16,9 +17,15 @@ class CExerciseView(View):
 
 class CExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = CExercise
+    if cache.get('CExercisemodel') and cache.get('CExerciseparent_obj'):
+        model = cache.get('CExercisemodel')
+        parent_obj = cache.get('CExerciseparent_obj')
+    else:
+        model = CExercise
+        parent_obj = CExerciseParent
+        cache.set('CExercisemodel', model)
+        cache.set('CExerciseparent_obj', parent_obj)
     like_obj = CExerciseLike
-    parent_obj = CExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(CExerciseDetailView, self).get_context_data(**kwargs)
@@ -38,15 +45,9 @@ class CExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -72,9 +73,15 @@ class CPlusExerciseView(View):
 
 class CPlusExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = CPlusExercise
+    if cache.get('CPlusExercisemodel') and cache.get('CPlusExerciseparent_obj'):
+        model = cache.get('CPlusExercisemodel')
+        parent_obj = cache.get('CPlusExerciseparent_obj')
+    else:
+        model = CPlusExercise
+        parent_obj = CPlusExerciseParent
+        cache.set('CPlusExercisemodel', model)
+        cache.set('CPlusExerciseparent_obj', parent_obj)
     like_obj = CPlusExerciseLike
-    parent_obj = CPlusExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(CPlusExerciseDetailView, self).get_context_data(**kwargs)
@@ -94,15 +101,9 @@ class CPlusExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -128,9 +129,15 @@ class PythonExerciseView(View):
 
 class PythonExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = PythonExercise
+    if cache.get('PythonExercisemodel') and cache.get('PythonExerciseparent_obj'):
+        model = cache.get('PythonExercisemodel')
+        parent_obj = cache.get('PythonExerciseparent_obj')
+    else:
+        model = PythonExercise
+        parent_obj = PythonExerciseParent
+        cache.set('PythonExercisemodel', model)
+        cache.set('PythonExerciseparent_obj', parent_obj)
     like_obj = PythonExerciseLike
-    parent_obj = PythonExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(PythonExerciseDetailView, self).get_context_data(**kwargs)
@@ -150,15 +157,9 @@ class PythonExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -184,9 +185,15 @@ class JavaExerciseView(View):
 
 class JavaExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = JavaExercise
+    if cache.get('JavaExercisemodel') and cache.get('JavaExerciseparent_obj'):
+        model = cache.get('JavaExercisemodel')
+        parent_obj = cache.get('JavaExerciseparent_obj')
+    else:
+        model = JavaExercise
+        parent_obj = JavaExerciseParent
+        cache.set('JavaExercisemodel', model)
+        cache.set('JavaExerciseparent_obj', parent_obj)
     like_obj = JavaExerciseLike
-    parent_obj = JavaExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaExerciseDetailView, self).get_context_data(**kwargs)
@@ -206,15 +213,9 @@ class JavaExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -240,9 +241,15 @@ class KotlinExerciseView(View):
 
 class KotlinExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = KotlinExercise
+    if cache.get('KotlinExercisemodel') and cache.get('KotlinExerciseparent_obj'):
+        model = cache.get('KotlinExercisemodel')
+        parent_obj = cache.get('KotlinExerciseparent_obj')
+    else:
+        model = KotlinExercise
+        parent_obj = KotlinExerciseParent
+        cache.set('KotlinExercisemodel', model)
+        cache.set('KotlinExerciseparent_obj', parent_obj)
     like_obj = KotlinExerciseLike
-    parent_obj = KotlinExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(KotlinExerciseDetailView, self).get_context_data(**kwargs)
@@ -262,15 +269,9 @@ class KotlinExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -296,9 +297,15 @@ class RExerciseView(View):
 
 class RExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = RExercise
+    if cache.get('RExercisemodel') and cache.get('RExerciseparent_obj'):
+        model = cache.get('RExercisemodel')
+        parent_obj = cache.get('RExerciseparent_obj')
+    else:
+        model = RExercise
+        parent_obj = RExerciseParent
+        cache.set('RExercisemodel', model)
+        cache.set('RExerciseparent_obj', parent_obj)
     like_obj = RExerciseLike
-    parent_obj = RExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(RExerciseDetailView, self).get_context_data(**kwargs)
@@ -318,15 +325,9 @@ class RExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -352,9 +353,15 @@ class CSharpExerciseView(View):
 
 class CSharpExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = CSharpExercise
+    if cache.get('CSharpExercisemodel') and cache.get('CSharpExerciseparent_obj'):
+        model = cache.get('CSharpExercisemodel')
+        parent_obj = cache.get('CSharpExerciseparent_obj')
+    else:
+        model = CSharpExercise
+        parent_obj = CSharpExerciseParent
+        cache.set('CSharpExercisemodel', model)
+        cache.set('CSharpExerciseparent_obj', parent_obj)
     like_obj = CSharpExerciseLike
-    parent_obj = CSharpExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(CSharpExerciseDetailView, self).get_context_data(**kwargs)
@@ -374,15 +381,9 @@ class CSharpExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -408,9 +409,15 @@ class SwiftExerciseView(View):
 
 class SwiftExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = SwiftExercise
+    if cache.get('SwiftExercisemodel') and cache.get('SwiftExerciseparent_obj'):
+        model = cache.get('SwiftExercisemodel')
+        parent_obj = cache.get('SwiftExerciseparent_obj')
+    else:
+        model = SwiftExercise
+        parent_obj = SwiftExerciseParent
+        cache.set('SwiftExercisemodel', model)
+        cache.set('SwiftExerciseparent_obj', parent_obj)
     like_obj = SwiftExerciseLike
-    parent_obj = SwiftExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(SwiftExerciseDetailView, self).get_context_data(**kwargs)
@@ -430,15 +437,9 @@ class SwiftExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -464,9 +465,15 @@ class JavaScriptExerciseView(View):
 
 class JavaScriptExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = JavaScriptExercise
+    if cache.get('JavaScriptExercisemodel') and cache.get('JavaScriptExerciseparent_obj'):
+        model = cache.get('JavaScriptExercisemodel')
+        parent_obj = cache.get('JavaScriptExerciseparent_obj')
+    else:
+        model = JavaScriptExercise
+        parent_obj = JavaScriptExerciseParent
+        cache.set('JavaScriptExercisemodel', model)
+        cache.set('JavaScriptExerciseparent_obj', parent_obj)
     like_obj = JavaScriptExerciseLike
-    parent_obj = JavaScriptExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaScriptExerciseDetailView, self).get_context_data(**kwargs)
@@ -486,15 +493,9 @@ class JavaScriptExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -520,9 +521,15 @@ class PHPExerciseView(View):
 
 class PHPExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = PHPExercise
+    if cache.get('PHPExercisemodel') and cache.get('PHPExerciseparent_obj'):
+        model = cache.get('PHPExercisemodel')
+        parent_obj = cache.get('PHPExerciseparent_obj')
+    else:
+        model = PHPExercise
+        parent_obj = PHPExerciseParent
+        cache.set('PHPExercisemodel', model)
+        cache.set('PHPExerciseparent_obj', parent_obj)
     like_obj = PHPExerciseLike
-    parent_obj = PHPExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(PHPExerciseDetailView, self).get_context_data(**kwargs)
@@ -542,15 +549,9 @@ class PHPExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -576,9 +577,15 @@ class DotNetExerciseView(View):
 
 class DotNetExerciseDetailView(DetailView):
     template_name = 'exercise/detail.html'
-    model = DotNetExercise
+    if cache.get('DotNetExercisemodel') and cache.get('DotNetExerciseparent_obj'):
+        model = cache.get('DotNetExercisemodel')
+        parent_obj = cache.get('DotNetExerciseparent_obj')
+    else:
+        model = DotNetExercise
+        parent_obj = DotNetExerciseParent
+        cache.set('DotNetExercisemodel', model)
+        cache.set('DotNetExerciseparent_obj', parent_obj)
     like_obj = DotNetExerciseLike
-    parent_obj = DotNetExerciseParent
 
     def get_context_data(self, **kwargs):
         context = super(DotNetExerciseDetailView, self).get_context_data(**kwargs)
@@ -598,15 +605,9 @@ class DotNetExerciseDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

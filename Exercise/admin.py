@@ -1,126 +1,125 @@
 from django.contrib import admin
 from .models import *
-from MainApp.admin import CommonAdmin
+
 
 # Register your models here.
-class CExerciseAdmin(CommonAdmin):
-    model = CExercise
+@admin.register(CExercise)
+class CExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class CPlusExerciseAdmin(CommonAdmin):
-    model = CPlusExercise
+@admin.register(CPlusExercise)
+class CPlusExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class PythonExerciseAdmin(CommonAdmin):
-    model = PythonExercise
+@admin.register(PythonExercise)
+class PythonExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class JavaExerciseAdmin(CommonAdmin):
-    model = JavaExercise
+@admin.register(JavaExercise)
+class JavaExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class KotlinExerciseAdmin(CommonAdmin):
-    model = KotlinExercise
+@admin.register(KotlinExercise)
+class KotlinExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class RExerciseAdmin(CommonAdmin):
-    model = RExercise
+@admin.register(RExercise)
+class RExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class CSharpExerciseAdmin(CommonAdmin):
-    model = CSharpExercise
+@admin.register(CSharpExercise)
+class CSharpExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class SwiftExerciseAdmin(CommonAdmin):
-    model = SwiftExercise
+@admin.register(SwiftExercise)
+class SwiftExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class JavaScriptExerciseAdmin(CommonAdmin):
-    model = JavaScriptExercise
+@admin.register(JavaScriptExercise)
+class JavaScriptExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class PHPExerciseAdmin(CommonAdmin):
-    model = PHPExercise
+@admin.register(PHPExercise)
+class PHPExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class DotNetExerciseAdmin(CommonAdmin):
-    model = DotNetExercise
+@admin.register(DotNetExercise)
+class DotNetExerciseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
 # Parent Admin register
 @admin.register(CExerciseParent)
 class CExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (CExerciseAdmin,)
 
 
 @admin.register(CPlusExerciseParent)
 class CPlusExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (CPlusExerciseAdmin,)
 
 
 @admin.register(PythonExerciseParent)
 class PythonExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (PythonExerciseAdmin,)
 
 
 @admin.register(JavaExerciseParent)
 class JavaExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (JavaExerciseAdmin,)
 
 
 @admin.register(KotlinExerciseParent)
 class KotlinExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (KotlinExerciseAdmin,)
 
 
 @admin.register(RExerciseParent)
 class RExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (RExerciseAdmin,)
 
 
 @admin.register(CSharpExerciseParent)
 class CSharpExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (CSharpExerciseAdmin,)
 
 
 @admin.register(SwiftExerciseParent)
 class SwiftExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (SwiftExerciseAdmin,)
 
 
 @admin.register(JavaScriptExerciseParent)
 class JavaScriptExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (JavaScriptExerciseAdmin,)
 
 
 @admin.register(PHPExerciseParent)
 class PHPExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (PHPExerciseAdmin,)
 
 
 @admin.register(DotNetExerciseParent)
 class DotNetExerciseParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (DotNetExerciseAdmin,)
-
-
-admin.site.register(CQuestionAnswer)
-admin.site.register(CplusQuestionAnswer)
-admin.site.register(CSharpQuestionAnswer)
-admin.site.register(JavaQuestionAnswer)
-admin.site.register(PythonQuestionAnswer)
-admin.site.register(KotlinQuestionAnswer)
-admin.site.register(RQuestionAnswer)
-admin.site.register(DotNetQuestionAnswer)
-admin.site.register(PHPQuestionAnswer)
-admin.site.register(SwiftQuestionAnswer)

@@ -1,168 +1,182 @@
 from django.contrib import admin
 from .models import *
-from MainApp.admin import CommonAdmin
+
 
 # Register your models here.
 
 
+@admin.register(DBMS)
+class DBMSAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class DBMSAdmin(CommonAdmin):
-    model = DBMS
+@admin.register(DataStructure)
+class DataStructureAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class DataStructureAdmin(CommonAdmin):
-    model = DataStructure
+@admin.register(DAA)
+class DAAAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class DAAAdmin(CommonAdmin):
-    model = DAA
+@admin.register(OperatingSystem)
+class OperatingSystemAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class OperatingSystemAdmin(CommonAdmin):
-    model = OperatingSystem
+@admin.register(ComputerNetwork)
+class ComputerNetworkAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class ComputerNetworkAdmin(CommonAdmin):
-    model = ComputerNetwork
+@admin.register(CompilerDesign)
+class CompilerDesignAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class CompilerDesignAdmin(CommonAdmin):
-    model = CompilerDesign
+@admin.register(ComputerOrganization)
+class ComputerOrganizationAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class ComputerOrganizationAdmin(CommonAdmin):
-    model = ComputerOrganization
+@admin.register(DiscreteMathematics)
+class DiscreteMathematicsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class DiscreteMathematicsAdmin(CommonAdmin):
-    model = DiscreteMathematics
+@admin.register(SoftwareEngineering)
+class SoftwareEngineeringAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class SoftwareEngineeringAdmin(CommonAdmin):
-    model = SoftwareEngineering
+@admin.register(CyberSecurity)
+class CyberSecurityAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class CyberSecurityAdmin(CommonAdmin):
-    model = CyberSecurity
+@admin.register(DataMining)
+class DataMiningAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class DataMiningAdmin(CommonAdmin):
-    model = DataMining
+@admin.register(ArtificialIntelligence)
+class ArtificialIntelligenceAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class ArtificialIntelligenceAdmin(CommonAdmin):
-    model = ArtificialIntelligence
+@admin.register(Automata)
+class AutomataAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class AutomataAdmin(CommonAdmin):
-    model = Automata
+@admin.register(ComputerGraphics)
+class ComputerGraphicsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class ComputerGraphicsAdmin(CommonAdmin):
-    model = ComputerGraphics
+@admin.register(WebApi)
+class WebApiAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class WebApiAdmin(CommonAdmin):
-    model = WebApi
-
-
-class DDBMSAdmin(CommonAdmin):
-    model = DDBMS
+@admin.register(DDBMS)
+class DDBMSAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
 # ADmin Parent
 @admin.register(DBMSParent)
 class DBMSParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (DBMSAdmin,)
 
 
 @admin.register(DataStructureParent)
 class DataStructureParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (DataStructureAdmin,)
 
 
 @admin.register(DAAParent)
 class DAAParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (DAAAdmin,)
 
 
 @admin.register(OperatingSystemParent)
 class OperatingSystemParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (OperatingSystemAdmin,)
 
 
 @admin.register(ComputerNetworkParent)
 class ComputerNetworkParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (ComputerNetworkAdmin,)
 
 
 @admin.register(CompilerDesignParent)
 class CompilerDesignParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (CompilerDesignAdmin,)
 
 
 @admin.register(ComputerOrganizationParent)
 class ComputerOrganizationParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (ComputerOrganizationAdmin,)
 
 
 @admin.register(DiscreteMathematicsParent)
 class DiscreteMathematicsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (DiscreteMathematicsAdmin,)
 
 
 @admin.register(SoftwareEngineeringParent)
 class SoftwareEngineeringParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (SoftwareEngineeringAdmin,)
 
 
 @admin.register(CyberSecurityParent)
 class CyberSecurityParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (CyberSecurityAdmin,)
 
 
 @admin.register(DataMiningParent)
 class DataMiningParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (DataMiningAdmin,)
 
 
 @admin.register(ArtificialIntelligenceParent)
 class ArtificialIntelligenceParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (ArtificialIntelligenceAdmin,)
 
 
 @admin.register(AutomataParent)
 class AutomataParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (AutomataAdmin,)
 
 
 @admin.register(ComputerGraphicsParent)
 class ComputerGraphicsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (ComputerGraphicsAdmin,)
 
 
 @admin.register(WebApiParent)
 class WebApiParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (WebApiAdmin,)
 
 
 @admin.register(DDBMSParent)
 class DDBMSParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (DDBMSAdmin,)

@@ -23,9 +23,15 @@ from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.core.cache import cache
+from .functions import *
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 # Create your views here.
+
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         context = {
@@ -59,7 +65,11 @@ class BlogView(ListView):
 class BlogDetailView(DetailView, FormView):
     template_name = 'w3c/blogdetail.html'
     form_class = BlogCommentForm
-    model = Blogs
+    if cache.get('Blogsmodel'):
+        model = cache.get('Blogsmodel')
+    else:
+        model = Blogs
+        cache.set('Blogsmodel', model)
     like_obj = BlogsLike
 
     def get_ip_address(self):
@@ -86,15 +96,9 @@ class BlogDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, *args, **kwargs):
@@ -193,7 +197,6 @@ class RegisterUser(View):
         for error in form.errors:
             errors_str += ' '.join(form.errors.get(error)) + '>>>>'
         messages.error(request, errors_str)
-        print(request.path)
         return HttpResponseRedirect(current_url)
 
 
@@ -284,7 +287,6 @@ class Bookmark(View):
         user = User.objects.get(username=request.user)
         data = {}
         obj = ArticleBookmark.objects.filter(user=user, link=link)
-        print(request.user.articlebookmark.filter(link=link))
         if obj.exists():
             obj = obj.first()
             obj.delete()
@@ -314,8 +316,9 @@ class ImageUpload(View):
         # if there is not such path create it
         if not os.path.exists(path):
             os.makedirs(path)
-        file_path = os.path.join(path, file_obj.name)
-        file_url = f"{settings.MEDIA_URL}tinymce/{file_obj.name}"
+        file_date = datetime.datetime.now().strftime("%Y_%m_%d-%I-%M-%S_%p")
+        file_path = os.path.join(path, file_date + file_obj.name)
+        file_url = f"{settings.MEDIA_URL}tinymce/{file_date + file_obj.name}"
         if os.path.exists(file_path):
             return JsonResponse({
                 "message": "File already exist",
@@ -372,7 +375,7 @@ class ContactUsView(TemplateView, FormView):
             try:
                 send_mail(f"{request.POST.get('name')} is Contact to you {request.POST.get('email')}",
                           request.POST.get('body'),
-                          settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=True)
+                          settings.EMAIL_HOST_USER, ["maliksakib347@gmail.com"], fail_silently=True)
             except:
                 pass
             messages.success(request,
@@ -396,7 +399,6 @@ class PasswordResetRequest(TemplateView, FormView):
         if form.is_valid():
             data = form.cleaned_data['email']
             associated_users = User.objects.filter(Q(email=data))
-            print(associated_users)
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Request"

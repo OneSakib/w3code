@@ -1,77 +1,82 @@
 from django.contrib import admin
 from .models import *
-from MainApp.admin import CommonAdmin
 
 
 # Register your models here.
 
-
-class HTMLsAdmin(CommonAdmin):
-    model = HTMLs
-
-
-class CSSsAdmin(CommonAdmin):
-    model = CSSs
+@admin.register(HTMLs)
+class HTMLsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class LaravelsAdmin(CommonAdmin):
-    model = Laravels
+@admin.register(CSSs)
+class CSSsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class WordpressAdmin(CommonAdmin):
-    model = Wordpress
+@admin.register(Laravels)
+class LaravelsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class JSONsAdmin(CommonAdmin):
-    model = JSONs
+@admin.register(Wordpress)
+class WordpressAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class AjaxsAdmin(CommonAdmin):
-    model = Ajaxs
+@admin.register(JSONs)
+class JSONsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
-class BootstrapsAdmin(CommonAdmin):
-    model = Bootstraps
+@admin.register(Ajaxs)
+class AjaxsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
+
+
+@admin.register(Bootstraps)
+class BootstrapsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'parent']
+    prepopulated_fields = {'slug': ['title']}
 
 
 # Admin Parent
 @admin.register(HTMLsParent)
 class HTMLsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (HTMLsAdmin,)
 
 
 @admin.register(CSSsParent)
 class CSSsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (CSSsAdmin,)
 
 
 @admin.register(LaravelsParent)
 class LaravelsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (LaravelsAdmin,)
 
 
 @admin.register(WordpressParent)
 class WordpressParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (WordpressAdmin,)
 
 
 @admin.register(JSONsParent)
 class JSONsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (JSONsAdmin,)
 
 
 @admin.register(AjaxsParent)
 class AjaxsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (AjaxsAdmin,)
 
 
 @admin.register(BootstrapsParent)
 class BootstrapsParentAdmin(admin.ModelAdmin):
     list_display = ['title']
-    inlines = (BootstrapsAdmin,)

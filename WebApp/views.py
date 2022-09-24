@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from next_prev import next_in_order, prev_in_order
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 
 # Create your views here.
@@ -17,9 +19,15 @@ class HtmlView(View):
 
 class HTMLDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = HTMLs
+    if cache.get('HTMLsmodel') and cache.get('HTMLsparent_obj'):
+        model = cache.get('HTMLsmodel')
+        parent_obj = cache.get('HTMLsparent_obj')
+    else:
+        model = HTMLs
+        parent_obj = HTMLsParent
+        cache.set('HTMLsmodel', model)
+        cache.set('HTMLsparent_obj', parent_obj)
     like_obj = HTMLsLike
-    parent_obj = HTMLsParent
 
     def get_context_data(self, **kwargs):
         context = super(HTMLDetailView, self).get_context_data(**kwargs)
@@ -39,15 +47,10 @@ class HTMLDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
+
         return context
 
     def post(self, request, **kwargs):
@@ -73,9 +76,15 @@ class CSSView(View):
 
 class CSSDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = CSSs
+    if cache.get('CSSsmodel') and cache.get('CSSsparent_obj'):
+        model = cache.get('CSSsmodel')
+        parent_obj = cache.get('CSSsparent_obj')
+    else:
+        model = CSSs
+        parent_obj = CSSsParent
+        cache.set('CSSsmodel', model)
+        cache.set('CSSsparent_obj', parent_obj)
     like_obj = CSSsLike
-    parent_obj = CSSsParent
 
     def get_context_data(self, **kwargs):
         context = super(CSSDetailView, self).get_context_data(**kwargs)
@@ -95,15 +104,9 @@ class CSSDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -129,9 +132,15 @@ class LaravelView(View):
 
 class LaravelDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Laravels
+    if cache.get('Laravelsmodel') and cache.get('Laravelsparent_obj'):
+        model = cache.get('Laravelsmodel')
+        parent_obj = cache.get('Laravelsparent_obj')
+    else:
+        model = Laravels
+        parent_obj = LaravelsParent
+        cache.set('Laravelsmodel', model)
+        cache.set('Laravelsparent_obj', parent_obj)
     like_obj = LaravelsLike
-    parent_obj = LaravelsParent
 
     def get_context_data(self, **kwargs):
         context = super(LaravelDetailView, self).get_context_data(**kwargs)
@@ -151,15 +160,9 @@ class LaravelDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -185,9 +188,15 @@ class WordpressView(View):
 
 class WordpressDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Wordpress
+    if cache.get('Wordpressmodel') and cache.get('Wordpressparent_obj'):
+        model = cache.get('Wordpressmodel')
+        parent_obj = cache.get('Wordpressparent_obj')
+    else:
+        model = Wordpress
+        parent_obj = WordpressParent
+        cache.set('Wordpressmodel', model)
+        cache.set('Wordpressparent_obj', parent_obj)
     like_obj = WordpressLike
-    parent_obj = WordpressParent
 
     def get_context_data(self, **kwargs):
         context = super(WordpressDetailView, self).get_context_data(**kwargs)
@@ -207,15 +216,9 @@ class WordpressDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -241,9 +244,15 @@ class JSONView(View):
 
 class JSONDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = JSONs
+    if cache.get('JSONsmodel') and cache.get('JSONsparent_obj'):
+        model = cache.get('JSONsmodel')
+        parent_obj = cache.get('JSONsparent_obj')
+    else:
+        model = JSONs
+        parent_obj = JSONsParent
+        cache.set('JSONsmodel', model)
+        cache.set('JSONsparent_obj', parent_obj)
     like_obj = JSONsLike
-    parent_obj = JSONsParent
 
     def get_context_data(self, **kwargs):
         context = super(JSONDetailView, self).get_context_data(**kwargs)
@@ -263,15 +272,9 @@ class JSONDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -297,9 +300,15 @@ class AJAXView(View):
 
 class AJAXDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Ajaxs
+    if cache.get('Ajaxsmodel') and cache.get('Ajaxsparent_obj'):
+        model = cache.get('Ajaxsmodel')
+        parent_obj = cache.get('Ajaxsparent_obj')
+    else:
+        model = Ajaxs
+        parent_obj = AjaxsParent
+        cache.set('Ajaxsmodel', model)
+        cache.set('Ajaxsparent_obj', parent_obj)
     like_obj = AjaxsLike
-    parent_obj = AjaxsParent
 
     def get_context_data(self, **kwargs):
         context = super(AJAXDetailView, self).get_context_data(**kwargs)
@@ -319,15 +328,9 @@ class AJAXDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -353,9 +356,15 @@ class BootstrapView(View):
 
 class BootstrapDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = Bootstraps
+    if cache.get('Bootstrapsmodel') and cache.get('Bootstrapsparent_obj'):
+        model = cache.get('Bootstrapsmodel')
+        parent_obj = cache.get('Bootstrapsparent_obj')
+    else:
+        model = Bootstraps
+        parent_obj = BootstrapsParent
+        cache.set('Bootstrapsmodel', model)
+        cache.set('Bootstrapsparent_obj', parent_obj)
     like_obj = BootstrapsLike
-    parent_obj = BootstrapsParent
 
     def get_context_data(self, **kwargs):
         context = super(BootstrapDetailView, self).get_context_data(**kwargs)
@@ -375,15 +384,9 @@ class BootstrapDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

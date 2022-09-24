@@ -7,9 +7,6 @@ from .models import *
 admin.site.register(EmailVerification)
 
 
-class CommonAdmin(admin.StackedInline):
-    extra = 1
-    prepopulated_fields = {'slug': ['title']}
 
 
 @admin.register(TutList)

@@ -5,7 +5,8 @@ from django.urls import reverse_lazy
 from next_prev import next_in_order, prev_in_order
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 # Create your views here.
 class MYSqlView(View):
@@ -16,9 +17,16 @@ class MYSqlView(View):
 
 class MySqlDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MysqlDB
+    if cache.get('Mysqlmodel') and cache.get('Mysqlparent_obj'):
+        model = cache.get('Mysqlmodel')
+        parent_obj = cache.get('Mysqlparent_obj')
+    else:
+        model = MysqlDB
+        parent_obj = MySqlDBParent
+        cache.set('Mysqlmodel', model)
+        cache.set('Mysqlparent_obj', parent_obj)
+
     like_obj = MysqlDBLike
-    parent_obj = MySqlDBParent
 
     def get_context_data(self, **kwargs):
         context = super(MySqlDetailView, self).get_context_data(**kwargs)
@@ -38,15 +46,9 @@ class MySqlDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -72,9 +74,15 @@ class MongoDBView(View):
 
 class MongoDBDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MongoDB
+    if cache.get('Mongomodel') and cache.get('Mongoparent_obj'):
+        model = cache.get('Mongomodel')
+        parent_obj = cache.get('Mongoparent_obj')
+    else:
+        model = MongoDB
+        parent_obj = MongoDBParent
+        cache.set('Mongomodel', model)
+        cache.set('Mongoparent_obj', parent_obj)
     like_obj = MongoDBLike
-    parent_obj = MongoDBParent
 
     def get_context_data(self, **kwargs):
         context = super(MongoDBDetailView, self).get_context_data(**kwargs)
@@ -94,15 +102,9 @@ class MongoDBDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -128,9 +130,15 @@ class PostgreSqlView(View):
 
 class PostgreSQLDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = PostgreSQLDB
+    if cache.get('Postgremodel') and cache.get('Postgreparent_obj'):
+        model = cache.get('Postgremodel')
+        parent_obj = cache.get('Postgreparent_obj')
+    else:
+        model = PostgreSQLDB
+        parent_obj = PostgreSQLDBParent
+        cache.set('Postgremodel', model)
+        cache.set('Postgreparent_obj', parent_obj)
     like_obj = PostgreSQLDBLike
-    parent_obj = PostgreSQLDBParent
 
     def get_context_data(self, **kwargs):
         context = super(PostgreSQLDetailView, self).get_context_data(**kwargs)
@@ -150,15 +158,9 @@ class PostgreSQLDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -184,9 +186,15 @@ class OracleView(View):
 
 class OracleDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = OracleDB
+    if cache.get('Oraclemodel') and cache.get('Oracleparent_obj'):
+        model = cache.get('Oraclemodel')
+        parent_obj = cache.get('Oracleparent_obj')
+    else:
+        model = OracleDB
+        parent_obj = OracleDBParent
+        cache.set('Oraclemodel', model)
+        cache.set('Oracleparent_obj', parent_obj)
     like_obj = OracleDBLike
-    parent_obj = OracleDBParent
 
     def get_context_data(self, **kwargs):
         context = super(OracleDetailView, self).get_context_data(**kwargs)
@@ -206,15 +214,9 @@ class OracleDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -240,9 +242,15 @@ class SqliteView(View):
 
 class SqliteDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = SqliteDB
+    if cache.get('Sqlitemodel') and cache.get('Sqliteparent_obj'):
+        model = cache.get('Sqlitemodel')
+        parent_obj = cache.get('Sqliteparent_obj')
+    else:
+        model = SqliteDB
+        parent_obj = SqliteDBParent
+        cache.set('Sqlitemodel', model)
+        cache.set('Sqliteparent_obj', parent_obj)
     like_obj = SqliteDBLike
-    parent_obj = SqliteDBParent
 
     def get_context_data(self, **kwargs):
         context = super(SqliteDetailView, self).get_context_data(**kwargs)
@@ -262,15 +270,9 @@ class SqliteDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -296,9 +298,15 @@ class MariaDBView(View):
 
 class MariaDBDetailView(DetailView):
     template_name = 'w3c/detail.html'
-    model = MariaDB
+    if cache.get('Mariamodel') and cache.get('Mariaparent_obj'):
+        model = cache.get('Mariamodel')
+        parent_obj = cache.get('Mariaparent_obj')
+    else:
+        model = MariaDB
+        parent_obj = MariaDBParent
+        cache.set('Mariamodel', model)
+        cache.set('Mariaparent_obj', parent_obj)
     like_obj = MariaDBLike
-    parent_obj = MariaDBParent
 
     def get_context_data(self, **kwargs):
         context = super(MariaDBDetailView, self).get_context_data(**kwargs)
@@ -318,15 +326,9 @@ class MariaDBDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

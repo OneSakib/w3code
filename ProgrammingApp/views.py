@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from next_prev import next_in_order, prev_in_order
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 
 # Create your views here.
@@ -16,9 +18,15 @@ class CView(View):
 
 class CLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = CLanguage
+    if cache.get('CLanguagemodel') and cache.get('CLanguageparent_obj'):
+        model = cache.get('CLanguagemodel')
+        parent_obj = cache.get('CLanguageparent_obj')
+    else:
+        model = CLanguage
+        parent_obj = CLanguageParent
+        cache.set('CLanguagemodel', model)
+        cache.set('CLanguageparent_obj', parent_obj)
     like_obj = CLanguageLike
-    parent_obj = CLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(CLanguageDetailView, self).get_context_data(**kwargs)
@@ -38,15 +46,9 @@ class CLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -72,9 +74,15 @@ class CPlusView(View):
 
 class CPlusLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = CplusLanguage
+    if cache.get('CplusLanguagemodel') and cache.get('CplusLanguageparent_obj'):
+        model = cache.get('CplusLanguagemodel')
+        parent_obj = cache.get('CplusLanguageparent_obj')
+    else:
+        model = CplusLanguage
+        parent_obj = CLanguageParent
+        cache.set('CplusLanguagemodel', model)
+        cache.set('CplusLanguageparent_obj', parent_obj)
     like_obj = CplusLanguageLike
-    parent_obj = CplusLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(CPlusLanguageDetailView, self).get_context_data(**kwargs)
@@ -94,15 +102,9 @@ class CPlusLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -128,9 +130,15 @@ class PythonView(View):
 
 class PythonLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = PythonLanguage
+    if cache.get('PythonLanguagemodel') and cache.get('PythonLanguageparent_obj'):
+        model = cache.get('PythonLanguagemodel')
+        parent_obj = cache.get('PythonLanguageparent_obj')
+    else:
+        model = PythonLanguage
+        parent_obj = PythonLanguageParent
+        cache.set('PythonLanguagemodel', model)
+        cache.set('PythonLanguageparent_obj', parent_obj)
     like_obj = PythonLanguageLike
-    parent_obj = PythonLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(PythonLanguageDetailView, self).get_context_data(**kwargs)
@@ -150,15 +158,9 @@ class PythonLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -184,9 +186,15 @@ class JavaView(View):
 
 class JavaLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = JavaLanguage
+    if cache.get('JavaLanguagemodel') and cache.get('JavaLanguageparent_obj'):
+        model = cache.get('JavaLanguagemodel')
+        parent_obj = cache.get('JavaLanguageparent_obj')
+    else:
+        model = JavaLanguage
+        parent_obj = JavaLanguageParent
+        cache.set('JavaLanguagemodel', model)
+        cache.set('JavaLanguageparent_obj', parent_obj)
     like_obj = JavaLanguageLike
-    parent_obj = JavaLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaLanguageDetailView, self).get_context_data(**kwargs)
@@ -206,15 +214,9 @@ class JavaLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -240,9 +242,15 @@ class AndroidView(View):
 
 class AndroidLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = AndroidLanguage
+    if cache.get('AndroidLanguagemodel') and cache.get('AndroidLanguageparent_obj'):
+        model = cache.get('AndroidLanguagemodel')
+        parent_obj = cache.get('AndroidLanguageparent_obj')
+    else:
+        model = AndroidLanguage
+        parent_obj = AndroidLanguageParent
+        cache.set('AndroidLanguagemodel', model)
+        cache.set('AndroidLanguageparent_obj', parent_obj)
     like_obj = AndroidLanguageLike
-    parent_obj = AndroidLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(AndroidLanguageDetailView, self).get_context_data(**kwargs)
@@ -262,15 +270,9 @@ class AndroidLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -296,9 +298,15 @@ class KotlinView(View):
 
 class KotlinLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = KotlinLanguage
+    if cache.get('KotlinLanguagemodel') and cache.get('KotlinLanguageparent_obj'):
+        model = cache.get('KotlinLanguagemodel')
+        parent_obj = cache.get('KotlinLanguageparent_obj')
+    else:
+        model = KotlinLanguage
+        parent_obj = KotlinLanguageParent
+        cache.set('KotlinLanguagemodel', model)
+        cache.set('KotlinLanguageparent_obj', parent_obj)
     like_obj = KotlinLanguageLike
-    parent_obj = KotlinLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(KotlinLanguageDetailView, self).get_context_data(**kwargs)
@@ -318,15 +326,9 @@ class KotlinLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -352,9 +354,15 @@ class RView(View):
 
 class RLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = RLanguage
+    if cache.get('RLanguagemodel') and cache.get('RLanguageparent_obj'):
+        model = cache.get('RLanguagemodel')
+        parent_obj = cache.get('RLanguageparent_obj')
+    else:
+        model = RLanguage
+        parent_obj = RLanguageParent
+        cache.set('RLanguagemodel', model)
+        cache.set('RLanguageparent_obj', parent_obj)
     like_obj = RLanguageLike
-    parent_obj = RLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(RLanguageDetailView, self).get_context_data(**kwargs)
@@ -374,15 +382,9 @@ class RLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -408,9 +410,15 @@ class CSharpView(View):
 
 class CSharpLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = CsharpLanguage
+    if cache.get('CsharpLanguagemodel') and cache.get('CsharpLanguageparent_obj'):
+        model = cache.get('CsharpLanguagemodel')
+        parent_obj = cache.get('CsharpLanguageparent_obj')
+    else:
+        model = CsharpLanguage
+        parent_obj = CsharpLanguageParent
+        cache.set('CsharpLanguagemodel', model)
+        cache.set('CsharpLanguageparent_obj', parent_obj)
     like_obj = CsharpLanguageLike
-    parent_obj = CsharpLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(CSharpLanguageDetailView, self).get_context_data(**kwargs)
@@ -430,15 +438,9 @@ class CSharpLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -464,9 +466,15 @@ class SwiftView(View):
 
 class SwiftLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = SwiftLanguage
+    if cache.get('SwiftLanguagemodel') and cache.get('SwiftLanguageparent_obj'):
+        model = cache.get('SwiftLanguagemodel')
+        parent_obj = cache.get('SwiftLanguageparent_obj')
+    else:
+        model = SwiftLanguage
+        parent_obj = SwiftLanguageParent
+        cache.set('SwiftLanguagemodel', model)
+        cache.set('SwiftLanguageparent_obj', parent_obj)
     like_obj = SwiftLanguageLike
-    parent_obj = SwiftLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(SwiftLanguageDetailView, self).get_context_data(**kwargs)
@@ -486,15 +494,9 @@ class SwiftLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -520,9 +522,15 @@ class JavaScriptView(View):
 
 class JavaScriptLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = JavaScriptLanguage
+    if cache.get('JavaScriptLanguagemodel') and cache.get('JavaScriptLanguageparent_obj'):
+        model = cache.get('JavaScriptLanguagemodel')
+        parent_obj = cache.get('JavaScriptLanguageparent_obj')
+    else:
+        model = JavaScriptLanguage
+        parent_obj = JavaScriptLanguageParent
+        cache.set('JavaScriptLanguagemodel', model)
+        cache.set('JavaScriptLanguageparent_obj', parent_obj)
     like_obj = JavaScriptLanguageLike
-    parent_obj = JavaScriptLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaScriptLanguageDetailView, self).get_context_data(**kwargs)
@@ -543,15 +551,9 @@ class JavaScriptLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -577,9 +579,15 @@ class PHPView(View):
 
 class PHPLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = PHPLanguage
+    if cache.get('PHPLanguagemodel') and cache.get('PHPLanguageparent_obj'):
+        model = cache.get('PHPLanguagemodel')
+        parent_obj = cache.get('PHPLanguageparent_obj')
+    else:
+        model = PHPLanguage
+        parent_obj = PHPLanguageParent
+        cache.set('PHPLanguagemodel', model)
+        cache.set('PHPLanguageparent_obj', parent_obj)
     like_obj = PHPLanguageLike
-    parent_obj = PHPLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(PHPLanguageDetailView, self).get_context_data(**kwargs)
@@ -599,15 +607,9 @@ class PHPLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -633,9 +635,15 @@ class DotNetView(View):
 
 class DotNetLanguageDetailView(DetailView):
     template_name = 'programming/detail.html'
-    model = DotNetLanguage
+    if cache.get('DotNetLanguagemodel') and cache.get('DotNetLanguageparent_obj'):
+        model = cache.get('DotNetLanguagemodel')
+        parent_obj = cache.get('DotNetLanguageparent_obj')
+    else:
+        model = DotNetLanguage
+        parent_obj = DotNetLanguageParent
+        cache.set('DotNetLanguagemodel', model)
+        cache.set('DotNetLanguageparent_obj', parent_obj)
     like_obj = DotNetLanguageLike
-    parent_obj = DotNetLanguageParent
 
     def get_context_data(self, **kwargs):
         context = super(DotNetLanguageDetailView, self).get_context_data(**kwargs)
@@ -655,15 +663,9 @@ class DotNetLanguageDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):

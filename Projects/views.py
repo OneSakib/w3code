@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import View, DetailView
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 
 # Create your views here.
@@ -16,9 +18,15 @@ class CProjectsView(View):
 
 class CProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = CProjects
+    if cache.get('CProjectsmodel') and cache.get('CProjectsparent_obj'):
+        model = cache.get('CProjectsmodel')
+        parent_obj = cache.get('CProjectsparent_obj')
+    else:
+        model = CProjects
+        parent_obj = CProjectsParent
+        cache.set('CProjectsmodel', model)
+        cache.set('CProjectsparent_obj', parent_obj)
     like_obj = CProjectsLike
-    parent_obj = CProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(CProjectsDetailView, self).get_context_data(**kwargs)
@@ -38,15 +46,9 @@ class CProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -72,9 +74,15 @@ class CPlusProjectsView(View):
 
 class CPlusProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = CPlusProjects
+    if cache.get('CPlusProjectsmodel') and cache.get('CPlusProjectsparent_obj'):
+        model = cache.get('CPlusProjectsmodel')
+        parent_obj = cache.get('CPlusProjectsparent_obj')
+    else:
+        model = CPlusProjects
+        parent_obj = CPlusProjectsParent
+        cache.set('CPlusProjectsmodel', model)
+        cache.set('CPlusProjectsparent_obj', parent_obj)
     like_obj = CPlusProjectsLike
-    parent_obj = CPlusProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(CPlusProjectsDetailView, self).get_context_data(**kwargs)
@@ -94,15 +102,9 @@ class CPlusProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -128,9 +130,15 @@ class PythonProjectsView(View):
 
 class PythonProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = PythonProjects
+    if cache.get('PythonProjectsmodel') and cache.get('PythonProjectsparent_obj'):
+        model = cache.get('PythonProjectsmodel')
+        parent_obj = cache.get('PythonProjectsparent_obj')
+    else:
+        model = PythonProjects
+        parent_obj = PythonProjectsParent
+        cache.set('PythonProjectsmodel', model)
+        cache.set('PythonProjectsparent_obj', parent_obj)
     like_obj = PythonProjectsLike
-    parent_obj = PythonProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(PythonProjectsDetailView, self).get_context_data(**kwargs)
@@ -150,15 +158,9 @@ class PythonProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -184,9 +186,15 @@ class JavaProjectsView(View):
 
 class JavaProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = JavaProjects
+    if cache.get('JavaProjectsmodel') and cache.get('JavaProjectsparent_obj'):
+        model = cache.get('JavaProjectsmodel')
+        parent_obj = cache.get('JavaProjectsparent_obj')
+    else:
+        model = JavaProjects
+        parent_obj = JavaProjectsParent
+        cache.set('JavaProjectsmodel', model)
+        cache.set('JavaProjectsparent_obj', parent_obj)
     like_obj = JavaProjectsLike
-    parent_obj = JavaProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaProjectsDetailView, self).get_context_data(**kwargs)
@@ -206,15 +214,9 @@ class JavaProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -240,9 +242,15 @@ class KotlinProjectsView(View):
 
 class KotlinProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = KotlinProjects
+    if cache.get('KotlinProjectsmodel') and cache.get('KotlinProjectsparent_obj'):
+        model = cache.get('KotlinProjectsmodel')
+        parent_obj = cache.get('KotlinProjectsparent_obj')
+    else:
+        model = KotlinProjects
+        parent_obj = KotlinProjectsParent
+        cache.set('KotlinProjectsmodel', model)
+        cache.set('KotlinProjectsparent_obj', parent_obj)
     like_obj = KotlinProjectsLike
-    parent_obj = KotlinProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(KotlinProjectsDetailView, self).get_context_data(**kwargs)
@@ -262,15 +270,9 @@ class KotlinProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -296,9 +298,15 @@ class RProjectsView(View):
 
 class RProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = RProjects
+    if cache.get('RProjectsmodel') and cache.get('RProjectsparent_obj'):
+        model = cache.get('RProjectsmodel')
+        parent_obj = cache.get('RProjectsparent_obj')
+    else:
+        model = RProjects
+        parent_obj = RProjectsParent
+        cache.set('RProjectsmodel', model)
+        cache.set('RProjectsparent_obj', parent_obj)
     like_obj = RProjectsLike
-    parent_obj = RProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(RProjectsDetailView, self).get_context_data(**kwargs)
@@ -318,15 +326,9 @@ class RProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -352,9 +354,15 @@ class CSharpProjectsView(View):
 
 class CSharpProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = CSharpProjects
+    if cache.get('CSharpProjectsmodel') and cache.get('CSharpProjectsparent_obj'):
+        model = cache.get('CSharpProjectsmodel')
+        parent_obj = cache.get('CSharpProjectsparent_obj')
+    else:
+        model = CSharpProjects
+        parent_obj = CSharpProjectsParent
+        cache.set('CSharpProjectsmodel', model)
+        cache.set('CSharpProjectsparent_obj', parent_obj)
     like_obj = CSharpProjectsLike
-    parent_obj = CSharpProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(CSharpProjectsDetailView, self).get_context_data(**kwargs)
@@ -374,15 +382,9 @@ class CSharpProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -408,9 +410,15 @@ class SwiftProjectsView(View):
 
 class SwiftProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = SwiftProjects
+    if cache.get('SwiftProjectsmodel') and cache.get('SwiftProjectsparent_obj'):
+        model = cache.get('SwiftProjectsmodel')
+        parent_obj = cache.get('SwiftProjectsparent_obj')
+    else:
+        model = SwiftProjects
+        parent_obj = SwiftProjectsParent
+        cache.set('SwiftProjectsmodel', model)
+        cache.set('SwiftProjectsparent_obj', parent_obj)
     like_obj = SwiftProjectsLike
-    parent_obj = SwiftProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(SwiftProjectsDetailView, self).get_context_data(**kwargs)
@@ -430,15 +438,9 @@ class SwiftProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -464,9 +466,15 @@ class JavaScriptProjectsView(View):
 
 class JavaScriptProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = JavaScriptProjects
+    if cache.get('JavaScriptProjectsmodel') and cache.get('JavaScriptProjectsparent_obj'):
+        model = cache.get('JavaScriptProjectsmodel')
+        parent_obj = cache.get('JavaScriptProjectsparent_obj')
+    else:
+        model = JavaScriptProjects
+        parent_obj = JavaScriptProjectsParent
+        cache.set('JavaScriptProjectsmodel', model)
+        cache.set('JavaScriptProjectsparent_obj', parent_obj)
     like_obj = JavaScriptProjectsLike
-    parent_obj = JavaScriptProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(JavaScriptProjectsDetailView, self).get_context_data(**kwargs)
@@ -486,15 +494,9 @@ class JavaScriptProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -520,9 +522,15 @@ class PHPProjectsView(View):
 
 class PHPProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = PHPProjects
+    if cache.get('PHPProjectsmodel') and cache.get('PHPProjectsparent_obj'):
+        model = cache.get('PHPProjectsmodel')
+        parent_obj = cache.get('PHPProjectsparent_obj')
+    else:
+        model = PHPProjects
+        parent_obj = PHPProjectsParent
+        cache.set('PHPProjectsmodel', model)
+        cache.set('PHPProjectsparent_obj', parent_obj)
     like_obj = PHPProjectsLike
-    parent_obj = PHPProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(PHPProjectsDetailView, self).get_context_data(**kwargs)
@@ -542,15 +550,9 @@ class PHPProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -576,9 +578,15 @@ class AndroidProjectView(View):
 
 class AndroidProjectDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = AndroidProjects
+    if cache.get('AndroidProjectsmodel') and cache.get('AndroidProjectsparent_obj'):
+        model = cache.get('AndroidProjectsmodel')
+        parent_obj = cache.get('AndroidProjectsparent_obj')
+    else:
+        model = AndroidProjects
+        parent_obj = AndroidProjectsParent
+        cache.set('AndroidProjectsmodel', model)
+        cache.set('AndroidProjectsparent_obj', parent_obj)
     like_obj = AndroidProjectsLike
-    parent_obj = AndroidProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(AndroidProjectDetailView, self).get_context_data(**kwargs)
@@ -598,15 +606,9 @@ class AndroidProjectDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
@@ -632,9 +634,15 @@ class DotNetProjectsView(View):
 
 class DotNetProjectsDetailView(DetailView):
     template_name = 'projects/detail.html'
-    model = DotNetProjects
+    if cache.get('DotNetProjectsmodel') and cache.get('DotNetProjectsparent_obj'):
+        model = cache.get('DotNetProjectsmodel')
+        parent_obj = cache.get('DotNetProjectsparent_obj')
+    else:
+        model = DotNetProjects
+        parent_obj = DotNetProjectsParent
+        cache.set('DotNetProjectsmodel', model)
+        cache.set('DotNetProjectsparent_obj', parent_obj)
     like_obj = DotNetProjectsLike
-    parent_obj = DotNetProjectsParent
 
     def get_context_data(self, **kwargs):
         context = super(DotNetProjectsDetailView, self).get_context_data(**kwargs)
@@ -654,15 +662,9 @@ class DotNetProjectsDetailView(DetailView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        currentpost = self.object
-        prev = prev_in_order(currentpost)
-        next = next_in_order(currentpost)
-        context['prev'] = None
-        context['next'] = None
-        if prev != None:
-            context['prev'] = prev
-        if next != None:
-            context['next'] = next
+        next, prev = get_object_pagination(self.model, self.object)
+        context['prev'] = prev
+        context['next'] = next
         return context
 
     def post(self, request, **kwargs):
