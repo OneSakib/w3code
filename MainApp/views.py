@@ -1,5 +1,3 @@
-import datetime
-import time
 from django.db.models import Q
 from django.utils.http import urlsafe_base64_encode
 from django.utils.timezone import utc
@@ -7,17 +5,14 @@ import os
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse, redirect
 from django.http import JsonResponse
 from django.views.generic import ListView, FormView, DetailView, View, TemplateView
-from .models import *
 from .forms import *
-from next_prev import next_in_order, prev_in_order
-from MsApp.models import *
 from HostingApp.models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, PasswordResetForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
@@ -96,7 +91,7 @@ class BlogDetailView(DetailView, FormView):
         s.viewcounter += 1
         s.save()
         # Pagination
-        next, prev = get_object_pagination(self.model, self.object)
+        next, prev = get_blog_object_pagination(self.model, self.object)
         context['prev'] = prev
         context['next'] = next
         return context
