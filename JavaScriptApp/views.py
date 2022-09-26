@@ -250,7 +250,7 @@ class ReactjsDetailView(DetailView):
         parent_obj = ReactjsParent
         cache.set('Reactjsmodel', model)
         cache.set('Reactjsparent_obj', parent_obj)
-    parent_obj = ReactjsParent
+    like_obj = ReactjsLike
 
     def get_context_data(self, **kwargs):
         context = super(ReactjsDetailView, self).get_context_data(**kwargs)

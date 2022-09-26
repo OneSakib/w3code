@@ -6,6 +6,7 @@ from next_prev import next_in_order, prev_in_order
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from MainApp.views import CACHE_TTL, cache
+from MainApp.functions import *
 
 
 # Create your views here.
